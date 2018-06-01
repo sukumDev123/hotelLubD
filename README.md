@@ -1,1 +1,51 @@
 # Hotel LubD WebSite 
+
+Step is create :  
+- created booking modules
+- auth modules
+- views room modules
+- admin side can do this:
+    - edit.
+    - delete.
+    - view one.
+    - create.
+    - status room.
+- user side can do this:
+    - booking .
+    - view list booking.
+    - edit booking.
+    - view detail about room.
+    - check status booking.
+    - history booking.
+    - contact hotel.
+- ohter side can do this:
+    - view detail room.
+    - booking.
+    - can sign up.
+    - can view status room
+- page have :
+    - core
+        - home.
+        - about hotel.
+        - booking
+        - auth
+            - signin
+            - signup
+    - admin
+        - add room list.
+        - view users sigup.
+        - view users booking.
+        - view list room total. 
+            - update status or edit room.
+        - dashboard for view  booking frequency.
+            - date . month . year
+            - one bed or two bed ...
+        - add room type. 
+    - user
+        - booking.
+        - edit information your own.
+        - list room empty.
+        - reservation list.
+        - reservation status now.
+
+>> all this is websocket. Created with nodejs web server ,express freamwork, mongoDb database, angular font-end ...

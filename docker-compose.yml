@@ -1,12 +1,5 @@
 version: '3'
 services:
-  angular:
-    build: './client'
-    volumes:
-      - './client:/angular'
-    ports:
-      - 4200:4200
-    
   node:
     build: './server'
     volumes:
