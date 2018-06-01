@@ -1,0 +1,25 @@
+version: '3'
+services:
+  angular:
+    build: './client'
+    volumes:
+      - './client:/angular'
+    ports:
+      - 4200:4200
+    
+  node:
+    build: './server'
+    volumes:
+      - './server:/node'
+    ports:
+      - 3000:3000
+    command: npm start
+    environment: 
+      - NODE_ENV=development
+      - PORT=3000
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017

@@ -1,5 +1,5 @@
 export default {
-    DB : 'mongoDB://localhost/hotel',
+    DB : 'mongoDB://mongo/hotel',
     secret : 'secret_dev_mode',
     timeSetSession : 60*60,
     facebookIp : {

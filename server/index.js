@@ -10,7 +10,8 @@ databaseMongoose().then(suc=> console.log(suc)).catch(err => console.log(chalk.r
 
 
 
-const port = config.env.port;
+const port = process.env.PORT;
+
 let serverHttp = http.createServer(app());
 serverHttp.listen(port , () => {
     console.log(`RUN ON MODE : ${process.env.NODE_ENV}`)

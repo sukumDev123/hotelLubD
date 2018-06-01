@@ -28,9 +28,9 @@ function middleWare(app) {
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
         next();
 	});
+	app.use(passport.initialize());
 	
 	app.use(passport.session());
-	app.use(passport.initialize());
 
 }
 
