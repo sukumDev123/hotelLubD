@@ -5,8 +5,6 @@ RUN npm install -g nodemon yarn
 RUN mkdir /node
 WORKDIR /node
 
-COPY package.json /node
-
-RUN yarn
-
 COPY . /node
+
+RUN  npm install

@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import config from '../config';
 import morgan from 'morgan';
 import passport from 'passport';
+import path from 'path';
 function middleWare(app) {
 	app.use(cookieParser());
 	app.use(bodyParser.urlencoded({ extended: false }))
@@ -39,8 +40,8 @@ function viewEngine(app){
 	app.use(express.static('./dist'))
 }
 function routerPath(app){
-
-
+	const { userRoutes } = require(path.resolve('./modules/users/routes/user_route'));
+	app.use('/api' , userRoutes() );
 }
 export function app() {
 
@@ -51,10 +52,7 @@ export function app() {
 	}
 
 	middleWare(app);
-
 	viewEngine(app);
-
-
 	routerPath(app);
 
 	return app;

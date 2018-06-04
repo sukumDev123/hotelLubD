@@ -56,7 +56,7 @@ const User = new Schema({
             type: String,
             enum: ['user', 'admin']
         }],
-        default: ['user'],
+        //default: ['user'],
         required: 'Please provide at least one role'
     },
     create_at: {
@@ -78,7 +78,7 @@ User.pre('save', function (next) {
         let owaspTest = this.owaspTestFunction(this.password);
         if(owaspTest.status){
             this.salt = crypto.randomBytes(256).toString('base64');
-            this.password = this.hashPassword(password);
+            this.password = this.hashPassword(this.password);
         }else{
             next(owaspTest.msg)
         }

@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+
+
+
+    <div class="col-12 col-md-6">
+      <h2>SignUp for Admin</h2>
+      <form (ngSubmit)="onSubmit()">
+        <p class='error' *ngIf='err.status'>{{err.msg}} </p>
+
+        <div class="md-from">
+          <label for="firstname">FirstName : </label>
+
+
+          <input type="text" name="firstname" placeholder="Input your firstname..." [(ngModel)]="admin.firstname" required #firstname="ngModel"
+            class="form-control">
+
+
+          <p class='error' [hidden]='firstname.valid || firstname.pristine'> * Please input your firstname </p>
+
+        </div>
+        <div class="md-from">
+          <label for="Lastname">Lastname : </label>
+
+          <input type="text" name="lastname" placeholder="Input your lastname..." [(ngModel)]="admin.lastname" required #lastname="ngModel"
+            class="form-control">
+
+          <p class='error' [hidden]='lastname.valid || lastname.pristine'> * Please input your lastname </p>
+
+        </div>
+        <div class="md-from">
+          <label for="Email">Email : </label>
+
+          <input type="text" name="email" placeholder="Input your email..." [(ngModel)]="admin.email" required #email="ngModel" class="form-control">
+
+          <p class='error' [hidden]='email.valid || email.pristine'> * Please input your email </p>
+
+        </div>
+        <div class="md-from">
+          <label for="username">Username : </label>
+          <input type="text" name="username" [(ngModel)]="admin.username" placeholder="username" required #username="ngModel" class="form-control">
+
+          <p class='error' [hidden]='username.valid || username.pristine'> * Please input your firstname </p>
+
+        </div>
+        <div class="md-from">
+          <label for="password">Password : </label>
+
+          <input type="password" name="password" [(ngModel)]="admin.password" placeholder="Input your password..." required #password="ngModel"
+            class="form-control">
+
+          <p class='error' [hidden]='password.valid || password.pristine'> * Please input your password </p>
+
+        </div>
+        <div class="md-from">
+          <label for="password">Password Again : </label>
+
+          <input type="password" name="password2" [(ngModel)]="admin.password2" placeholder="Input your password again..." required
+            #password2="ngModel" class="form-control">
+
+          <p class="error" [hidden]='password2.valid || password2.pristine'> * Please input your password2 </p>
+
+        </div>
+        <div class="md-form">
+          <button class='btn btn-block btn-primary'>Signin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
