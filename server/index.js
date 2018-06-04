@@ -8,6 +8,7 @@ import { databaseMongoose } from './config/lib/mongoose';
 import chalk from 'chalk';
 import { socketSetting } from './config/lib/socket';
 import { passportFunction } from './config/lib/passport';
+
 async function onInit() {
     try {
         let db = await databaseMongoose();
