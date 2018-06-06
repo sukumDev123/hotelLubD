@@ -9,3 +9,6 @@ input.ng-valid.required {
     color: rgb(216, 35, 35);
     padding: 10px
 }
+.active{
+  border-bottom: 3px solid rgb(35, 107, 216)
+}

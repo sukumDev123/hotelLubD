@@ -6,18 +6,26 @@ import path from 'path';
 function modelPathFunction(){
     config.floder.models.forEach(models => {
         require(path.resolve(models))
+        console.log(models)
     })
 }
 
-export function databaseMongoose(){
+export async function databaseMongoose(){
     mongoose.set('debug',config.env.debug);
-    modelPathFunction();
-    return new Promise((res,rej) => {
-        mongoose.connect(config.env.DB).then(suv => {
-            res("Connect DB success...")
-        }).catch(err => {
-            rej(err)
-        })
+    let error = null;
+    let db;
+    try {
+        db = await mongoose.connect(config.env.DB);
+        modelPathFunction();
+    } catch (err) {
+        error = err;
+    }
 
-    } )
+    return new Promise((resolve , reject) => {
+        if(error == null){
+            resolve(`connect ${config.env.DB}`);
+        }else{
+            reject(`Mongoose File : ${error}`)
+        }
+    })
 }

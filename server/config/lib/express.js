@@ -8,6 +8,8 @@ import config from '../config';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
+import { inforResortRoute } from '../../modules/inforesort/routes/inforresort_route';
+
 function middleWare(app) {
 	app.use(cookieParser());
 	app.use(bodyParser.urlencoded({ extended: false }))
@@ -41,7 +43,8 @@ function viewEngine(app){
 }
 function routerPath(app){
 	const { userRoutes } = require(path.resolve('./modules/users/routes/user_route'));
-	app.use('/api' , userRoutes() );
+	app.use('/api/user' , userRoutes() );
+	app.use('/api/data',inforResortRoute())
 }
 export function app() {
 

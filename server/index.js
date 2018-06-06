@@ -19,10 +19,10 @@ async function onInit() {
         serverHttp.listen(port, () => {
             console.log(`RUN ON MODE : ${process.env.NODE_ENV}`)
             console.log(`RUN ON PORT : ${port}`)
-        
+            console.log(`DB : ${db}`)
         })
     } catch (error) {
-        console.log(`can't roun : \n ${error}`)
+        console.log(`can't run : \n ${error}`)
 
     }
 }
