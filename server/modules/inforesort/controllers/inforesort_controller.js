@@ -2,15 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 
-
-
-
-
 export async function readFile(req, res) {
-    fs.readFile(path.resolve("./data/resort.json"), 'utf8', (err, data) => {
+    fs.readFile(path.resolve(`./modules/inforesort/models/${req.body.pathSave}.json`), 'utf8', (err, data) => {
         if (err) {
-            return res.json({
-                message: err
+            return res.status(404).json({
+                message: `You can't read file.\n${err}`
             })
         } else {
             data = JSON.parse(data)
@@ -25,11 +21,12 @@ export async function readFile(req, res) {
 
 export function writeFileResort(req, res) {
     let data = req.body;
+    data.pathSave = undefined;
     if (typeof (data) == 'object') {
-        /*fs.writeFile(path.resolve("./data/resort.json"), JSON.stringify(data), 'utf8', (err, data) => {
+        fs.writeFile(path.resolve(`./modules/inforesort/models/${req.body.pathSave}.json`), JSON.stringify(data), 'utf8', (err, data) => {
             if (err) {
                 return res.json(404).json({
-                    message: "Can not write file resort.json"
+                    message: `You can't writed file.\n${err}`
                 })
             } else {
                 return res.json({
@@ -37,7 +34,7 @@ export function writeFileResort(req, res) {
                     data: data
                 })
             }
-        })*/
+        })
     } else {
         return res.status(404).json({
             message: "data isn't object "
