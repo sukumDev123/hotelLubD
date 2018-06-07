@@ -12,3 +12,17 @@ input.ng-valid.required {
 .active{
   border-bottom: 3px solid rgb(35, 107, 216)
 }
+.marginC{
+  margin:auto;
+}
+.btn-find{
+  padding: 10px;
+  position: relative;
+  top:30px;
+  width: 100%;
+  border:0;
+  border-radius: 5px;
+  background: rgb(35, 107, 216);
+  color:white;
+  box-shadow: 0 3px 10px 1px rgba(0,0,0,0.1)
+}

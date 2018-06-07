@@ -3,7 +3,7 @@ import path from 'path';
 
 
 export async function readFile(req, res) {
-    fs.readFile(path.resolve(`./modules/inforesort/models/${req.body.pathSave}.json`), 'utf8', (err, data) => {
+    fs.readFile(path.resolve(`./modules/inforesort/models/resort_th.json`), 'utf8', (err, data) => {
         if (err) {
             return res.status(404).json({
                 message: `You can't read file.\n${err}`

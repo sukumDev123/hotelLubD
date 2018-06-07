@@ -11,6 +11,7 @@ import { Page404Component } from './components/page404/page404.component';
 import { Page500Component } from './components/page500/page500.component';
 import { CoreComponent } from './components/core/core.component';
 import { HomeComponent } from './components/home/home.component';
+import { SiginComponent } from './components/auth/sigin/sigin.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,10 @@ const routes: Routes = [
   },
   {
     path: "core", component: CoreComponent, children: [
-      { path: "home", component: HomeComponent }
+      { path: "home", component: HomeComponent },
+      { path: "signin", component: SiginComponent },
+      { path: "signup", component: SiginupComponent }
+
     ]
   },
   { path: 'not/found', component: Page404Component },
@@ -34,8 +38,10 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const AppComponentRoute = [DataAddHomeComponent
+export const AppComponentRoute = [
+  DataAddHomeComponent
   , SiginupComponent
+  , SiginComponent
   , SignupAdminComponent
   , ContentAdminComponent
   , ContentPriceComponent

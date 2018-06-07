@@ -12,5 +12,6 @@ export class DataShowService {
   readData() : Observable<any> {
     return this._http.get<any>(`${this.host}/api/data/info/resort`);
   }
+  
 
 }
