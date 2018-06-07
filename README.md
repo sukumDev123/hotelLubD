@@ -48,4 +48,4 @@ Step is create :
         - reservation list.
         - reservation status now.
 
->> all this is websocket. Created with nodejs web server ,express freamwork, mongoDb database, angular font-end ...
+>> all this is websocket. Created with nodejs web server ,express framework, mongoDb database, angular font-end , Docker for Run
