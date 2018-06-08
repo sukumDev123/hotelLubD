@@ -15,19 +15,10 @@ import { SiginComponent } from './components/auth/sigin/sigin.component';
 import { HistoryComponent } from './components/users/history/history.component';
 import { SettingComponent } from './components/users/setting/setting.component';
 import { CoreUserComponent } from './components/users/core-user/core-user.component';
+import { UserGuard } from './guard/user.guard';
+import { AdminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
-  {
-    path: 'admin', component: AdminCoreComponent, children: [
-      { path: 'signup', component: SignupAdminComponent },
-      { path: 'home', component: DataAddHomeComponent }
-    ]
-  },
-  {
-    path: "user", component: CoreUserComponent, children: [
-      { path: "home", component: HistoryComponent }
-    ]
-  },
   {
     path: "core", component: CoreComponent, children: [
       { path: "home", component: HomeComponent },
@@ -36,6 +27,18 @@ const routes: Routes = [
 
     ]
   },
+  {
+    path: 'admin', component: AdminCoreComponent, canActivate: [AdminGuard], children: [
+      { path: 'signup', component: SignupAdminComponent },
+      { path: 'home', component: DataAddHomeComponent }
+    ]
+  },
+  {
+    path: "user", component: CoreUserComponent, canActivate: [UserGuard], children: [
+      { path: "home", component: HistoryComponent }
+    ]
+  },
+
   { path: 'not/found', component: Page404Component },
 
   { path: '', redirectTo: '/core/home', pathMatch: 'full' },
