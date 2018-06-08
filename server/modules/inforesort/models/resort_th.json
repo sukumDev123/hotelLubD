@@ -2,12 +2,8 @@
     "title" : "Lub D Resort",
     "photoMain" : "/assets/img/main/photo1.jpg",
     "detail" : "หลับดีรีสอร์ท หัวหินปราณ ยินดีตอนรับทุกท่าน",
-    "roomPhoto1" : "/assets/img/room1/photo1.jpg",
-    "detailRoom1": "ห้องเดียว นอนสบาย",
-    "detailSubRoom1": "Very full Room",
-    "roomPhoto2" : "/assets/img/room2/photo1.jpg",
-    "detailRoom2": "ห้องคู่ นอนสบาย",
-    "detailSubRoom2": "Very full"
+    "address" : "535/11 ม.3, วังก์พง, ปราณบุรี, ประจวบคีรีขันธ์ 77120",
+    "phone" : "099-999999"
     
     
     

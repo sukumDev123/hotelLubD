@@ -38,6 +38,14 @@
     background: white;
     z-index: 100;
 }
+.container2{
+    background: rgba(0,0,0,0.03)
+}
+.photosetting{
+    width:100%;
+    box-shadow: 0 0 10px 0.1px rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
 @media only screen and (max-width: 600px) {
     .firstPhoto {
         height: 200px;

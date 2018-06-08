@@ -1,7 +1,7 @@
 <div class="firstPhoto" [ngStyle]="{'background-image': 'url(' + data_info.photoMain + ')' , 'background-size': '100%' , 'background-position': '30%'   }">
 </div>
 
-<div class="container ">
+<div class="container">
 
 
 
@@ -26,36 +26,94 @@
     <h3>{{ data_info.title }}</h3>
     <p>{{ data_info.detail }}</p>
   </div>
-  <div class="col-12 p-3 ">
-    <div class="col-12">
-      <div class="row">
-        <div class="col-12  col-md-6 ">
-          <div class="aboutRoom">
-            <div class="photoRoom">
-              <img [src]="data_info.roomPhoto1" alt="photo2">
-  
-            </div>
-            <div class="detailRoom">
-              <h3 class='text-center p-3'>{{ data_info.detailRoom1 }}</h3>
-              <p class='p-3 text-center'> {{ data_info.detailSubRoom1 }} </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="aboutRoom">
-            <div class="photoRoom">
-              <img [src]="data_info.roomPhoto2" alt="photo2">
-              
-            </div>
-            <div class="detailRoom">
-              <h3 class="p-3 text-center">{{ data_info.detailRoom2 }}</h3>
-              <p class="p-3 text-center"> {{ data_info.detailSubRoom2 }} </p>
-            </div>
-  
-          </div>
-        </div>
+  <div class="col-12 p-3">
+    <div class="row  text-center p-3">
+      <div class="col-12 col-md-4">
+        <img src='/assets/imgmain/flat.png' alt="hotel">
+      </div>
+      <div class="col-12 col-md-4">
+        <img src='/assets/imgmain/wifi.png' alt="wifi">
 
+      </div>
+
+      <div class="col-12 col-md-4">
+        <img src='/assets/imgmain/camera.png' alt="camera">
+
+      </div>
+
+    </div>
+    <div class="row text-center p-3">
+      <div class="col-12 col-md-4">
+        <img src="/assets/imgmain/bed.png" alt="bed">
+      </div>
+      <div class="col-12 col-md-4">
+        <img src="/assets/imgmain/destination.png" alt="destination">
+      </div>
+      <div class="col-12 col-md-4">
+        <img src="/assets/imgmain/parking.png" alt="parking">
       </div>
     </div>
   </div>
+  <!--//////////////////////////////////////////////////////// -->
+
+
+</div>
+
+
+<!-- ///////////////////////////////////////////////////////// -->
+
+
+
+<div class="contaner-fluid container2">
+  <!-- ///////////////////////////////////////////////////////// -->
+
+  <div class="container">
+    <div class="col-12 p-3">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <img class='photosetting' src="/assets/img/main/photo2.jpg" alt="photo2">
+        </div>
+        <div class="col-12 col-md-6"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ///////////////////////////////////////////////////////// -->
+</div>
+<!-- ///////////////////////////////////////////////////////// -->
+<div class="container-fluid p-3">
+  <!-- ///////////////////////////////////////////////////////// -->
+  <div class="container p-3">
+    <div class="col-12 col-md-8 marginC">
+      <h3 class='text-center textKait p-3'>สามารถติต่อสอบถามได้ที่</h3>
+      <dl class="row p-3">
+
+        <dt class="col-sm-3">
+          <h5 class='textKait'>ตำแหน่งที่ตั้ง</h5>
+        </dt>
+        <dd class="col-sm-9">
+          <p> {{ data_info.address }} </p>
+          <a href="https://www.google.co.th/maps/place/%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%94%E0%B8%B5%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97/@12.4313582,99.9123319,17z/data=!4m16!1m8!3m7!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!2z4Lir4Lil4Lix4Lia4LiU4Li14Lij4Li14Liq4Lit4Lij4LmM4LiX!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526!3m6!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526?hl=th"
+            target="_blank"> กดตรงนี้เพื่อนำทาง </a>
+        </dd>
+        <dt class="col-sm-3">
+          <h5 class="textKait">เบอร์ติดต่อ</h5>
+
+        </dt>
+        <dd class="col-sm-9">
+          <p> {{ data_info.phone }} </p>
+        </dd>
+        <dt class="col-sm-3">
+          <h5 class="textKait">Live Chat</h5>
+
+        </dt>
+        <dd class="col-sm-9">
+          <a>คลิกตรงนี้เพื่อคุยกับเจ้าหน้าที่</a>
+        </dd>
+
+      </dl>
+    </div>
+  </div>
+  <!-- ///////////////////////////////////////////////////////// -->
+
 </div>
