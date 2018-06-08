@@ -12,11 +12,20 @@ import { Page500Component } from './components/page500/page500.component';
 import { CoreComponent } from './components/core/core.component';
 import { HomeComponent } from './components/home/home.component';
 import { SiginComponent } from './components/auth/sigin/sigin.component';
+import { HistoryComponent } from './components/users/history/history.component';
+import { SettingComponent } from './components/users/setting/setting.component';
+import { CoreUserComponent } from './components/users/core-user/core-user.component';
 
 const routes: Routes = [
   {
     path: 'admin', component: AdminCoreComponent, children: [
-      { path: 'signup', component: SignupAdminComponent }
+      { path: 'signup', component: SignupAdminComponent },
+      { path: 'home', component: DataAddHomeComponent }
+    ]
+  },
+  {
+    path: "user", component: CoreUserComponent, children: [
+      { path: "home", component: HistoryComponent }
     ]
   },
   {
@@ -50,4 +59,7 @@ export const AppComponentRoute = [
   , Page500Component
   , CoreComponent
   , HomeComponent
+  , HistoryComponent
+  , SettingComponent
+  , CoreUserComponent
 ];

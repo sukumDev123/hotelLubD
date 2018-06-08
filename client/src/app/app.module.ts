@@ -8,6 +8,7 @@ import { AdminServiceService } from './services/admin/inforS/admin-service.servi
 import { HomeComponent } from './components/home/home.component';
 import { DataShowService } from './services/dataShow/data-show.service';
 import { AuthInterceprot } from './auth-interceprot';
+import { UserServiceService } from './services/users/auth/user-service.service';
 
 
 
@@ -16,7 +17,7 @@ import { AuthInterceprot } from './auth-interceprot';
   declarations: [
     AppComponent,
     AppComponentRoute,
-    HomeComponent,
+    
 
 
   ],
@@ -29,6 +30,7 @@ import { AuthInterceprot } from './auth-interceprot';
   providers: [
     AdminServiceService
     , DataShowService
+    ,UserServiceService
    
   ],
   bootstrap: [AppComponent]

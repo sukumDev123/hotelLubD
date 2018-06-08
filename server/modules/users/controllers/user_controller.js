@@ -1,6 +1,7 @@
 'use strict';
 import mongoose from 'mongoose';
 import config from '../../../config/config';
+import passport from "passport";
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 
@@ -29,9 +30,8 @@ export function signIn(req, res, next) {
                 } else {
 
                     const token = await jwt.sign(user.toObject(), config.env.secret);
-                    return res.json({
-                        id_token: token
-                    });
+                    user.id_token = token
+                    return res.json(user);
 
                 }
             })
@@ -43,11 +43,11 @@ export function signIn(req, res, next) {
 
 export function findType(req, res, next, typeP) {
     if(typeP == 'admin'){
-        req.body.roles = 'admin';
+        req.roles = 'admin';
         
         next();
     }else{
-        req.body.roles = 'user';
+        req.roles = 'user';
         next();
     }
     
@@ -57,6 +57,7 @@ export function singup(req, res, next) {
     delete req.body.password2;
     let user = new User(req.body);
     user.provider = 'local';
+    user.roles = req.roles;
     user.displayname = user.firstname + ' ' + user.lastname;
     user.save(err => {
         if(err) { 

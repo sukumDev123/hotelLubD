@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as $ from "jquery";
+import { UserServiceService } from '../../services/users/auth/user-service.service';
 
 @Component({
   selector: 'app-core',
@@ -8,7 +9,8 @@ import * as $ from "jquery";
 })
 export class CoreComponent implements OnInit {
   @ViewChild("headerCore") headerCoreSave: ElementRef;
-  constructor() { }
+  constructor(public _user : UserServiceService) { }
+
 
 
 
@@ -47,5 +49,5 @@ export class CoreComponent implements OnInit {
     })
   }
 
-
+ 
 }

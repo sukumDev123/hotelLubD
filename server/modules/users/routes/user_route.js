@@ -8,7 +8,7 @@ export function userRoutes(){
 
     const router = express.Router();
 
-    router.post('/auth/sigin' , userC.signIn);
+    router.post('/auth/signin' , userC.signIn);
     router.post('/auth/signup/:type', userC.singup);
 
     router.param('type'  , userC.findType )

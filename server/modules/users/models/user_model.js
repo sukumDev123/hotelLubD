@@ -30,7 +30,7 @@ const User = new Schema({
     },
     email: {
         type: String,
-        unique:true,        
+        unique: true,
         required: 'Please input your email',
         match: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
@@ -44,7 +44,7 @@ const User = new Schema({
     providerData: {},
     username: {
         type: String,
-        unique:true,
+        unique: true,
         required: 'Please input your username'
     },
     password: {
@@ -74,55 +74,56 @@ const User = new Schema({
 
 
 User.pre('save', function (next) {
-    if(this.password && this.isModified('password')){
+    if (this.password && this.isModified('password')) {
         let owaspTest = this.owaspTestFunction(this.password);
-        if(owaspTest.status){
+        if (owaspTest.status) {
             this.salt = crypto.randomBytes(256).toString('base64');
             this.password = this.hashPassword(this.password);
-        }else{
+        } else {
             next(owaspTest.msg)
         }
     }
     next();
-    
+
 })
 
-User.methods.authenticate = function(password){
+User.methods.hashPassword = function (password) {
+    if (password) {
+        return crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');
+    }
+}
+
+User.methods.authenticate = function (password) {
+
     return this.password === this.hashPassword(password);
 }
 
-User.methods.hashPassword = function(password){
-    if(password){
-        return crypto.pbkdf2Sync(password , this.salt , 10000 , 64 , 'sha512').toString('base64');
-    }
-}
-
-User.methods.owaspTestFunction = function(password){
+User.methods.owaspTestFunction = function (password) {
     let test = owasp.test(password);
-    if(test.strong == true){
+    if (test.strong == true) {
         return {
-            status : true 
+            status: true
         }
-    }else{
+    } else {
         return {
-            status : false ,
-            msg : test.errors[0]
+            status: false,
+            msg: test.errors[0]
         }
     }
 }
 
-User.statics.findUniqueUsername = function(username , suffix , callback){
+User.statics.findUniqueUsername = function (username, suffix, callback) {
     let _this = this;
     let possibleUsername = username + (suffix || '');
     _this.findOne({
-        username : possibleUsername
-    } , function(err,user){
-        if(!err){
-            if(!user) callback(possibleUsername);
+        username: possibleUsername
+    }, function (err, user) {
+        if (!err) {
+            if (!user) callback(possibleUsername);
             else {
-                return _this.findUniqueUsername(username , (suffix || 0 ) + 1 , callback);
+                return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
             }
-        }else{
+        } else {
             callback(null)
         }
     })
@@ -130,4 +131,4 @@ User.statics.findUniqueUsername = function(username , suffix , callback){
 
 
 
-mongoose.model('User' , User);
+mongoose.model('User', User);

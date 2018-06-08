@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Admin } from '../../../Class/adminInterface';
+import { Admin } from '../../../interface/adminInterface';
 import { AdminServiceService } from '../../../services/admin/inforS/admin-service.service';
 import { Router } from '@angular/router';
+import { UserServiceService } from '../../../services/users/auth/user-service.service';
 
 @Component({
   selector: 'app-signup-admin',
@@ -13,10 +14,10 @@ export class SignupAdminComponent implements OnInit {
   admin :  any = {};
   adminInter : Admin;
   err : any = { status : false} ;
-  constructor(private _adminServer : AdminServiceService , private _router : Router) { }
+  constructor(private _adminServer : AdminServiceService , private _userService : UserServiceService , private _router : Router) { }
 
   ngOnInit() {
-    if(this._adminServer.isLogin()){
+    if(this._userService.isLogin()){
       this._router.navigate(['/admin/home'])
     }
   }
@@ -26,7 +27,7 @@ export class SignupAdminComponent implements OnInit {
       this.err.status = false;
       if(this.adminInter.password === this.admin.password2){
         this._adminServer.signUpAdmin(this.adminInter).subscribe(suc => {
-          this._adminServer.tokenAdmin(suc.id_token)
+          this._userService.setSession(suc)
         })
 
       }else{
