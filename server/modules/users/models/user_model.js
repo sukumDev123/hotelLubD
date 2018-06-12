@@ -59,6 +59,11 @@ const User = new Schema({
         //default: ['user'],
         required: 'Please provide at least one role'
     },
+    phone: {
+        type : String,
+        unique : true,
+        required: "Plase input you phone number."
+    },
     create_at: {
         type: Date,
         default: Date.now
@@ -112,7 +117,7 @@ User.methods.owaspTestFunction = function (password) {
     }
 }
 
-User.statics.findUniqueUsername = function (username, suffix, callback) {
+User.statics.findUniqueUsername = function (username, suffix) {
     let _this = this;
     let possibleUsername = username + (suffix || '');
     _this.findOne({

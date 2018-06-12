@@ -8,7 +8,6 @@ import config from '../config';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
-import { inforResortRoute } from '../../modules/inforesort/routes/inforresort_route';
 
 function middleWare(app) {
 	app.use(cookieParser());
@@ -34,7 +33,10 @@ function middleWare(app) {
 	app.use(passport.initialize());
 	
 	app.use(passport.session());
-
+	
+	  
+	  
+	
 }
 
 function viewEngine(app){
@@ -43,8 +45,16 @@ function viewEngine(app){
 }
 function routerPath(app){
 	const { userRoutes } = require(path.resolve('./modules/users/routes/user_route'));
-	app.use('/api/user' , userRoutes() );
-	app.use('/api/data',inforResortRoute())
+	const { inforResortRoute } = reqiure(path.resolve('./modules/inforesort/routes/inforresort_route'))
+	
+	app.use('/api/user' , userRoutes() )
+	app.use('/api/data', inforResortRoute())
+	app.use(function(req, res) {
+		return res.json({
+			status : 404 , 
+			message : "Page Not Found."
+		})
+	})   
 }
 export function app() {
 

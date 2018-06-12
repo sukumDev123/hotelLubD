@@ -12,8 +12,8 @@ export function passportLocal() {
         }, function (err, user) {
             if (err) {
                 return done(err,user)
-            };
-            console.log(user.authenticate(password))
+            }
+
             if (!user || !user.authenticate(password)) {
                 return done(null, false, {
                     message: 'Invalid username or password.'

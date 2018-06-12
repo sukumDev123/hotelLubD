@@ -6,7 +6,6 @@ import path from 'path';
 function modelPathFunction(){
     config.floder.models.forEach(models => {
         require(path.resolve(models))
-        console.log(models)
     })
 }
 

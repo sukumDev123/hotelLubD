@@ -2,97 +2,95 @@
 import mongoose from 'mongoose';
 import config from '../../../config/config';
 import passport from "passport";
+import {
+    promises
+} from 'fs';
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 
-export function signIn(req, res, next) {
 
-    passport.authenticate('local', {
-        session: false
-    }, function (err, user, info) {
-        if (err || !user) {
-            res.status(400).json({
-                status: 400,
-                message: 'Invalid username or password.'
-            })
-        } else {
-            user.password = undefined;
-            user.salt = undefined;
+function loginUser(user, req) {
+    return new Promise((res, rej) => {
+        user.password = undefined
+        user.salt = undefined
+        
+        req.login(user, async err => {
+            if (err) {
+                rej(err)
+            } else {
+                const token = await jwt.sign(user.toObject(), config.env.secret)
+                res({ id_token :  token})
+            }
+        })
+    })
+}
 
-            req.login(user, {
-                session: false
-            }, async function (err) {
-                if (err) {
-                    return res.status(400).json({
-                        status: 400,
-                        message: `You're login not success : ${err}`
-                    })
-                } else {
+function saveUser(data) {
+    return new Promise((res, rej) => {
+        let user = new User(data.body);
+        user.provider = 'local';
+        user.roles = data.roles;
+        user.displayname = user.firstname + ' ' + user.lastname;
+        user.save(err => {
+            if (err) {
+                rej({ status: 404,err })
+            } else {
+                res(user)
+            }
+        })
+    })
+}
 
-                    const token = await jwt.sign(user.toObject(), config.env.secret);
-                    user.id_token = token
-                    return res.json(user);
+function userSignInF(req,res,next) {
+    return new Promise((res, rej) => {
+        passport.authenticate('local', {
+            session: false
+        }, function (err, user, info) {
 
-                }
-            })
+            if (err || !user) {
+                rej({
+                    status: 400,
+                    message: 'Invalid username or password.'
+                })
+            } else {
+                res(user)
+            }
+        })(req, res, next);
+    })
+}
 
 
-        }
-    })(req, res, next);
+/*------------------------------------------------------------------*/
+
+export async function signIn(req, res, next) {
+    try {
+        let user = await userSignInF(req,res,next)
+        let signinSuccess = await loginUser(user, req)
+        res.json(signinSuccess);
+    } catch (error) {
+        res.status(error.status).json(error)
+    }
+
 }
 
 export function findType(req, res, next, typeP) {
-    if(typeP == 'admin'){
+    if (typeP == 'admin') {
         req.roles = 'admin';
-        
         next();
-    }else{
+    } else {
         req.roles = 'user';
         next();
     }
-    
-
 }
-export function singup(req, res, next) {
+export async function singup(req, res, next) {
     delete req.body.password2;
-    let user = new User(req.body);
-    user.provider = 'local';
-    user.roles = req.roles;
-    user.displayname = user.firstname + ' ' + user.lastname;
-    user.save(err => {
-        if(err) { 
-            return res.status(404).json({
-                status : 404 , 
-                error: "Can't save... \n" + err
-            })
-        }else{
-            user.password = undefined;
-            user.salt = undefined;
-            req.login(user, async err => {
-                if (err) {
-                    user.remove(err => {
-                        return err ? res.status(404).json({
-                            status : 404 ,
-                            message : "Can't remove \n" + err
-                        }) : res.json({
-                            status: 200 ,
-                            message : 'remove...'
-                        })
-                    })
-                    return res.status(404).json({
-                        status : 404 ,
-                         message : "Can't login \n" + err
-                    });
-                } else {
-                    const token = jwt.sign(user.toObject(), config.env.secret);
-                    return res.json({
-                        id_token: token
-                    })
-                }
-            })
-        }
-    })
-
+    try {
+        let userData = await saveUser(req) 
+        let loginSuccess = await loginUser(userData, req)
+        res.json(loginSuccess)
+    } catch (error) {
+        res.status(error.status).json(error)
+    }
 }
 
 export function saveOAuthUserProfile(req, profile, done) {
