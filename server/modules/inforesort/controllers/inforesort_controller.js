@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose'
 
-function getDataToJson(data){
+function getDataToJson(data) {
     return new Promise(res => {
         res(JSON.parse(data))
     })
@@ -32,6 +32,16 @@ function writeFileAsync(pathFile, data) {
         })
     })
 }
+function isNotNull(data){
+    let _data = data 
+    if(_data.title != '' && _data.photoMain != '' && _data.detail != '' && _data.address != '' && _data.phone != '' ){
+        return true
+    }
+    return false
+}
+
+/**-------------------------------------------------------------- */
+
 export async function readFile(req, res) {
     try {
         let read = await readFileAsync("./modules/inforesort/models/resort_th.json");
@@ -45,16 +55,24 @@ export async function readFile(req, res) {
 
 }
 
+
+
 export async function writeFileResort(req, res) {
     try {
-        /* read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body);
-        res.json(read);*/
-        res.json({message : 'Comin'})
+        if (isNotNull(req.body)) {
+            read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
+            res.json(req.user)
+
+        } else {
+            res.json({
+                message : 'Data is empty.'
+            })
+        }
     } catch (error) {
 
-       /* res.status(404).json({
+        res.status(404).json({
             message: "Not Found \n" + error
-        })*/
+        })
     }
 
 }

@@ -45,7 +45,7 @@ function viewEngine(app){
 }
 function routerPath(app){
 	const { userRoutes } = require(path.resolve('./modules/users/routes/user_route'));
-	const { inforResortRoute } = reqiure(path.resolve('./modules/inforesort/routes/inforresort_route'))
+	const { inforResortRoute } = require(path.resolve('./modules/inforesort/routes/inforresort_route'))
 	
 	app.use('/api/user' , userRoutes() )
 	app.use('/api/data', inforResortRoute())

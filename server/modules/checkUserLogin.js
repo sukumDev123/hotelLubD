@@ -1,8 +1,8 @@
-import {model} from 'mongoose'
+import mongoose from 'mongoose'
 import path from 'path'
 import jwt from 'jsonwebtoken'
 import config from '../config/config'
-const User = model("User")
+const User = mongoose.model("User")
 
 
 function authorizationCheck(req) {
@@ -14,8 +14,16 @@ function authorizationCheck(req) {
                 let jwtFind = await jwt.verify(author, config.env.secret)
                 res(jwtFind)
             } catch (error) {
-                rej(error)
+                rej({
+                    status : 400 ,
+                    messge : error
+                })
             }
+        } else {
+            rej({
+                status: 400,
+                messge: 'You have not Token.'
+            })
         }
 
     })
@@ -27,25 +35,27 @@ function findUserToken(userData) {
     return new Promise(async (res, rej) => {
         try {
             let findUserById = await User.findById(userData._id)
+            findUserById.salt = undefined
+            findUserById.password = undefined
             res(findUserById)
         } catch (error) {
-            rej(error)
+            rej({
+                status : 400 ,
+                messge : "Not found you user token"
+            })
         }
     })
 }
-
 export async function checkUserLogin(req, res, next) {
-
     try {
         let tokenCheck = await authorizationCheck(req)
         let findUser = await findUserToken(tokenCheck)
+        req.user = findUser
         next()
     } catch (error) {
-        res.status(400).json({
-            status: 400,
-            messge: "Promise.... Auth\n or " + error
+        res.status(error.status).json({
+            status: error.status,
+            messge: "Promise.... Auth\n or " + error.messge
         })
     }
-
-
 }
