@@ -46,9 +46,10 @@ function viewEngine(app){
 function routerPath(app){
 	const { userRoutes } = require(path.resolve('./modules/users/routes/user_route'));
 	const { inforResortRoute } = require(path.resolve('./modules/inforesort/routes/inforresort_route'))
-	
+	const { addRoom } = require(path.resolve('./modules/addRoom/routes/addRoom_route'))
 	app.use('/api/user' , userRoutes() )
 	app.use('/api/data', inforResortRoute())
+	app.use('/api/room' , addRoom() )
 	app.use(function(req, res) {
 		return res.json({
 			status : 404 , 

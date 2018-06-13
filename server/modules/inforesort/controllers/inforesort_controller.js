@@ -44,8 +44,8 @@ function isNotNull(data){
 
 export async function readFile(req, res) {
     try {
-        let read = await readFileAsync("./modules/inforesort/models/resort_th.json");
-        read = await getDataToJson(read);
+        let read = await readFileAsync("./modules/inforesort/models/resort_th.json")
+        read = await getDataToJson(read)
         res.json(read);
     } catch (error) {
         res.status(404).json({

@@ -18,10 +18,7 @@ const RoomSchema = new Schema({
         type : Date ,
         default : Date.now
     } ,
-    create_from : {
-        type : Schema.ObjectId ,
-        required : true
-    } ,
+   
     live : {
         type : Boolean ,
         default : false
@@ -35,8 +32,16 @@ const RoomSchema = new Schema({
     liveNum : {
         type : Number ,
         default : 0
+    },
+    userCreate : {
+        type : Schema.ObjectId 
+    }, 
+    priceRoom : {
+        type : Number , 
+        default : 0 
     }
 })
+
 
 
 mongoose.model('Room' , RoomSchema)
