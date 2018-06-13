@@ -73,6 +73,10 @@ const User = new Schema({
     },
     resetPasswordExpires: {
         type: Date
+    },
+    reserveNum : {
+        type : Number ,
+        default : 0
     }
 });
 

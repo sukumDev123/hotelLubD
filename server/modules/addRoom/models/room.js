@@ -19,10 +19,7 @@ const RoomSchema = new Schema({
         default : Date.now
     } ,
    
-    live : {
-        type : Boolean ,
-        default : false
-    },
+   
     liveDate : {
         type : Date 
     },
