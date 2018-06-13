@@ -85,7 +85,7 @@ export async function reserveRoom(req, res) {
 }
 export async function historyRoom(req, res) {
     try {
-        let bookings = await Booking.find().sort('-create_at')
+        let bookings = await Booking.find({ "userBooking._id" : req.user._id}).sort('-create_at')
         res.json(bookings)
     } catch (error) {
         console.log(error)
