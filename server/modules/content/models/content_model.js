@@ -5,8 +5,12 @@ const Schema = mongoose.Schema;
 
 const ContentSchema = new Schema({
     adminId : {
-        type: Schema.ObjectId,
-        ref: 'User'
+        type: Schema.ObjectId
+    },
+    photo : {
+        type : String ,
+        required : true
+        
     },
     tital : {
         type : String , 
@@ -21,7 +25,7 @@ const ContentSchema = new Schema({
         type : Date,
         default : Date.now
     },
-    update_at : String
+    update_at : Date
 })
 
 

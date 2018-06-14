@@ -1,12 +1,14 @@
 'use strict';
 
-import mongoose from 'mongoose';
-const Content = mongoose.model('Content');
+import mongoose from 'mongoose'
+const Content = mongoose.model('Content')
 
 
 export function addContent(req, res) {
-    if(req.user){
-        let content = new Content(req.body);
+    console.log(req.user.roles[0])
+    if(req.user.roles[0] === 'admin'){
+        console.log('admin content')
+        // let content = new Content(req.body)
     }
 
 }

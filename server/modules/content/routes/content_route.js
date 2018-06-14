@@ -1,11 +1,12 @@
-import { checkUserLogin } from '../../checkUserLogin';
-import express from 'express';
+import { checkUserLogin } from '../../checkUserLogin'
+import * as cc from '../controllers/content_controller'
+import express from 'express'
 
 export function contentRoutes(){
-    const router = express.Router();
+    const router = express.Router()
 
-    
+    router.post('/add' ,checkUserLogin , cc.addContent)
     
 
-    return router;
+    return router
 }

@@ -9,16 +9,24 @@ import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
 
+function headerSet(req, res, next) {
+
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+	next();
+
+}
 
 
 function middleWare(app) {
+
 	app.use(cookieParser());
 	app.use(bodyParser.urlencoded({
 		extended: false
 	}))
 	app.use(bodyParser.json())
-
-
 	app.use(session({
 		secret: config.env.secret,
 		proxy: true,
@@ -26,16 +34,9 @@ function middleWare(app) {
 		saveUninitialized: true,
 		cookie: {
 			secure: false
-		},
+		}
 	}))
-	app.use(function(req, res, next) {
-
-		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-		res.setHeader('Access-Control-Allow-Credentials', true);
-		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
-		next();
-	});
+	app.use(headerSet);
 	app.use(passport.initialize());
 	app.use(passport.session());
 
@@ -54,15 +55,30 @@ function setNotFonud(req, res) {
 }
 
 function routerPath(app) {
-	const {userRoutes} = require(path.resolve('./modules/users/routes/user_route'));
-	const {inforResortRoute} = require(path.resolve('./modules/inforesort/routes/inforresort_route'))
-	const {addRoom} = require(path.resolve('./modules/addRoom/routes/addRoom_route'))
-	const {bookIngRoute} = require(path.resolve('./modules/booking/routes/booking_route'))
+
+	const {
+		userRoutes
+	} = require(path.resolve('./modules/users/routes/user_route'));
+	const {
+		inforResortRoute
+	} = require(path.resolve('./modules/inforesort/routes/inforresort_route'))
+	const {
+		addRoom
+	} = require(path.resolve('./modules/addRoom/routes/addRoom_route'))
+	const {
+		bookIngRoute
+	} = require(path.resolve('./modules/booking/routes/booking_route'))
+	const {
+		contentRoutes
+	} = require(path.resolve('./modules/content/routes/content_route'))
+
 	app.use('/api/user', userRoutes())
 	app.use('/api/data', inforResortRoute())
 	app.use('/api/room', addRoom())
 	app.use('/api/booking', bookIngRoute())
+	app.use('/api/content', contentRoutes())
 	app.use(setNotFonud)
+
 }
 /******************************************************** */
 export function app() {
