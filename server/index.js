@@ -1,11 +1,8 @@
 'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 import http from 'http';
-import https from 'https';
 import { app } from './config/lib/express';
-import config from './config/config';
 import { databaseMongoose } from './config/lib/mongoose';
-import chalk from 'chalk';
 import { socketSetting } from './config/lib/socket';
 import { passportFunction } from './config/lib/passport';
 
