@@ -48,7 +48,7 @@ function viewEngine(app) {
 }
 
 function setNotFonud(req, res) {
-	res.json({
+	res.status(404).json({
 		status: 404,
 		message: "Page Not Found."
 	})
@@ -84,10 +84,10 @@ function routerPath(app) {
 export function app() {
 	let app = express();
 	if (process.env.NODE_ENV === 'development') {
-		app.use(morgan())
+		app.use(morgan('dev'))
 	}
 	middleWare(app);
-	viewEngine(app);
+	//viewEngine(app);
 	routerPath(app);
 	return app;
 }
