@@ -47,10 +47,16 @@ function viewEngine(app) {
 	app.use(express.static('./dist'))
 }
 
-function setNotFonud(req, res) {
-	res.status(404).json({
-		status: 404,
-		message: "Page Not Found."
+function setNotFonud(req, res,next) {
+	let err = new Error('Not Found')
+	err.status = 404
+	next(error)
+}
+function handlerErroo(error,req,res,next){
+	res.status(error.status || 500).json({
+		error: {
+			message : error.message
+		}
 	})
 }
 
