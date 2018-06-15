@@ -84,6 +84,7 @@ function routerPath(app) {
 	app.use('/api/booking', bookIngRoute())
 	app.use('/api/content', contentRoutes())
 	app.use(setNotFonud)
+	app.use(handlerErroo)
 
 }
 /******************************************************** */
