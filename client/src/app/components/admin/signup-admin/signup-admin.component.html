@@ -37,6 +37,13 @@
 
         </div>
         <div class="md-from">
+            <label for="phone">Phone : </label>
+            <input type="text" name="phone" [(ngModel)]="admin.phone" placeholder="phone..." required #phone="ngModel" class="form-control">
+  
+            <p class='error' [hidden]='phone.valid || phone.pristine'> * Please input your firstname </p>
+  
+          </div>
+        <div class="md-from">
           <label for="username">Username : </label>
           <input type="text" name="username" [(ngModel)]="admin.username" placeholder="username" required #username="ngModel" class="form-control">
 

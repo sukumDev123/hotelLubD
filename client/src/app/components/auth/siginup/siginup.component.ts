@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as defualtHeader from '../../../jquery/core.jquery'
 @Component({
   selector: 'app-siginup',
   templateUrl: './siginup.component.html',
@@ -10,6 +10,7 @@ export class SiginupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    defualtHeader.coreJquery()
   }
 
 }

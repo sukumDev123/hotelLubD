@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataShowService {
-  private host = 'http://localhost:3000';
+  private host = 'http://192.168.99.100:3000';
   constructor(private _http: HttpClient) { }
 
   readData() : Observable<any> {

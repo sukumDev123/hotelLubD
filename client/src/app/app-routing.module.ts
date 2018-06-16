@@ -28,9 +28,9 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'admin', component: AdminCoreComponent, canActivate: [AdminGuard], children: [
+    path: 'admin', component: AdminCoreComponent,children: [
       { path: 'signup', component: SignupAdminComponent },
-      { path: 'home', component: DataAddHomeComponent }
+      { path: 'home', component: DataAddHomeComponent,  canActivate: [AdminGuard] }
     ]
   },
   {
@@ -40,6 +40,8 @@ const routes: Routes = [
   },
 
   { path: 'not/found', component: Page404Component },
+  { path: 'page/problem', component: Page500Component },
+
 
   { path: '', redirectTo: '/core/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/not/found', pathMatch: 'full' },

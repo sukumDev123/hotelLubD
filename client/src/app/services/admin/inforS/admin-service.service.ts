@@ -8,7 +8,7 @@ import { Admin } from '../../../interface/adminInterface';
   providedIn: 'root'
 })
 export class AdminServiceService {
-  http: string = 'http://localhost:3000';
+  http: string = 'http://192.168.99.100:3000';
   constructor(private _router: Router, private _http: HttpClient) { }
   signUpAdmin(admin): Observable<Admin> {
     return this._http.post<Admin>(this.http + '/api/user/auth/signup/admin', admin)
