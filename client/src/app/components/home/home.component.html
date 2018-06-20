@@ -4,7 +4,7 @@
 <div class="container">
 
   <div class="col-12 dateSet p-3">
-    <div class="col-12 col-md-10 datesetSub marginC" id='marginC' >
+    <div class="col-12 col-md-10 datesetSub marginC" id='marginC'>
       <div class="row">
         <div class="md-form col-12 col-md-4">
           <label for="datein">วันที่เช็คอิน</label>
@@ -26,40 +26,40 @@
   </div>
   <div class="col-12 p-3">
     <div class="row  text-center p-3">
-      <div class="col-12 col-md-4">
+      <div class="col-6 col-md-4">
         <img src='/assets/imgmain/flat.png' alt="hotel">
         <h5 class='text-center p-2 textKait'>hotel</h5>
       </div>
-      <div class="col-12 col-md-4">
+      <div class="col-6 col-md-4">
         <img src='/assets/imgmain/wifi.png' alt="wifi">
         <h5 class='text-center p-2 textKait'>wifi</h5>
 
       </div>
 
-      <div class="col-12 col-md-4">
+      <div class="col-6 col-md-4">
         <img src='/assets/imgmain/camera.png' alt="camera">
         <h5 class='text-center p-2 textKait'>camera</h5>
 
       </div>
-
+      <div class="col-6 col-md-4">
+          <img src="/assets/imgmain/bed.png" alt="bed">
+          <h5 class='text-center p-2 textKait'>bed</h5>
+  
+        </div>
+        <div class="col-6 col-md-4">
+          <img src="/assets/imgmain/destination.png" alt="destination">
+          <h5 class='text-center p-2 textKait'>destination</h5>
+  
+        </div>
+        <div class="col-6 col-md-4">
+          <img src="/assets/imgmain/parking.png" alt="parking">
+          <h5 class='text-center p-2 textKait'>parking</h5>
+  
+        </div>
+  
     </div>
     <div class="row text-center p-3">
-      <div class="col-12 col-md-4">
-        <img src="/assets/imgmain/bed.png" alt="bed">
-        <h5 class='text-center p-2 textKait'>bed</h5>
-
-      </div>
-      <div class="col-12 col-md-4">
-        <img src="/assets/imgmain/destination.png" alt="destination">
-        <h5 class='text-center p-2 textKait'>destination</h5>
-
-      </div>
-      <div class="col-12 col-md-4">
-        <img src="/assets/imgmain/parking.png" alt="parking">
-        <h5 class='text-center p-2 textKait'>parking</h5>
-
-      </div>
-    </div>
+          </div>
   </div>
   <!--//////////////////////////////////////////////////////// -->
 
@@ -80,14 +80,15 @@
         </div>
         <div class="col-12 col-md-6">
           <h3 class="text-center p-3 colorBulr">{{ data_info.title2 }} </h3>
+          <hr>
           <div class="md-form p-3">
             <p class='colorBulr'>
-            {{ data_info.descriton2 }}
-              </p>
+              {{ data_info.descriton2 }}
+            </p>
           </div>
           <div class="col-12 col-md-6 marginC">
-            <p class='text-center colorBulr' >
-                <i class="fas fa-book"></i>
+            <p class='text-center colorBulr'>
+              <i class="fas fa-book"></i>
 
             </p>
           </div>
@@ -102,33 +103,39 @@
 <div class="container-fluid p-3">
   <!-- ///////////////////////////////////////////////////////// -->
   <div class="container p-3">
-    <div class="col-12 col-md-8 marginC" id='marginC'>
-      <h3 class='text-center textKait p-3'>สามารถติต่อสอบถามได้ที่</h3>
-      <dl class="row p-3">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        1
+      </div>
+      <div class="col-12 col-md-6 text-left">
+        <h3 class='text-center textKait p-3'>สามารถติต่อสอบถามได้ที่</h3>
+        <hr>
+        <dl class="row p-3">
 
-        <dt class="col-sm-3">
-          <h5 class='textKait'>ตำแหน่งที่ตั้ง</h5>
-        </dt>
-        <dd class="col-sm-9">
-          <p> {{ data_info.address }} </p>
-          <a href="https://www.google.co.th/maps/place/%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%94%E0%B8%B5%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97/@12.4313582,99.9123319,17z/data=!4m16!1m8!3m7!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!2z4Lir4Lil4Lix4Lia4LiU4Li14Lij4Li14Liq4Lit4Lij4LmM4LiX!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526!3m6!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526?hl=th"
-            target="_blank"> กดตรงนี้เพื่อนำทาง </a>
-        </dd>
-        <dt class="col-sm-3">
-          <h5 class="textKait">เบอร์ติดต่อ</h5>
+          <dt class="col-sm-3">
+            <h5 class='textKait'>ตำแหน่งที่ตั้ง</h5>
+          </dt>
+          <dd class="col-sm-9">
+            <p> {{ data_info.address }} </p>
+            <a href="https://www.google.co.th/maps/place/%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%94%E0%B8%B5%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97/@12.4313582,99.9123319,17z/data=!4m16!1m8!3m7!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!2z4Lir4Lil4Lix4Lia4LiU4Li14Lij4Li14Liq4Lit4Lij4LmM4LiX!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526!3m6!1s0x30fdb2a5bd19123f:0x1f39292f2abe1cea!5m1!1s2018-06-17!8m2!3d12.431353!4d99.914526?hl=th"
+              target="_blank"> กดตรงนี้เพื่อนำทาง </a>
+          </dd>
+          <dt class="col-sm-3">
+            <h5 class="textKait">เบอร์ติดต่อ</h5>
 
-        </dt>
-        <dd class="col-sm-9">
-          <p> {{ data_info.phone }} </p>
-        </dd>
-        <dt class="col-sm-3">
-          <h5 class="textKait">Live Chat</h5>
+          </dt>
+          <dd class="col-sm-9">
+            <p> {{ data_info.phone }} </p>
+          </dd>
+          <dt class="col-sm-3">
+            <h5 class="textKait">Live Chat</h5>
 
-        </dt>
-        <dd class="col-sm-9">
-          <a>คลิกตรงนี้เพื่อคุยกับเจ้าหน้าที่</a>
-        </dd>
-      </dl>
+          </dt>
+          <dd class="col-sm-9">
+            <a>คลิกตรงนี้เพื่อคุยกับเจ้าหน้าที่</a>
+          </dd>
+        </dl>
+      </div>
     </div>
   </div>
   <!-- ///////////////////////////////////////////////////////// -->
