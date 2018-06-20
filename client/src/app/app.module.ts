@@ -1,22 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AppRoutingModule, AppComponentRoute } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AdminServiceService } from './services/admin/inforS/admin-service.service';
-import { HomeComponent } from './components/home/home.component';
-import { DataShowService } from './services/dataShow/data-show.service';
-import { AuthInterceprot } from './auth-interceprot';
-import { UserServiceService } from './services/users/auth/user-service.service';
-
-
-
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { AppRoutingModule, AppComponentRoute } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { AdminServiceService } from './services/admin/inforS/admin-service.service'
+import { DataShowService } from './services/dataShow/data-show.service'
+import { UserServiceService } from './services/users/auth/user-service.service'
+import { StoreModule  } from '@ngrx/store'
+import bookingReducer from './reducer/booking.reducer'
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppComponentRoute,
+    ...AppComponentRoute,
     
 
 
@@ -25,7 +22,8 @@ import { UserServiceService } from './services/users/auth/user-service.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule ,
+    StoreModule.forRoot({ booking : bookingReducer })
   ],
   providers: [
     AdminServiceService

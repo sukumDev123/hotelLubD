@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../../services/users/auth/user-service.service';
 import { Router } from '@angular/router';
 import * as defualtHeader from '../../../jquery/core.jquery'
+import { SignIn } from '../classUser/user.class';
 
 @Component({
   selector: 'app-sigin',
@@ -13,7 +14,7 @@ export class SiginComponent implements OnInit {
   constructor(private _user: UserServiceService, private _router: Router ) { }
 
   ngOnInit() {
-    this.userComeIn();
+    this.userComeIn()
     defualtHeader.coreJquery()
   }
 
@@ -29,12 +30,10 @@ export class SiginComponent implements OnInit {
   }
 
   Login() {
-    this._user.lognInService(this.auth).subscribe(suc => {
-      this._user.setSession(suc);
-      if (this._user.isLogin()) {
-        this.userComeIn();
+    let signin_ = new SignIn(this.auth.username,this.auth.password)
+    console.log(signin_.getDataUser())
+   /* this._user.lognInService(signin_).subscribe(suc => {
 
-      }
-    }, err => console.log(err))
+    },err => console.log(err))*/
   }
 }

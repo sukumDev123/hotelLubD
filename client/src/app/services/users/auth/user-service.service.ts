@@ -7,7 +7,7 @@ import { User } from '../../../interface/userinterface';
   providedIn: 'root'
 })
 export class UserServiceService {
-  private _host = "http://localhost:3000";
+  private _host = "http://192.168.99.100:3000";
   constructor(private _http : HttpClient) { }
 
   lognInService(data) : Observable<any> {
@@ -17,7 +17,7 @@ export class UserServiceService {
     return this._http.post<User>(`${this._host}/api/user/auth/siginup/user`,data)
   }
 
-
+  
 
   isLogin(){
     return !!localStorage.getItem('Login')

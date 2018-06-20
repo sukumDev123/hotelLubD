@@ -78,7 +78,12 @@ function routerPath(app) {
 	const {
 		contentRoutes
 	} = require(path.resolve('./modules/content/routes/content_route'))
+	app.use('/api/get' , function(req,res) {
+		res.json({
 
+			"user" : "test"
+		})
+	})
 	app.use('/api/user', userRoutes())
 	app.use('/api/data', inforResortRoute())
 	app.use('/api/room', addRoom())
