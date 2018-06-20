@@ -17,14 +17,18 @@ import { SettingComponent } from './components/users/setting/setting.component';
 import { CoreUserComponent } from './components/users/core-user/core-user.component';
 import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
+import { AuthComponent } from './components/auth/auth/auth.component';
 
 const routes: Routes = [
   {
     path: "core", component: CoreComponent, children: [
       { path: "home", component: HomeComponent },
-      { path: "signin", component: SiginComponent },
-      { path: "signup", component: SiginupComponent }
-
+      { path:"auth" , component:AuthComponent , children: [
+        { path: "signin", component: SiginComponent },
+        { path: "signup", component: SiginupComponent }
+  
+      ] },
+     
     ]
   },
   {

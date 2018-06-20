@@ -1,49 +1,41 @@
-<div class="container p-3">
-  <div class="row p-3">
-    <div class="col-12 col-md-6"></div>
-    <div class="col-12 col-md-6">
-      <div class="card p-3">
-        <h4 class="text-center  textKait">สมัครสมาชิก</h4>
-        <form #signUp="ngForm" (ngSubmit)="signInSubmit()" class='col-12 col-md-10 marginC p-3'>
-            <small class='textKait'>* หากท่านมีรหัสสมาชิกแล้ว สามารถคลิก >>>
-                <a routerLink='/core/signup'>เข้าสู่ระบบ</a>
-              </small>
-          <div class="md-form">
-            <label for="firstname">Firstname : </label>
-            <input type="text" [(ngModel)]='auth.firstname' name='firstname' class="form-control" placeholder="Firstname..." required>
-          </div>
-          <div class="md-form">
-            <label for="lastname">Lastname : </label>
-            <input type="text" class="form-control" [(ngModel)]='auth.lastname' name='lastname' placeholder="Lastname..." required>
-          </div>
-          <div class="md-form">
-            <label for="Email">Email : </label>
-            <input type="email" [(ngModel)]='auth.email' name='email' class="form-control" placeholder="Email..." required>
-          </div>
-          <div class="md-form">
-            <label for="Phone">Phone : </label>
-            <input type="text" [(ngModel)]='auth.phone' name='phone' class="form-control" placeholder="Phone number..." required>
-          </div>
-          <div class="md-form">
-            <label for="username">Username : </label>
-            <input type="text" [(ngModel)]='auth.username' name='username' class="form-control" placeholder="Username..." required>
-          </div>
-          <div class="md-form">
-            <label for="password">Password : </label>
-            <input type="password" [(ngModel)]='auth.password' name='password' class="form-control" placeholder="Password..." required>
-          </div>
-          <div class="md-form">
-            <label for="password2">Password Again : </label>
-            <input type="text" placeholder="Password Again..." [(ngModel)]='auth.password2' name='password2' class="form-control" required>
-          </div>
-          <div class="md-form">
-            <button type='submit' [disabled]="!signUp.form.valid" class="btn btn-block btn-primary"> สมัคร </button>
-
-          </div>
-        </form>
-
-      </div>
+<div class="topForm p-3">
+  <h4 class="text-center textKait">สมัครสมาชิก</h4>
+  <form #signUp="ngForm" (ngSubmit)="signInSubmit()" class='col-12 col-md-10 marginC p-3'>
+    <small class='textKait'>* หากท่านมีรหัสสมาชิกแล้ว สามารถคลิก >>>
+      <a routerLink='/core/auth/signin'>เข้าสู่ระบบ</a>
+    </small>
+    <div class="md-form">
+      <label for="firstname">Firstname : </label>
+      <input type="text" [(ngModel)]='auth.firstname' name='firstname' class="form-control" placeholder="Firstname..." required>
     </div>
+    <div class="md-form">
+      <label for="lastname">Lastname : </label>
+      <input type="text" class="form-control" [(ngModel)]='auth.lastname' name='lastname' placeholder="Lastname..." required>
+    </div>
+    <div class="md-form">
+      <label for="Email">Email : </label>
+      <input type="email" [(ngModel)]='auth.email' name='email' class="form-control" placeholder="Email..." required>
+    </div>
+    <div class="md-form">
+      <label for="Phone">Phone : </label>
+      <input type="text" [(ngModel)]='auth.phone' name='phone' class="form-control" placeholder="Phone number..." required>
+    </div>
+    <div class="md-form">
+      <label for="username">Username : </label>
+      <input type="text" [(ngModel)]='auth.username' name='username' class="form-control" placeholder="Username..." required>
+    </div>
+    <div class="md-form">
+      <label for="password">Password : </label>
+      <input type="password" [(ngModel)]='auth.password' name='password' class="form-control" placeholder="Password..." required>
+    </div>
+    <div class="md-form">
+      <label for="password2">Password Again : </label>
+      <input type="text" placeholder="Password Again..." [(ngModel)]='auth.password2' name='password2' class="form-control" required>
+    </div>
+    <div class="md-form">
+      <button type='submit' [disabled]="!signUp.form.valid" class="btn btn-block btn-primary"> สมัคร </button>
 
-  </div>
+    </div>
+  </form>
+
 </div>

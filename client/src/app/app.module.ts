@@ -8,12 +8,14 @@ import { AdminServiceService } from './services/admin/inforS/admin-service.servi
 import { DataShowService } from './services/dataShow/data-show.service'
 import { UserServiceService } from './services/users/auth/user-service.service'
 import { StoreModule  } from '@ngrx/store'
-import bookingReducer from './reducer/booking.reducer'
+import bookingReducer from './reducer/booking.reducer';
+import { AuthComponent } from './components/auth/auth/auth.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     ...AppComponentRoute,
+    AuthComponent,
     
 
 
