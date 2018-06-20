@@ -4,7 +4,7 @@
 <div class="container">
 
   <div class="col-12 dateSet p-3">
-    <div class="col-12 col-md-10 datesetSub marginC">
+    <div class="col-12 col-md-10 datesetSub marginC" id='marginC' >
       <div class="row">
         <div class="md-form col-12 col-md-4">
           <label for="datein">วันที่เช็คอิน</label>
@@ -78,7 +78,20 @@
         <div class="col-12 col-md-6">
           <img class='photosetting' src="/assets/img/main/photo2.jpg" alt="photo2">
         </div>
-        <div class="col-12 col-md-6"></div>
+        <div class="col-12 col-md-6">
+          <h3 class="text-center p-3 colorBulr">{{ data_info.title2 }} </h3>
+          <div class="md-form p-3">
+            <p class='colorBulr'>
+            {{ data_info.descriton2 }}
+              </p>
+          </div>
+          <div class="col-12 col-md-6 marginC">
+            <p class='text-center colorBulr' >
+                <i class="fas fa-book"></i>
+
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +102,7 @@
 <div class="container-fluid p-3">
   <!-- ///////////////////////////////////////////////////////// -->
   <div class="container p-3">
-    <div class="col-12 col-md-8 marginC">
+    <div class="col-12 col-md-8 marginC" id='marginC'>
       <h3 class='text-center textKait p-3'>สามารถติต่อสอบถามได้ที่</h3>
       <dl class="row p-3">
 

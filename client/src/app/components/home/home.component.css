@@ -6,7 +6,7 @@
     height: 500px;
   
 }
-.marginC{
+#marginC{
     padding: 20px;
     box-shadow: 0  5px 20px 5px rgba(0,0,0,0.1);
     border-radius: 5px;
@@ -39,7 +39,7 @@
     z-index: 100;
 }
 .container2{
-    background: rgba(0,0,0,0.03)
+    background: rgb(177, 216, 243)
 }
 .photosetting{
     width:100%;

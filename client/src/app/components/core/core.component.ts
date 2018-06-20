@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as $ from "jquery";
 import { UserServiceService } from '../../services/users/auth/user-service.service';
 import { Router } from '@angular/router';
 
