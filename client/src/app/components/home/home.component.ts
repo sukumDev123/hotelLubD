@@ -43,10 +43,6 @@ export class HomeComponent implements OnInit {
 
     })
 
-    $("#navBar_box ul li a").css({
-      "color": "rgb(255,255,255)",
-
-    })
     $("#navBar_box").css({
       "position": "fixed",
       "width": "100%",
@@ -61,13 +57,9 @@ export class HomeComponent implements OnInit {
           "z-index": "105",
           "background": "rgba(255,255,255,0.8)"
         })
-        $("#navBar_box ul li a").css({
-          "color": "rgb(0,0,0)",
-        })
+
       } else {
-        $("#navBar_box ul li a").css({
-          "color": "rgb(255,255,255)",
-        })
+       
         $("#navBar_box").css({
           "background": 'rgba(0,0,0,0)'
         })
