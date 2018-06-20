@@ -46,6 +46,11 @@
     box-shadow: 0 0 10px 0.3px rgba(0,0,0,0.2);
     border-radius: 6px;
 }
+.contact_home{
+    width: 380px;
+    height: 300px;
+}
+
 @media only screen and (max-width: 600px) {
     .firstPhoto {
         height: 200px;
@@ -53,5 +58,7 @@
     .aboutRoom{
         width:100%
     }
+    .contact_home{
+        width: 100%;
+    }
 }
-
