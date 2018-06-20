@@ -31,9 +31,8 @@ export class SiginComponent implements OnInit {
 
   Login() {
     let signin_ = new SignIn(this.auth.username,this.auth.password)
-    console.log(signin_.getDataUser())
-   /* this._user.lognInService(signin_).subscribe(suc => {
-
-    },err => console.log(err))*/
+    this._user.lognInService(signin_.getDataUser()).subscribe(suc => {
+      console.log(suc)
+    },err => console.log(err))
   }
 }

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 import * as defualtHeader from '../../../jquery/core.jquery'
-import { HttpClient } from '@angular/common/http';
+import {
+  Signup
+} from '../classUser/user.class';
 @Component({
   selector: 'app-siginup',
   templateUrl: './siginup.component.html',
@@ -9,22 +14,28 @@ import { HttpClient } from '@angular/common/http';
 
 
 export class SiginupComponent implements OnInit {
-  auth  = {
-    firstname : '' ,
-    lastname : '',
-    email : '',
-    phone : '',
-    username : '',
-    password : '',
-    password2 : '',
+  auth = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    username: '',
+    password: '',
+    password2: '',
   }
-  constructor() {
-   }
+  constructor() {}
 
   ngOnInit() {
-   
+
     defualtHeader.coreJquery()
   }
+  signInSubmit() {
+    let signUp_ = new Signup(this.auth.firstname, this.auth.lastname, this.auth.email, this.auth.username, this.auth.password, this.auth.password2, this.auth.phone , 'user')
 
+    if (signUp_.checkPasswordEqual()) {
+
+    
+
+    }
+  }
 }
-
