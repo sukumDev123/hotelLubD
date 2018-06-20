@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
         "width": "100%",
         "z-index": "105"
       })
-      $(window).scroll(function () {
+      $(document).scroll(function () {
   
         if ($(document).scrollTop() > 100) {
           $("#navBar_box").css({

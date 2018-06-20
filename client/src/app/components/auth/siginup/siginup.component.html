@@ -1,3 +1,43 @@
-<p>
-  siginup works!
-</p>
+<div class="container p-3">
+  <div class="row p-3">
+    <div class="col-12 col-md-6"></div>
+    <div class="col-12 col-md-6">
+      <div class="card p-3">
+        <h4 class="text-center p-3 textKait">สมัครสมาชิก</h4>
+        <form class='col-12 col-md-10 marginC p-3' >
+          <div class="md-form">
+            <label for="firstname">Firstname : </label>
+            <input type="text" [(ngModel)]='auth.firstname' name='firstname' class="form-control" placeholder="Firstname...">
+          </div>
+          <div class="md-form">
+            <label for="lastname">Lastname : </label>
+            <input type="text" class="form-control" [(ngModel)]='auth.lastname' name='lastname' placeholder="Lastname...">
+          </div>
+          <div class="md-form">
+            <label for="Email">Email : </label>
+            <input type="email" [(ngModel)]='auth.email' name='email' class="form-control" placeholder="Email...">
+          </div>
+          <div class="md-form">
+            <label for="Phone">Phone : </label>
+            <input type="text" [(ngModel)]='auth.phone' name='phone' class="form-control" placeholder="Phone number...">
+          </div>
+          <div class="md-form">
+            <label for="username">Username : </label>
+            <input type="text" [(ngModel)]='auth.username' name='username' class="form-control" placeholder="Username...">
+          </div>
+          <div class="md-form">
+            <label for="password">Password : </label>
+            <input type="password" [(ngModel)]='auth.password' name='password' class="form-control" placeholder="Password...">
+          </div>
+          <div class="md-form">
+            <label for="password2">Password Again : </label>
+            <input type="text" placeholder="Password Again..." [(ngModel)]='auth.password2' name='password2' class="form-control">
+          </div>
+          <button type='submit' class="btn btn-block btn-primary"> สมัคร </button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
