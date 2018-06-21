@@ -2,9 +2,6 @@
 import mongoose from 'mongoose';
 import config from '../../../config/config';
 import passport from "passport";
-import {
-    promises
-} from 'fs';
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 
@@ -18,7 +15,7 @@ function loginUser(user, req) {
             if (err) {
                 rej(err)
             } else {
-                const token = await jwt.sign(user.toObject(), config.env.secret)
+                const token = await jwt.sign(user.toObject() , config.env.secret , {expiresIn : config.env.exp})
                 res({ id_token :  token})
             }
         })
