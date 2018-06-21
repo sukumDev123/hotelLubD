@@ -3,10 +3,10 @@
 
 
 
-    <div class="col-12 col-md-6">
-      <h2>SignUp for Admin</h2>
-      <form (ngSubmit)="onSubmit()">
-        <p class='error' *ngIf='err.status'>{{err.msg}} </p>
+    <div class="col-12 col-md-6 marginC cardAdmin">
+      <h2 class='p-3 text-primary text-center' >SignUp for Admin</h2>
+      <form #signUp='ngForm' (ngSubmit)="onSubmit()">
+        <p class='error' *ngIf='errStatus'>{{errMsg}} </p>
 
         <div class="md-from">
           <label for="firstname">FirstName : </label>
@@ -69,7 +69,7 @@
 
         </div>
         <div class="md-form">
-          <button class='btn btn-block btn-primary'>Signin</button>
+          <button [disabled]="!signUp.form.valid" class='btn btn-block btn-primary'>Signin</button>
         </div>
       </form>
     </div>

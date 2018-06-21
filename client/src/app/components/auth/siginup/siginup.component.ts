@@ -34,7 +34,6 @@ export class SiginupComponent implements OnInit {
     defualtHeader.coreJquery()
   }
   msgError(error) {
-    
     return typeof error == 'object' ? 'Something in fill already exists.' : error
   }
   signInSubmit() {
