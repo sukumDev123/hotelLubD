@@ -10,7 +10,7 @@ import { UserServiceService } from './services/users/auth/user-service.service'
 import { StoreModule  } from '@ngrx/store'
 import bookingReducer from './reducer/booking.reducer';
 
-import { JwtModule } from '@auth0/angular-jwt'
+import { JwtModule } from '@auth0/angular-jwt';
 
 function tokenGetter () {
   return localStorage.getItem('Login')

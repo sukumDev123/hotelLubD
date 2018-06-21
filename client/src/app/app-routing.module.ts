@@ -18,11 +18,13 @@ import { CoreUserComponent } from './components/users/core-user/core-user.compon
 import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthComponent } from './components/auth/auth/auth.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 const routes: Routes = [
   {
     path: "core", component: CoreComponent, children: [
       { path: "home", component: HomeComponent },
+      { path:'booking' , component : BookingComponent },
       { path:"auth" , component:AuthComponent , children: [
         { path: "signin", component: SiginComponent },
         { path: "signup", component: SiginupComponent }
@@ -72,4 +74,5 @@ export const AppComponentRoute = [
   , SettingComponent
   , CoreUserComponent
   , AuthComponent
+  , BookingComponent
 ];
