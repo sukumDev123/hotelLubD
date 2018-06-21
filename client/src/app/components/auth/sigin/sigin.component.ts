@@ -10,7 +10,9 @@ import { SignIn } from '../classUser/user.class';
   styleUrls: ['./sigin.component.css']
 })
 export class SiginComponent implements OnInit {
-  auth: any = { username: '', password: '', remember: false };
+  auth: any = { username: '', password: '', remember: false }
+  errMsg : string = ''
+  errStatus : boolean  = false
   constructor(private _user: UserServiceService, private _router: Router ) { }
 
   ngOnInit() {
@@ -34,7 +36,15 @@ export class SiginComponent implements OnInit {
     this._user.lognInService(signin_.getDataUser()).subscribe(suc => {
       this._user.setSession(suc.id_token)
       this._router.navigate(['/core/home'])
-    },err => console.log(err))
+    },err => {
+      this.errMsg = err.error.message
+      this.errStatus = true
+      setTimeout(() => {
+        this.errStatus = false
+        this.errMsg = ''
+      } , 3000)  
+    })
+    
   }
 
   test() {

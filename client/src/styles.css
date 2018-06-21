@@ -45,3 +45,9 @@ label,
   -webkit-transition: all 2s;
   transition: all 2s;
 }
+.err{
+  padding:  10px;
+  background: rgb(243, 69, 69);
+  color: white;
+  border-radius:  6px;
+}

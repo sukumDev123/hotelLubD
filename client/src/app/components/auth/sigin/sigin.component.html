@@ -1,7 +1,9 @@
 
   <div class="topFrom">
     <h4 class="text-center textKait">เข้าสู่ระบบ</h4>
-
+    <div class="md-form " *ngIf='errStatus' >
+      <p class="err">{{ errMsg }}</p>
+    </div>
     <form class='col-12 col-md-10 p-3 marginC' #signIn="ngForm" (ngSubmit)="Login()">
       <small class='textKait'>* หากท่านยังไม่ได้สมัครสมาชิก สามารถคลิก >>>
         <a routerLink='/core/auth/signup'>สมัครมาชิก</a>
@@ -22,5 +24,4 @@
         <button type="submit" [disabled]="!signIn.form.valid" class="btn btn-primary btn-block">Login</button>
       </div>
     </form>
-    <button (click)="test()" >Save</button>
   </div>
