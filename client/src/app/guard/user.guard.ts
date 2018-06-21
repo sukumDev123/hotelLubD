@@ -13,7 +13,7 @@ export class UserGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this._user.isLogin()) {
-      if (this._user.getSession().roles === 'user') {
+      if (this._user.UserData().roles[0] === 'user') {
         return true
 
       } else {

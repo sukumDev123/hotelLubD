@@ -26,11 +26,11 @@
           </li>
           <li class="nav-item dropdown" *ngIf='_user.isLogin()'>
             <a class="nav-link dropdown-toggle" style='cursor: pointer;' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ _user.getSession().displayname }}
+              {{ _user.UserData().displayname }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink='/{{_user.getSession().roles}}/home'>Home To {{ _user.getSession().roles }}</a>
-              <a class="dropdown-item" routerLink='/{{_user.getSession().roles}}/setting'>Setting</a>
+              <a class="dropdown-item" routerLink='/{{_user.UserData().roles}}/home'>Home To {{ _user.UserData().roles }}</a>
+              <a class="dropdown-item" routerLink='/{{_user.UserData().roles}}/setting'>Setting</a>
               <a class="dropdown-item" (click)="_user.Logout()">Logout</a>
             </div>
           </li>

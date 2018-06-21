@@ -71,4 +71,5 @@ export const AppComponentRoute = [
   , HistoryComponent
   , SettingComponent
   , CoreUserComponent
+  , AuthComponent
 ];

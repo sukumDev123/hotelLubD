@@ -10,8 +10,6 @@ import {
 } from '@angular/router';
 import * as $ from 'jquery'
 
-import { Observable } from 'rxjs';
-
 
 
 @Component({
@@ -27,7 +25,7 @@ export class HomeComponent implements OnInit {
     photoMain: '',
     phone: ''
   };
-  constructor(public _readData: DataShowService, private _router: Router ) {
+  constructor(public _readData: DataShowService, private _router: Router  ) {
   }
   
   

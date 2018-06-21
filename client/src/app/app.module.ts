@@ -9,23 +9,31 @@ import { DataShowService } from './services/dataShow/data-show.service'
 import { UserServiceService } from './services/users/auth/user-service.service'
 import { StoreModule  } from '@ngrx/store'
 import bookingReducer from './reducer/booking.reducer';
-import { AuthComponent } from './components/auth/auth/auth.component'
+
+import { JwtModule } from '@auth0/angular-jwt'
+
+function tokenGetter () {
+  return localStorage.getItem('Login')
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     ...AppComponentRoute,
-    AuthComponent,
     
-
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule ,
-    StoreModule.forRoot({ booking : bookingReducer })
+    StoreModule.forRoot({ booking : bookingReducer }) ,
+    JwtModule.forRoot({
+      config : {
+        tokenGetter: tokenGetter,
+        headerName: 'SukumJsonWebToken _1235'
+      }
+    })
   ],
   providers: [
     AdminServiceService

@@ -20,7 +20,7 @@ export class SiginComponent implements OnInit {
 
   userComeIn() {
     if (this._user.isLogin()) {
-      if (this._user.getSession().roles[0] === 'admin') {
+      if (this._user.UserData().roles[0] === 'admin') {
         this._router.navigate(['/admin/home'])
       } else {
         this._router.navigate(['/user/home'])
@@ -32,7 +32,13 @@ export class SiginComponent implements OnInit {
   Login() {
     let signin_ = new SignIn(this.auth.username,this.auth.password)
     this._user.lognInService(signin_.getDataUser()).subscribe(suc => {
-      console.log(suc)
+      this._user.setSession(suc.id_token)
+      this._router.navigate(['/core/home'])
     },err => console.log(err))
+  }
+
+  test() {
+    let test_ = this._user.createdJwt()
+    console.log(test_)
   }
 }

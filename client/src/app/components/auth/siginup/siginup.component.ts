@@ -6,6 +6,9 @@ import * as defualtHeader from '../../../jquery/core.jquery'
 import {
   Signup
 } from '../classUser/user.class';
+import { UserServiceService } from '../../../services/users/auth/user-service.service';
+import { HttpClient } from 'selenium-webdriver/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-siginup',
   templateUrl: './siginup.component.html',
@@ -23,8 +26,8 @@ export class SiginupComponent implements OnInit {
     password: '',
     password2: '',
   }
-  constructor() {}
-
+  constructor(private _user : UserServiceService , private _router : Router) {}
+  
   ngOnInit() {
 
     defualtHeader.coreJquery()
@@ -33,9 +36,10 @@ export class SiginupComponent implements OnInit {
     let signUp_ = new Signup(this.auth.firstname, this.auth.lastname, this.auth.email, this.auth.username, this.auth.password, this.auth.password2, this.auth.phone , 'user')
 
     if (signUp_.checkPasswordEqual()) {
-
-    
-
+      this._user.signUpService(signUp_.getSignIN()).subscribe(suc => {
+        this._user.setSession(suc.id_token)
+        this._router.navigate(['/core/home'])
+      } , err => console.log(err) )
     }
   }
 }

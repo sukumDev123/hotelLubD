@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this._user.isLogin()) {
-      if (this._user.getSession().roles === 'admin') {
+      if (this._user.UserData().roles[0] === 'admin') {
         return true
 
       } else {
