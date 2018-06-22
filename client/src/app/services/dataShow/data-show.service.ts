@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import host from '../../host.global'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataShowService {
-  private host = 'http://192.168.99.100:3000';
+  private _host = host
   constructor(private _http: HttpClient) { }
 
   readData() : Observable<any> {
-    return this._http.get<any>(`${this.host}/api/data/info/resort`);
+    return this._http.get<any>(`${this._host}/api/data/info/resort`)
   }
   
 

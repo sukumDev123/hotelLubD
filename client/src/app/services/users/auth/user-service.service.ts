@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { User } from '../../../interface/userinterface';
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { User } from '../../../interface/userinterface'
 import { JwtHelperService  } from '@auth0/angular-jwt'
-
+import host from '../../../host.global'
 
 interface UserInfo {
   username : string ,
@@ -18,7 +18,7 @@ interface UserInfo {
   providedIn: 'root'
 })
 export class UserServiceService {
-  private _host = "http://192.168.99.100:3000";
+  private _host = host 
   constructor(private _http : HttpClient , private jwtHelper : JwtHelperService) { }
 
   lognInService(data) : Observable<any> {
@@ -32,14 +32,14 @@ export class UserServiceService {
     return !!localStorage.getItem('Login')
   }
   setSession(token){
-    localStorage.setItem('Login' , token );
+    localStorage.setItem('Login' , token )
   }
   getSession(){
     return localStorage.getItem("Login")
   }
   Logout(){
     if(this.isLogin()){
-      localStorage.removeItem("Login");
+      localStorage.removeItem("Login")
     }
   }
   UserData() : UserInfo {
