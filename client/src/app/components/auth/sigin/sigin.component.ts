@@ -39,6 +39,7 @@ export class SiginComponent implements OnInit {
     },err => {
       this.errMsg = err.error.message
       this.errStatus = true
+      this.auth.password = null
       setTimeout(() => {
         this.errStatus = false
         this.errMsg = ''
@@ -47,8 +48,5 @@ export class SiginComponent implements OnInit {
     
   }
 
-  test() {
-    let test_ = this._user.createdJwt()
-    console.log(test_)
-  }
+  
 }

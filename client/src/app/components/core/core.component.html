@@ -29,8 +29,8 @@
               {{ _user.UserData().displayname }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink='/{{_user.UserData().roles}}/home'>Home To {{ _user.UserData().roles }}</a>
-              <a class="dropdown-item" routerLink='/{{_user.UserData().roles}}/setting'>Setting</a>
+              <a class="dropdown-item" routerLink='/{{_user.UserData().roles[0]}}/home'>Home To {{ _user.UserData().roles[0] }}</a>
+              <a class="dropdown-item" routerLink='/{{_user.UserData().roles[0]}}/setting'>Setting</a>
               <a class="dropdown-item" (click)="_user.Logout()">Logout</a>
             </div>
           </li>

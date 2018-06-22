@@ -9,6 +9,7 @@ import {
   Router
 } from '@angular/router';
 import * as $ from 'jquery'
+import { UserServiceService } from '../../services/users/auth/user-service.service';
 
 
 
@@ -25,12 +26,12 @@ export class HomeComponent implements OnInit {
     photoMain: '',
     phone: ''
   };
-  constructor(public _readData: DataShowService, private _router: Router  ) {
+  constructor(public _readData: DataShowService, private _router: Router, private _user: UserServiceService) {
   }
-  
-  
+
+
   ngOnInit() {
-    
+    this._user.checkTokenExp()
     this._readData.readData().subscribe(suc => {
       this.data_info = suc
 
@@ -57,7 +58,7 @@ export class HomeComponent implements OnInit {
         })
 
       } else {
-       
+
         $("#navBar_box").css({
           "background": 'rgba(0,0,0,0)'
         })
