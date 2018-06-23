@@ -14,6 +14,8 @@ export function inforResortRoute() {
     .get(controllers.readFile)
     .post(checkUserLogin , controllers.writeFileResort)
  
-    return router;
+    return router
+
+
 
 }
