@@ -11,7 +11,7 @@ import {
 import * as $ from 'jquery'
 import { UserServiceService } from '../../services/users/auth/user-service.service';
 
-
+import _host from '../../host.global'
 
 @Component({
   selector: 'app-home',
@@ -19,6 +19,7 @@ import { UserServiceService } from '../../services/users/auth/user-service.servi
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  host = _host
   data_info = {
     title: '',
     address: '',
