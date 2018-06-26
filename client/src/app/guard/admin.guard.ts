@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { UserServiceService } from '../services/users/auth/user-service.service';
+import { CanActivate,Router } from '@angular/router';
+import { UserGlobalService } from '../services/users/user/user-global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private _user: UserServiceService, private _router: Router) {
+  constructor(private _user: UserGlobalService, private _router: Router) {
 
   }
 

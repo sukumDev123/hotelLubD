@@ -9,7 +9,6 @@ import {
   Router
 } from '@angular/router';
 import * as $ from 'jquery'
-import { UserServiceService } from '../../services/users/auth/user-service.service';
 
 import _host from '../../host.global'
 import { UserGlobalService } from '../../services/users/user/user-global.service';

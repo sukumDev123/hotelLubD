@@ -20,6 +20,7 @@ interface UserInfo {
 export class UserGlobalService {
 
   constructor( private jwtHelper: JwtHelperService ,private _router : Router) { }
+  
   Logout() {
     if (this.isLogin()) {
       localStorage.removeItem("Login")

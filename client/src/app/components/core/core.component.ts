@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { UserServiceService } from '../../services/users/auth/user-service.service';
-import { Router } from '@angular/router';
+import { UserGlobalService } from '../../services/users/user/user-global.service';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
   @ViewChild("headerCore") headerCoreSave: ElementRef;
-  constructor(public _user : UserServiceService , private _router : Router  ) { }
+  constructor(public _user : UserGlobalService   ) { }
 
 
 
