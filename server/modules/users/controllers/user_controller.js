@@ -71,6 +71,7 @@ export async function signIn(req, res, next) {
 }
 
 export function findType(req, res, next, typeP) {
+    
     if (typeP == 'admin') {
         req.roles = 'admin';
         next();

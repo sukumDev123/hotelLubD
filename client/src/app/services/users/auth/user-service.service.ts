@@ -26,7 +26,7 @@ export class UserServiceService {
     return this._http.post<any>(`${this._host}/api/user/auth/signin`, data)
   }
   signUpService(data): Observable<User> {
-    return this._http.post<User>(`${this._host}/api/user/auth/signup/user`, data)
+    return this._http.post<User>(`${this._host}/api/user/auth/signup/${data.roles}`, data)
   }
 
   isLogin() {
