@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserGlobalService } from '../../../services/users/user/user-global.service';
 
 
 @Component({
@@ -9,10 +10,10 @@ import { Router } from '@angular/router';
 })
 export class AdminCoreComponent implements OnInit {
 
-  constructor(private _router : Router ) { }
+  constructor(private _router : Router , public _user : UserGlobalService ) { }
 
   ngOnInit() {
-   
+  
   }
 
 }

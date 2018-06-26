@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="headerforAdmin" >
-      <label for="X" class="close">X</label>
+      <label for="X" class="close textKait">x</label>
       <div class="text-center p-3">
 
         <a class="navbar-brand Skranji text-primary" href="#">
@@ -10,6 +10,23 @@
         </a>
        
       </div>
+      <div class="p-3 text-center">
+        <p class='textKait text-primary' > Admin : {{ _user.UserData().firstname }} </p>
+      </div>
+      <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link "  routerLink='/admin/home'  routerLinkActive='active' >เปลียนข้อมูลรีสอร์ท</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive='active' href="#">เพิ่มรายการห้องพัก</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive='active' href="#">ดูรายการจอง</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/core/home'>กลับไปหน้าหลัก</a>
+          </li>
+        </ul>
     </div>
     <div class="content_admin">
 
