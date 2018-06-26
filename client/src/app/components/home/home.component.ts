@@ -12,6 +12,7 @@ import * as $ from 'jquery'
 import { UserServiceService } from '../../services/users/auth/user-service.service';
 
 import _host from '../../host.global'
+import { UserGlobalService } from '../../services/users/user/user-global.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
     photoMain: '',
     phone: ''
   };
-  constructor(public _readData: DataShowService, private _router: Router, private _user: UserServiceService) {
+  constructor(public _readData: DataShowService, private _router: Router,  private _user : UserGlobalService ) {
   }
 
 

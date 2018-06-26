@@ -3,6 +3,7 @@ import { UserServiceService } from '../../../services/users/auth/user-service.se
 import { Router } from '@angular/router';
 import * as defualtHeader from '../../../jquery/core.jquery'
 import { SignIn } from '../classUser/user.class';
+import { UserGlobalService } from '../../../services/users/user/user-global.service';
 
 @Component({
   selector: 'app-sigin',
@@ -13,7 +14,7 @@ export class SiginComponent implements OnInit {
   auth: any = { username: '', password: '', remember: false }
   errMsg : string = ''
   errStatus : boolean  = false
-  constructor(private _user: UserServiceService, private _router: Router ) { }
+  constructor(private _auth : UserServiceService, private _router: Router , private _user : UserGlobalService ) { }
 
   ngOnInit() {
     this.userComeIn()
@@ -33,7 +34,7 @@ export class SiginComponent implements OnInit {
 
   Login() {
     let signin_ = new SignIn(this.auth.username,this.auth.password)
-    this._user.lognInService(signin_.getDataUser()).subscribe(suc => {
+    this._auth.lognInService(signin_.getDataUser()).subscribe(suc => {
       this._user.setSession(suc.id_token)
       this._router.navigate(['/core/home'])
     },err => {

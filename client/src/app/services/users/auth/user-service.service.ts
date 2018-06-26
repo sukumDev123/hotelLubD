@@ -6,14 +6,6 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 import host from '../../../host.global'
 import { Router } from '@angular/router';
 
-interface UserInfo {
-  username: string,
-  displayname: string,
-  firstname: string,
-  lastname: string,
-  roles: Array<string>,
-  _id: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -29,44 +21,6 @@ export class UserServiceService {
     return this._http.post<User>(`${this._host}/api/user/auth/signup/${data.roles}`, data)
   }
 
-  isLogin() {
-    return !!localStorage.getItem('Login')
-  }
-  setSession(token) {
-    localStorage.setItem('Login', token)
-  }
-  getSession() {
-    return localStorage.getItem("Login")
-  }
-  Logout() {
-    if (this.isLogin()) {
-      localStorage.removeItem("Login")
-      this._router.navigate(['/core/auth/signin'])
-    }
-  }
-
-  UserData(): UserInfo {
-    try {
-      return this.jwtHelper.decodeToken(this.getSession())
-    } catch (error) {
-      alert("Token is not ture")
-      this.Logout()
-    }
-    return {
-      username: '',
-      displayname: '',
-      firstname: '',
-      lastname: '',
-      roles: ['null'],
-      _id: ''
-    }
-  }
-
-  checkTokenExp() {
-    if (this.jwtHelper.isTokenExpired(this.getSession())) {
-      localStorage.removeItem('login')
-      this._router.navigate(['/core/home'])
-    }
-    console.log(`Your Token is ${this.getSession() ? this.getSession() : "Not Have Token."}`)
-  }
+ 
+  
 }

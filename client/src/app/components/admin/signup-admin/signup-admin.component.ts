@@ -3,6 +3,7 @@ import { AdminServiceService } from '../../../services/admin/inforS/admin-servic
 import { Router } from '@angular/router'
 import { UserServiceService } from '../../../services/users/auth/user-service.service'
 import { Signup } from '../../auth/classUser/user.class'
+import { UserGlobalService } from '../../../services/users/user/user-global.service';
 
 interface Admin {
   firstname: string,
@@ -32,10 +33,10 @@ export class SignupAdminComponent implements OnInit {
   
   errMsg : string 
   errStatus : boolean = false
-  constructor(private _userService : UserServiceService , private _router : Router) { }
+  constructor(private _userService : UserServiceService , private _router : Router ,   private _user : UserGlobalService) { }
 
   ngOnInit() {
-    if(this._userService.isLogin()){
+    if(this._user.isLogin()){
       this._router.navigate(['/admin/home'])
     }
   }
@@ -48,7 +49,7 @@ export class SignupAdminComponent implements OnInit {
     if(admin_.checkPasswordEqual()) {
 
       this._userService.signUpService(admin_.getSignIN()).subscribe(suc => {
-        this._userService.setSession(suc.id_token)
+        this._user.setSession(suc.id_token)
         this._router.navigate(['/admin/home'])
       } ,err => {
         this.errStatus = true
