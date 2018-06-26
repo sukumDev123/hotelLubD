@@ -1,20 +1,21 @@
-.headerforAdmin{
-    padding: 10px;
-    border-right: 5px solid rgba(0,0,0,0.2);
-    height: 100%;
-    position: fixed;
-    top:0;
-    z-index:100;
-    background: white;
+.headerforAdmin {
+  padding: 10px;
+  border-right: 5px solid rgba(0, 0, 0, 0.2);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background: white;
 }
-.content_admin{
-    width:70%;
-    background: RED;
-    margin:auto
+
+.content_admin {
+  width: 70%;
+  margin: auto
 }
-label.close{
-    padding: 10px;
-    color:red;
-    width:32px;
-    height: 32px;
+
+label.close {
+  padding: 10px;
+  color: red;
+  width: 32px;
+  height: 32px;
 }

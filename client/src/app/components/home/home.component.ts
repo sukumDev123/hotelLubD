@@ -12,6 +12,9 @@ import * as $ from 'jquery'
 
 import _host from '../../host.global'
 import { UserGlobalService } from '../../services/users/user/user-global.service';
+import { DataResort } from '../../interface/data.interface';
+
+
 
 @Component({
   selector: 'app-home',
@@ -20,7 +23,7 @@ import { UserGlobalService } from '../../services/users/user/user-global.service
 })
 export class HomeComponent implements OnInit {
   host = _host
-  data_info = {
+  data_info : DataResort = {
     title: '',
     address: '',
     detail: '',
