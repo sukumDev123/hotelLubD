@@ -1,19 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserGlobalService } from '../../../services/users/user/user-global.service';
 import { DataShowService } from '../../../services/dataShow/data-show.service';
+import { DataResortClass } from '../../../class/data-reosrt.class';
+import _host from '../../../host.global'
 import { DataResort } from '../../../interface/data.interface';
 
-class DataResortClass {
-  private _data : DataResort
-  constructor(data : DataResort ) {
-    this._data = data
-  }
-  check_Empty() {
-    /**
-     * For Check Value on _data need to not empty
-     */
-  }
-}
 
 @Component({
   selector: 'app-data-add-home',
@@ -21,13 +12,31 @@ class DataResortClass {
   styleUrls: ['./data-add-home.component.css']
 })
 export class DataAddHomeComponent implements OnInit {
-  private _data_ 
+  private _data_  : DataResort = {
+    title: '',
+    address: '',
+    detail: '',
+    photoMain: '',
+    phone: '' ,
+    title2 : '',
+    descriton2 : ''
+  }
+  host = _host
   constructor(private _user : UserGlobalService , private _dataResort : DataShowService) { }
 
   ngOnInit() {
+    
     this._dataResort.readData().subscribe(suc => {
-      this._data_ = new DataResortClass(suc)
+      let data = new DataResortClass(suc)
+      this._data_ = data.getShowData()
+      console.log(this._data_ )
     })
+  }
+  upload2() {
+    return this._data_.photoMain
+  }
+  submitUpdate(){
+    console.log(this._data_)
   }
   
 }

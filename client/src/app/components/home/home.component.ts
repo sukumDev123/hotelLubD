@@ -28,7 +28,9 @@ export class HomeComponent implements OnInit {
     address: '',
     detail: '',
     photoMain: '',
-    phone: ''
+    phone: '' ,
+    title2 : '',
+    descriton2 : ''
   };
   constructor(public _readData: DataShowService, private _router: Router,  private _user : UserGlobalService ) {
   }

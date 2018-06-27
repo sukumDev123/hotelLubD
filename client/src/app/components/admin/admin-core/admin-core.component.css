@@ -1,11 +1,11 @@
 .headerforAdmin {
   padding: 10px;
-  border-right: 5px solid rgba(0, 0, 0, 0.2);
   height: 100%;
   position: fixed;
   top: 0;
   z-index: 100;
   background: white;
+  box-shadow: 3px 0 10px 1px rgba(0,0,0,0.1)
 }
 
 .content_admin {
