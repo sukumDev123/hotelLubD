@@ -50,18 +50,10 @@ export async function readFile(req, res) {
 
 }
 
-const photoWriteFileAsync = photo => {
-    //let photo_ = photo.match(/(\w+)(\d+)/)
-    
-    return new Promise((res , rej) => {
-        fs.watchFile(path.resolve('./public/main/photo2.jpg') , photo , 'binery' ,err => err ? rej({ message : err , status : false}) : res(true))
-    })
-}
 
 export async function writeFileResort(req, res) {
     try {
         if (isNotNull(req.body)) {
-            let photoWriteFile = photoWriteFileAsync(req.body.photoMain) 
             let read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
             res.json(read)
 

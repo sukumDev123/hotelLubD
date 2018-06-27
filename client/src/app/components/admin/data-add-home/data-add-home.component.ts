@@ -4,7 +4,7 @@ import { DataShowService } from '../../../services/dataShow/data-show.service';
 import { DataResortClass } from '../../../class/data-reosrt.class';
 import _host from '../../../host.global'
 import { DataResort } from '../../../interface/data.interface';
-
+import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 @Component({
   selector: 'app-data-add-home',
@@ -21,22 +21,29 @@ export class DataAddHomeComponent implements OnInit {
     title2 : '',
     descriton2 : ''
   }
-  host = _host
+
+  host : string = _host
+  img_data : string = ''
+  changeData : string = ''
+
   constructor(private _user : UserGlobalService , private _dataResort : DataShowService) { }
 
+ 
   ngOnInit() {
-    
+    console.log(this.img_data)
     this._dataResort.readData().subscribe(suc => {
       let data = new DataResortClass(suc)
       this._data_ = data.getShowData()
-      console.log(this._data_ )
+      this.img_data = (this.host + this._data_.photoMain)
     })
+
   }
-  upload2() {
-    return this._data_.photoMain
+  upload2(e) {
+    
+    console.log(e.target.files)
   }
   submitUpdate(){
-    console.log(this._data_)
+    
   }
   
 }

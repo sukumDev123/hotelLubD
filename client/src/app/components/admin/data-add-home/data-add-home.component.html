@@ -36,11 +36,11 @@
           <div class="md-from p-2">
             <label for="photo"> รูปที่แสดงหน้าหลัก </label>
             <div class="col-12 p-3 text-center">
-              <img style='width:360px;height:240px;' src="{{ host + _data_.photoMain }}" alt="">
+              <img style='width:360px;height:240px;' src="{{ img_data }}" alt="">
             </div>
           </div>
           <div class="md-from">
-            <input type="file" (change)="upload2()" class="form-control">
+            <input type="file" (change)="upload2($event)" class="form-control">
 
           </div>
 
