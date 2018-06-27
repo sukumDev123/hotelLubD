@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import mongoose from 'mongoose'
 
 function getDataToJson(data) {
     return new Promise(res => {
@@ -32,13 +31,9 @@ function writeFileAsync(pathFile, data) {
         })
     })
 }
-function isNotNull(data){
-    let _data = data 
-    if(_data.title != '' && _data.photoMain != '' && _data.detail != '' && _data.address != '' && _data.phone != '' ){
-        return true
-    }
-    return false
-}
+
+const  isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && data.title2 && data.descriton2) ? true : false
+
 
 /**-------------------------------------------------------------- */
 
@@ -55,13 +50,20 @@ export async function readFile(req, res) {
 
 }
 
-
+const photoWriteFileAsync = photo => {
+    //let photo_ = photo.match(/(\w+)(\d+)/)
+    
+    return new Promise((res , rej) => {
+        fs.watchFile(path.resolve('./public/main/photo2.jpg') , photo , 'binery' ,err => err ? rej({ message : err , status : false}) : res(true))
+    })
+}
 
 export async function writeFileResort(req, res) {
     try {
         if (isNotNull(req.body)) {
-            read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
-            res.json(req.user)
+            let photoWriteFile = photoWriteFileAsync(req.body.photoMain) 
+            let read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
+            res.json(read)
 
         } else {
             res.json({

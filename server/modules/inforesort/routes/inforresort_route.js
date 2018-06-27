@@ -12,8 +12,8 @@ export function inforResortRoute() {
 
     router.route('/info/resort')
     .get(controllers.readFile)
-    .post(checkUserLogin , controllers.writeFileResort)
- 
+    .post( controllers.writeFileResort)
+    //checkUserLogin
     return router
 
 
