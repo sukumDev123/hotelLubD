@@ -21,7 +21,7 @@ export class DataAddHomeComponent implements OnInit {
     title2 : '',
     descriton2 : ''
   }
-
+  img_data_temp : File
   host : string = _host
   img_data : string = ''
   changeData : string = ''
@@ -35,12 +35,15 @@ export class DataAddHomeComponent implements OnInit {
       let data = new DataResortClass(suc)
       this._data_ = data.getShowData()
       this.img_data = (this.host + this._data_.photoMain)
+    
     })
 
   }
   upload2(e) {
-    
-    console.log(e.target.files)
+    this.img_data_temp = <File> e.target.files[0]
+  }
+  saveUploads(e){
+    console.log(this.img_data_temp)
   }
   submitUpdate(){
     

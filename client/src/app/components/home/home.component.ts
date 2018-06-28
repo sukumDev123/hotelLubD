@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this._user.checkTokenExp()
     this._readData.readData().subscribe(suc => {
       this.data_info = suc
-
+      console.log(suc)
     }, err => {
       if (err.status === 0) {
         this._router.navigate(['/page/problem'])

@@ -1,11 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-function getDataToJson(data) {
-    return new Promise(res => {
-        res(JSON.parse(data))
-    })
-}
+
 
 function readFileAsync(pathFile) {
     return new Promise((res, rej) => {
@@ -32,7 +28,7 @@ function writeFileAsync(pathFile, data) {
     })
 }
 
-const  isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && data.title2 && data.descriton2) ? true : false
+const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && data.title2 && data.descriton2) ? true : false
 
 
 /**-------------------------------------------------------------- */
@@ -40,8 +36,11 @@ const  isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _
 export async function readFile(req, res) {
     try {
         let read = await readFileAsync("./modules/inforesort/models/resort_th.json")
-        read = await getDataToJson(read)
-        res.json(read);
+        let readPhoto = await readFileAsync("./modules/inforesort/models/photo_path.json")
+        read = JSON.parse(read)
+        readPhoto = JSON.parse(readPhoto)
+        read.photoMain = readPhoto.photoMain
+        res.json(read)
     } catch (error) {
         res.status(404).json({
             message: "Not Found \n" + error
@@ -59,7 +58,7 @@ export async function writeFileResort(req, res) {
 
         } else {
             res.json({
-                message : 'Data is empty.'
+                message: 'Data is empty.'
             })
         }
     } catch (error) {
