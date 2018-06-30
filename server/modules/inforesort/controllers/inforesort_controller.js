@@ -49,6 +49,9 @@ export async function readFile(req, res) {
 
 }
 
+export async function changePhoto(req,res) {
+    console.log(req.body)
+}
 
 export async function writeFileResort(req, res) {
     try {

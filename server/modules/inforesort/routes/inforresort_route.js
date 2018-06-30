@@ -13,6 +13,8 @@ export function inforResortRoute() {
     router.route('/info/resort')
     .get(controllers.readFile)
     .post( controllers.writeFileResort)
+    
+    router.post('/api/data/info/photo' , controllers.changePhoto)
     //checkUserLogin
     return router
 
