@@ -8,6 +8,18 @@ import config from '../config'
 import morgan from 'morgan'
 import passport from 'passport'
 import path from 'path'
+import multer from 'multer'
+
+// Set Storege Engine 
+
+function multerEngine() {
+	return multer.disStorage({
+		destination : ''
+	})
+}
+
+
+
 
 function headerSet(req, res, next) {
 
