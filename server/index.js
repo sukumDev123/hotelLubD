@@ -1,4 +1,3 @@
-'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 import http from 'http';
 import { app } from './config/lib/express';

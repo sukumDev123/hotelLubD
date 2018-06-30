@@ -1,4 +1,3 @@
-'use strict';
 
 import socket from 'socket.io';
 import config from '../config';

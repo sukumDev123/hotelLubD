@@ -1,4 +1,3 @@
-'use strict';
 
 import passport from 'passport';
 import mongoose from 'mongoose';

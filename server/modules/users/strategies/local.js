@@ -1,4 +1,3 @@
-'use strict'
 import passport from 'passport';
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('mongoose').model('User')

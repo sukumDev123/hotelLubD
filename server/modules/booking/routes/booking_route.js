@@ -1,4 +1,3 @@
-'use strict'
 import { Router } from 'express'
 import * as rs from '../controllers/booking_controller'
 import { checkUserLogin } from '../../checkUserLogin';

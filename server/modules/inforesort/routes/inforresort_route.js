@@ -1,4 +1,3 @@
-'use strict';
 
 
 import * as controllers from '../controllers/inforesort_controller';

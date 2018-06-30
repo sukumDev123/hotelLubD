@@ -1,4 +1,3 @@
-'use strict';
 
 import * as userC from '../controllers/user_controller';
 import express from 'express';

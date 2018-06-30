@@ -1,4 +1,3 @@
-'use strict'
 import mongoose from "mongoose";
 const Booking = mongoose.model('Booking')
 const User = mongoose.model('User')

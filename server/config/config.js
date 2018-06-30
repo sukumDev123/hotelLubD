@@ -1,4 +1,3 @@
-'use stirct';
 import glob from 'glob';
 import path from 'path';
 
