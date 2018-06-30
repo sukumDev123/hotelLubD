@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 
-
 function readFileAsync(pathFile) {
     return new Promise((res, rej) => {
 
@@ -32,7 +31,13 @@ const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _d
 
 
 /**-------------------------------------------------------------- */
+export function deletePhoto() {
+    fs.unlink(path.resolve('./public/main/photo-1530324185354-.png', err => {
+        let show = err ? err : "Success"
 
+        res.json(show)
+    }))
+}
 export async function readFile(req, res) {
     try {
         let read = await readFileAsync("./modules/inforesort/models/resort_th.json")
@@ -49,8 +54,19 @@ export async function readFile(req, res) {
 
 }
 
-export async function changePhoto(req,res) {
-    res.json(req.body)
+export async function changePhoto(req, res) {
+    console.log(req.files)
+    try {
+        let pathFocued = './modules/inforesort/models/photo_path.json'
+        let readPhotopath = await readFileAsync(pathFocued)
+        readPhotopath = JSON.parse(readPhotopath)
+        readPhotopath.phototemp.push(req.files[0].path)
+        let writeFileValue = await writeFileAsync(pathFocued, readPhotopath)
+        console.log(writeFileValue)
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 export async function writeFileResort(req, res) {
@@ -70,5 +86,8 @@ export async function writeFileResort(req, res) {
             message: "Not Found \n" + error
         })
     }
+
+}
+export function paramId(req, res, next, id) {
 
 }

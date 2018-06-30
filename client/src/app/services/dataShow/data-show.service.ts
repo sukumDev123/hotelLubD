@@ -20,4 +20,7 @@ export class DataShowService {
   changePhoto(photo) : Observable<any>{
     return this._http.post<any>(`${this._host}/api/data/info/photo` , photo)
   }
+  deletePhotoService(idDelete) : Observable<any>{
+    return this._http.delete<any>(`${this._host}/api/data/info/photo/${idDelete}` )
+  }
 }

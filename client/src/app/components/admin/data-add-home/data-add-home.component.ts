@@ -20,7 +20,7 @@ export class DataAddHomeComponent implements OnInit {
     title2 : '',
     descriton2 : ''
   }
-  img_data_temp : File
+  img_data_temp : Array<File>
   host : string = _host
   img_data : string = ''
   changeData : string = ''
@@ -39,11 +39,29 @@ export class DataAddHomeComponent implements OnInit {
 
   }
   upload2(e) {
-    this.img_data_temp = <File> e.target.files[0]
+    this.img_data_temp = <Array<File>> e.target.files
+    console.log(this.img_data_temp)
   }
   saveUploads(e){
-    console.log(this.img_data_temp)
-    this._dataResort.changePhoto(this.img_data_temp).subscribe(suc => console.log(suc) , err => console.log(err) )
+    // let arrayFile = []
+    // arrayFile[0] = this.img_data_temp
+
+    const formData: any = new FormData();
+    const files: Array<File> = this.img_data_temp;
+    console.log(files);
+
+    for(let i =0; i < files.length; i++){
+        formData.append("photo", files[i], files[i]['name']);
+    }
+    console.log(formData.toString())
+
+     this._dataResort.changePhoto(formData).subscribe(suc => console.log(suc) , err => console.log(err) )
+   
+  }
+  deletePhoto() {
+    ///info/photo
+    this._dataResort.deletePhotoService("Test").subscribe(suc => console.log(suc) , err => console.log(err))
+
   }
   submitUpdate(){
     

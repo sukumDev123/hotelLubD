@@ -3,6 +3,7 @@
 
 import * as controllers from '../controllers/inforesort_controller';
 import { checkUserLogin } from '../../checkUserLogin';
+import uploads from '../../../config/lib/multer'
 
 
 
@@ -13,9 +14,11 @@ export function inforResortRoute() {
     router.route('/info/resort')
     .get(controllers.readFile)
     .post( controllers.writeFileResort)
-    
-    router.post('/info/photo' , controllers.changePhoto)
+    // ,
+    router.route('/info/photo/' ).post(  uploads.array("photo", 12) , controllers.changePhoto)
+    router.delete('/info/photo/:idDelete',controllers.deletePhoto)
     //checkUserLogin
+    router.param('idDelete' , controllers.paramId)
     return router
 
 
