@@ -43,7 +43,7 @@ export class DataAddHomeComponent implements OnInit {
   }
   saveUploads(e){
     console.log(this.img_data_temp)
-    
+    this._dataResort.changePhoto(this.img_data_temp).subscribe(suc => console.log(suc) , err => console.log(err) )
   }
   submitUpdate(){
     
