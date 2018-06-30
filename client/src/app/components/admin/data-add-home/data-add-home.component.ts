@@ -43,6 +43,7 @@ export class DataAddHomeComponent implements OnInit {
   }
   saveUploads(e){
     console.log(this.img_data_temp)
+    
   }
   submitUpdate(){
     
