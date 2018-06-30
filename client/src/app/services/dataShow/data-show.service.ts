@@ -17,7 +17,7 @@ export class DataShowService {
   changeData(data : DataResort) : Observable<DataResort> {
     return this._http.post<DataResort>(`${this._host}/api/data/info/resort` , data)
   }
-  changePhoto(photo : File) : Observable<any>{
-    return this._http.post<any>(`${this._host}/api/data/info/photo` , photo)
+  changePhoto(photo) : Observable<any>{
+    return this._http.post<any>(`${this._host}/api/data/info/photo` , {photo : "test"})
   }
 }
