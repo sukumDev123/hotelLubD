@@ -13,7 +13,7 @@ export class AdminCoreComponent implements OnInit {
   constructor(private _router : Router , public _user : UserGlobalService ) { }
 
   ngOnInit() {
-  
+    console.log(`Your Token is : ${this._user.getSession()}`)
   }
 
 }

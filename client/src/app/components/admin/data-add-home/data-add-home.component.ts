@@ -4,7 +4,6 @@ import { DataShowService } from '../../../services/dataShow/data-show.service';
 import { DataResortClass } from '../../../class/data-reosrt.class';
 import _host from '../../../host.global'
 import { DataResort } from '../../../interface/data.interface';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 @Component({
   selector: 'app-data-add-home',

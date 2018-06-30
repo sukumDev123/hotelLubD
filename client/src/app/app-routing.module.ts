@@ -33,10 +33,10 @@ const routes: Routes = [
      
     ]
   },
+  { path: 'signup/admin', component: SignupAdminComponent },
   {
-    path: 'admin', component: AdminCoreComponent,children: [
-      { path: 'signup', component: SignupAdminComponent },
-      { path: 'home', component: DataAddHomeComponent,  canActivate: [AdminGuard] }
+    path: 'admin', component: AdminCoreComponent,  canActivate: [AdminGuard] , children: [
+      { path: 'home', component: DataAddHomeComponent,  }
     ]
   },
   {
