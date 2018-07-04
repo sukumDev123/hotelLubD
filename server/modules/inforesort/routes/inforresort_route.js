@@ -15,7 +15,7 @@ export function inforResortRoute() {
     // ,
     router.route('/info/photo/' ).post(  uploads.array("photo", 12) , controllers.addPhotoOtherFile).get(controllers.getPhotoKeep)
    
-    router.delete('/info/photo/:idDelete',controllers.deletePhoto)
+    router.route('/info/photo/:idDelete').delete(controllers.deletePhoto).put(controllers.updatePhotomain)
     //
     router.param('idDelete' , controllers.paramId)
     return router

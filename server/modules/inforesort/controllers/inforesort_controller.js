@@ -32,13 +32,27 @@ const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _d
 
 
 
-const deletePhotoFunction =  (nameFile) => new Promise((res, rej) => {
+const deletePhotoFunction = (nameFile) => new Promise((res, rej) => {
     fs.unlink(nameFile, err => {
         if (err) rej(err)
         res(true)
     })
 })
 /**-------------------------------------------------------------- */
+export async function updatePhotomain(req, res, next) {
+    try {
+        let nameFile = req.name_file
+        let find_ = await PhotoPath.find()
+        let photo_ = find_[0]
+        photo_.photoMain = nameFile 
+        let findUp = await PhotoPath.findByIdAndUpdate(photo_._id , photo_)
+        let new_ = await PhotoPath.find()
+        res.json(new_)
+    } catch (error) {
+        next()
+    }
+
+}
 export async function deletePhoto(req, res, next) {
 
     try {
@@ -50,10 +64,10 @@ export async function deletePhoto(req, res, next) {
             if (suc.id === photo_data)
                 indexOf_ = i
         })
-        let deletePhotoBefore = await deletePhotoFunction(`./public/subPhoto/${photos[indexOf_].photoPath}`)
-        photos.splice(indexOf_, 1)
-        find_[0].photosub = photos
-        let revomeIs = await PhotoPath.findByIdAndUpdate(find_[0]._id, find_[0])
+        let deletePhotoBefore = await deletePhotoFunction(`./public/subPhoto/${photos[indexOf_].photoPath}`) // delete image file
+        photos.splice(indexOf_, 1) // remove list 1 list about this image.
+        find_[0].photosub = photos // updata data in last
+        let revomeIs = await PhotoPath.findByIdAndUpdate(find_[0]._id, find_[0]) // updata on database
         let new_ = await PhotoPath.find()
         // photo_data
         res.json(new_)
@@ -75,7 +89,6 @@ export async function readFile(req, res, next) {
             photo = "/subPhoto/" + photoMain[0].photoMain
 
         }
-        console.log(photo)
         read.photoMain = photo
         res.json(read)
     } catch (error) {
