@@ -54,7 +54,7 @@ export class DataAddHomeComponent implements OnInit {
         formData.append("photo", files[i], files[i]['name']);
     }
     console.log(formData.toString())
-
+    
      this._dataResort.changePhoto(formData).subscribe(suc => console.log(suc) , err => console.log(err) )
    
   }

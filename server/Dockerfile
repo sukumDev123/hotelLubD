@@ -4,7 +4,7 @@ RUN npm install -g nodemon yarn
 
 RUN mkdir /node
 
-COPY . /node
 WORKDIR /node
+COPY . /node
 
-RUN  yarn
+RUN  npm install 

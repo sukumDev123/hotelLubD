@@ -58,8 +58,8 @@ const User = new Schema({
         required: 'Please provide at least one role'
     },
     phone: {
-        type : String,
-        unique : true,
+        type: String,
+        unique: true,
         required: "Plase input you phone number."
     },
     create_at: {
@@ -72,9 +72,9 @@ const User = new Schema({
     resetPasswordExpires: {
         type: Date
     },
-    reserveNum : {
-        type : Number ,
-        default : 0
+    reserveNum: {
+        type: Number,
+        default: 0
     }
 });
 

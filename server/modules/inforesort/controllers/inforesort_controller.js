@@ -55,14 +55,23 @@ export async function readFile(req, res) {
 }
 
 export async function changePhoto(req, res) {
-    console.log(req.files)
+    
+    let id_ = req.files[0].filename.split(".")[0]
     try {
+        if(req.files){
         let pathFocued = './modules/inforesort/models/photo_path.json'
         let readPhotopath = await readFileAsync(pathFocued)
         readPhotopath = JSON.parse(readPhotopath)
-        readPhotopath.phototemp.push(req.files[0].path)
+        readPhotopath.phototemp.push({
+            id : id_ ,
+            photopath: req.files[0].path
+        })
         let writeFileValue = await writeFileAsync(pathFocued, readPhotopath)
-        console.log(writeFileValue)
+        res.json({
+            message : "Save Image Photo Success ."
+        })    
+        }
+        
     } catch (error) {
         console.log(error)
     }
