@@ -28,4 +28,7 @@ export class DataShowService {
   getPhotoKeep() : Observable<any> {
     return this._http.get<any>(`${this._host}/api/data/info/photo`)
   }
+  changePhotoMain(file : string) : Observable<any> {
+    return this._http.put<any>(`${this._host}/api/data/info/photo/${file}`,file)
+  }
 }

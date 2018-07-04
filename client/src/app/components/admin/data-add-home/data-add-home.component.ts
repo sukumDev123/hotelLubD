@@ -95,8 +95,8 @@ export class DataAddHomeComponent implements OnInit {
     ///info/photo
     if (confirm("You want to delete ? ")) {
       this._dataResort.deletePhotoService(id).subscribe(suc => {
-       
-       this.img_keep = suc   
+
+        this.img_keep = suc
       }, err => console.log(err))
     }
   }
@@ -104,6 +104,10 @@ export class DataAddHomeComponent implements OnInit {
 
   }
   UpdatePhotoMainPath() {
-    console.log(this.img_data)
+    let img_file = this.img_data.split('/')[4]
+    this._dataResort.changePhotoMain(img_file).subscribe(suc => {
+      this.img_data = `${this.host}/subPhoto/${suc[0].photoMain}`
+
+    },err => console.log(err))
   }
 }
