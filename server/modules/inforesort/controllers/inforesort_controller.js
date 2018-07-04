@@ -31,6 +31,13 @@ function writeFileAsync(pathFile, data) {
 const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && data.title2 && data.descriton2) ? true : false
 
 
+
+const deletePhotoFunction =  (nameFile) => new Promise((res, rej) => {
+    fs.unlink(nameFile, err => {
+        if (err) rej(err)
+        res(true)
+    })
+})
 /**-------------------------------------------------------------- */
 export async function deletePhoto(req, res, next) {
 
@@ -38,13 +45,18 @@ export async function deletePhoto(req, res, next) {
         let photo_data = req.name_file
         let find_ = await PhotoPath.find()
         let photos = find_[0].photosub
-
-        let indexOf_ = photos.filter(suc => suc.id === photo_data )
+        let indexOf_
+        photos.forEach((suc, i) => {
+            if (suc.id === photo_data)
+                indexOf_ = i
+        })
+        let deletePhotoBefore = await deletePhotoFunction(`./public/subPhoto/${photos[indexOf_].photoPath}`)
         photos.splice(indexOf_, 1)
-        
-         let revomeIs = await PhotoPath.findByIdAndUpdate(find_[0]._id , find_[0])
+        find_[0].photosub = photos
+        let revomeIs = await PhotoPath.findByIdAndUpdate(find_[0]._id, find_[0])
+        let new_ = await PhotoPath.find()
         // photo_data
-        res.json(find_)
+        res.json(new_)
 
 
     } catch (err) {
@@ -80,7 +92,7 @@ export async function getPhotoKeep(req, res, next) {
         next(error)
     }
 }
-export async function changePhoto(req, res, next) {
+export async function addPhotoOtherFile(req, res, next) {
     try {
         let file = req.files[0].filename
         let photo_
@@ -97,7 +109,7 @@ export async function changePhoto(req, res, next) {
                 let save = await pathPhoto.save()
                 let findById = await PhotoPath.find()
                 photo_ = findById[0]
-         
+
             } else if (nullOrNot[0].photosub.length <= 9) {
                 let findById = nullOrNot
                 findById[0].photosub.push({
@@ -107,16 +119,16 @@ export async function changePhoto(req, res, next) {
                 let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id, findById[0])
                 let new_ = await PhotoPath.find()
                 photo_ = new_
-         
+
 
             } else {
                 photo_ = nullOrNot
-         
+
             }
             res.json(photo_)
 
         } else {
-            console.log("FIle is not required")
+            next("File is not required")
         }
 
     } catch (error) {

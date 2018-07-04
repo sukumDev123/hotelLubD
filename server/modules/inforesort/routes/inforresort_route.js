@@ -13,7 +13,7 @@ export function inforResortRoute() {
     .get(controllers.readFile)
     .post(checkUserLogin ,  controllers.writeFileResort)
     // ,
-    router.route('/info/photo/' ).post(  uploads.array("photo", 12) , controllers.changePhoto).get(controllers.getPhotoKeep)
+    router.route('/info/photo/' ).post(  uploads.array("photo", 12) , controllers.addPhotoOtherFile).get(controllers.getPhotoKeep)
    
     router.delete('/info/photo/:idDelete',controllers.deletePhoto)
     //
