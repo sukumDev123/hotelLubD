@@ -1,38 +1,61 @@
-.show_img_dir{
-    background: rgba(0,0,0,0.5);
-    width:100%;
-    z-index: 1000;
-    height: 100%;
-    position: fixed;
-    left: 0;
+.show_img_dir {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  z-index: 1000;
+  height: 100%;
+  position: fixed;
+  left: 0;
 }
-.img_show_all{
-    padding: 20px;
-    
-    
-}
-.borderPhotoAll{
-    height: 300px;
-    width:100%;
-    overflow: scroll;
-    background: rgba(0,0,0,0.1)
 
+.img_show_all {
+  padding: 20px;
+}
+
+.borderPhotoAll {
+  height: 300px;
+  width: 100%;
+  overflow: scroll;
+  background: rgba(0, 0, 0, 0.1)
+}
+
+.img_show_all img:hover {
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5)
+}
+
+.img_show_all img {
+  width: 320px;
+  height: 200px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.img_dir {
+  background: white;
+  width: 95%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 10%;
+  box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.3)
+}
+
+a.closeBtn:hover {
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: bold;
 
 }
-.img_show_all img:hover{
-    box-shadow: 0 0 10px 1px rgba(0,0,0,0.5)
-}
-.img_show_all img{
-    width: 320px;
-    height: 200px;
-    cursor: pointer;
-    border-radius: 3px;  
-}
-.img_dir{
-    background: white;
-    width: 95%;
-    padding: 20px;
-    margin: auto;
-    margin-top:10%;
-    box-shadow: 0 0 30px 2px rgba(0,0,0,0.3)
+
+a.closeBtn {
+  padding: 10px;
+  position: relative;
+  top: 20px;
+  
+  z-index: 100;
+  background: rgb(216, 56, 56);
+  color: white;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all .4s ease;
+  -webkit-transition: all .4s ease;
 }

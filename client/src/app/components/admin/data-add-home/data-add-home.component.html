@@ -3,11 +3,12 @@
     <div class="img_dir">
       <div class="row">
         <div class="col-12 col-md-10">
-          <h1 class='textKati col-12'> {{ img_keep.data.length }} / 9 </h1>
+          <h1 class='textKati col-12'> {{ img_keep[0].photosub.length }} / 9 </h1>
 
           <div class="borderPhotoAll">
             <div class="row">
-              <div class="img_show_all col-12 col-md-4" *ngFor="let data of img_keep.photosub">
+              <div class="img_show_all col-12 col-md-4" *ngFor="let data of img_keep[0].photosub">
+                <a class='closeBtn' (click)="deletePhoto(data.id)">x</a>
                 <img (click)="seletePhoto(data.photoPath)" src="{{host}}/subPhoto/{{data.photoPath}}" alt="">
               </div>
             </div>

@@ -71,7 +71,7 @@ export async function getPhotoKeep(req, res, next) {
 export async function changePhoto(req, res, next) {
     try {
         let file = req.files[0].filename
-        let photo_
+        let photo_ , message_temp
         if (req.files) {
             let nullOrNot = await PhotoPath.find() //Check data have to null. If not null will replace data.
             if (!nullOrNot.length) {
@@ -85,15 +85,25 @@ export async function changePhoto(req, res, next) {
                 let save = await pathPhoto.save()
                 let findById = await PhotoPath.find()
                 photo_ = findById[0]
-            } else {
+                message_temp = "Save Image First Success."
+            } else if(nullOrNot[0].photosub.length <= 9) {
                 let findById = await PhotoPath.find()
-                let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id)
-                photo_ = updateData
+                findById[0].photosub.push({
+                    id: file.split(".")[0], // Created id for sead .
+                    photoPath: file // Created is file for show on client.
+                })
+                let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id , findById[0])
+                photo_ = [updateData] 
+                message_temp = "Add new Image success."
 
-            }        
+            }  else {
+                photo_ = nullOrNot
+                message_temp = "Data is not save. Because store for keep images isn't empty."
+            }
             res.json({
-                message : "Save Data Success" ,
-                data : JSON.stringify(photo_.photosub)
+                message : message_temp,
+                data : photo_ ,
+                
             })
             
         } else {

@@ -36,7 +36,7 @@ export class DataAddHomeComponent implements OnInit {
   }
   downloadsFileFirst: boolean = false
   img_data_temp: Array < File >
-  host: string = _host
+    host: string = _host
   img_data: string = ''
   changeData: string = ''
   img_keep: PhotoIs
@@ -58,16 +58,16 @@ export class DataAddHomeComponent implements OnInit {
   }
   upload2(e) {
     this.img_data_temp = < Array < File >> e.target.files
-    console.log(this.img_data_temp)
+
   }
   showDataIs_() {
     this._dataResort.getPhotoKeep().subscribe(suc => {
-      
+      console.log(suc)
       if (suc.length) {
         this.img_keep = suc
         this.img_keep_show = true
 
-      } else  {
+      } else {
         this.downloadsFileFirst = true
 
       }
@@ -85,18 +85,20 @@ export class DataAddHomeComponent implements OnInit {
       }
       this._dataResort.changePhoto(formData).subscribe(suc => {
         //this.img_keep = JSON.parse(suc).data
-        console.log(suc)
-        let img_keep = JSON.parse(suc.data)
-        this.img_keep = img_keep
-        console.log(this.img_keep)
+        let img_keep = suc
+        this.img_keep = img_keep.data
+        console.log(img_keep)
       }, err => console.log(err))
 
     }
   }
   deletePhoto(id: string) {
     ///info/photo
-    this._dataResort.deletePhotoService(id).subscribe(suc => console.log(suc), err => console.log(err))
-
+    if (confirm("You want to delete ? ")) {
+      this._dataResort.deletePhotoService(id).subscribe(suc => {
+        console.log(suc)
+      }, err => console.log(err))
+    }
   }
   submitUpdate() {
 
