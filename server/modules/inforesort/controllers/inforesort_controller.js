@@ -18,7 +18,7 @@ function readFileAsync(pathFile) {
 
 function writeFileAsync(pathFile, data) {
     return new Promise((res, rej) => {
-        fs.writeFile(pathFile, JSON.stringify(data),  (err, dataInfo) => {
+        fs.writeFile(pathFile, JSON.stringify(data), (err, dataInfo) => {
             if (err) {
                 rej(false)
             } else {
@@ -39,18 +39,19 @@ export function deletePhoto() {
         res.json(show)
     }))
 }
-export async function readFile(req, res , next) {
+export async function readFile(req, res, next) {
     try {
         let read = await readFileAsync("./modules/inforesort/models/resort_th.json")
         read = JSON.parse(read)
         let photoMain = await PhotoPath.find()
-        let photo 
-        if(!photoMain.length){
+        let photo
+        if (!photoMain.length) {
             photo = '/main/photo1.jpg'
-        }else {
-            photo = photoMain[photoMain.length - 1]
+        } else {
+            photo = "/subPhoto/" + photoMain[0].photoMain
 
         }
+        console.log(photo)
         read.photoMain = photo
         res.json(read)
     } catch (error) {
@@ -58,35 +59,42 @@ export async function readFile(req, res , next) {
     }
 
 }
-export async function getPhotoKeep(req,res,next) {
+export async function getPhotoKeep(req, res, next) {
     try {
         let readPhoto = await PhotoPath.find()
-        
+
         res.json(readPhoto)
     } catch (error) {
         next(error)
     }
 }
-export async function changePhoto(req, res , next) {
+export async function changePhoto(req, res, next) {
     try {
-        let id_ = req.files[0].filename.split(".")[0]
-
+        let file = req.files[0].filename
+        let photo_
         if (req.files) {
-            let pathFocued = './modules/inforesort/models/add_photo.json'
-            let readFile = await readFileAsync(pathFocued)
-            readFile = JSON.parse(readFile)
-            readFile.data.push({
-                id:id_,
-                photoPath : req.files[0].filename
-            })
-            let newObj = await writeFileAsync(pathFocued,readFile)
-            if(newObj){
-                res.json({
-                    message : "Save Image Success." ,
-                    data : JSON.stringify(readFile)
+            let nullOrNot = await PhotoPath.find() //Check data have to null. If not null will replace data.
+            if (!nullOrNot.length) {
+                let pathPhoto = new PhotoPath({
+                    photoMain: file,
+                    photosub: [{
+                        id: file.split(".")[0], // Created id for sead .
+                        photoPath: file // Created is file for show on client.
+                    }]
                 })
-            }
-            next("Can't Uploads Image")
+                let save = await pathPhoto.save()
+                let findById = await PhotoPath.find()
+                photo_ = findById[0]
+            } else {
+                let findById = await PhotoPath.find()
+                let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id)
+                photo_ = updateData
+
+            }        
+            res.json({
+                message : "Save Data Success" ,
+                data : JSON.stringify(photo_.photosub)
+            })
             
         } else {
             console.log("FIle is not required")

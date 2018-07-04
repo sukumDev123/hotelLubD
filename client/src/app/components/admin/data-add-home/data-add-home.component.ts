@@ -62,13 +62,14 @@ export class DataAddHomeComponent implements OnInit {
   }
   showDataIs_() {
     this._dataResort.getPhotoKeep().subscribe(suc => {
-      console.log(suc)
-      if (!suc) {
-
+      
+      if (suc.length) {
         this.img_keep = suc
         this.img_keep_show = true
-      } else {
+
+      } else  {
         this.downloadsFileFirst = true
+
       }
     }, err => console.log(err))
   }

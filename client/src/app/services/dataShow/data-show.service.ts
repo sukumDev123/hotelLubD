@@ -25,7 +25,7 @@ export class DataShowService {
   deletePhotoService(idDelete) : Observable<any>{
     return this._http.delete<any>(`${this._host}/api/data/info/photo/${idDelete}` )
   }
-  getPhotoKeep() : Observable<PhotoIs> {
-    return this._http.get<PhotoIs>(`${this._host}/api/data/info/photo`)
+  getPhotoKeep() : Observable<any> {
+    return this._http.get<any>(`${this._host}/api/data/info/photo`)
   }
 }
