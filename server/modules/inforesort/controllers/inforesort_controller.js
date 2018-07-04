@@ -32,12 +32,24 @@ const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _d
 
 
 /**-------------------------------------------------------------- */
-export function deletePhoto() {
-    fs.unlink(path.resolve('./public/main/photo-1530324185354-.png', err => {
-        let show = err ? err : "Success"
+export async function deletePhoto(req, res, next) {
 
-        res.json(show)
-    }))
+    try {
+        let photo_data = req.name_file
+        let find_ = await PhotoPath.find()
+        let photos = find_[0].photosub
+
+        let indexOf_ = photos.filter(suc => suc.id === photo_data )
+        photos.splice(indexOf_, 1)
+        
+         let revomeIs = await PhotoPath.findByIdAndUpdate(find_[0]._id , find_[0])
+        // photo_data
+        res.json(find_)
+
+
+    } catch (err) {
+        next(err)
+    }
 }
 export async function readFile(req, res, next) {
     try {
@@ -71,7 +83,7 @@ export async function getPhotoKeep(req, res, next) {
 export async function changePhoto(req, res, next) {
     try {
         let file = req.files[0].filename
-        let photo_ , message_temp
+        let photo_
         if (req.files) {
             let nullOrNot = await PhotoPath.find() //Check data have to null. If not null will replace data.
             if (!nullOrNot.length) {
@@ -85,27 +97,24 @@ export async function changePhoto(req, res, next) {
                 let save = await pathPhoto.save()
                 let findById = await PhotoPath.find()
                 photo_ = findById[0]
-                message_temp = "Save Image First Success."
-            } else if(nullOrNot[0].photosub.length <= 9) {
-                let findById = await PhotoPath.find()
+         
+            } else if (nullOrNot[0].photosub.length <= 9) {
+                let findById = nullOrNot
                 findById[0].photosub.push({
                     id: file.split(".")[0], // Created id for sead .
                     photoPath: file // Created is file for show on client.
                 })
-                let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id , findById[0])
-                photo_ = [updateData] 
-                message_temp = "Add new Image success."
+                let updateData = await PhotoPath.findByIdAndUpdate(findById[0]._id, findById[0])
+                let new_ = await PhotoPath.find()
+                photo_ = new_
+         
 
-            }  else {
+            } else {
                 photo_ = nullOrNot
-                message_temp = "Data is not save. Because store for keep images isn't empty."
+         
             }
-            res.json({
-                message : message_temp,
-                data : photo_ ,
-                
-            })
-            
+            res.json(photo_)
+
         } else {
             console.log("FIle is not required")
         }
@@ -135,6 +144,15 @@ export async function writeFileResort(req, res) {
     }
 
 }
-export function paramId(req, res, next, id) {
+export async function paramId(req, res, next, id) {
+    if (id) {
 
+        req.name_file = id
+        next()
+
+    } else {
+        res.status(400).json({
+            message: "You have not require id param for client."
+        })
+    }
 }

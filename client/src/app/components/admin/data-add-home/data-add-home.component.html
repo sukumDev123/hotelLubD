@@ -8,6 +8,10 @@
           <div class="borderPhotoAll">
             <div class="row">
               <div class="img_show_all col-12 col-md-4" *ngFor="let data of img_keep[0].photosub">
+                <div class="col-12">
+                <label for="name">{{data.id }}</label>
+
+                </div>
                 <a class='closeBtn' (click)="deletePhoto(data.id)">x</a>
                 <img (click)="seletePhoto(data.photoPath)" src="{{host}}/subPhoto/{{data.photoPath}}" alt="">
               </div>

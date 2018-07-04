@@ -85,9 +85,8 @@ export class DataAddHomeComponent implements OnInit {
       }
       this._dataResort.changePhoto(formData).subscribe(suc => {
         //this.img_keep = JSON.parse(suc).data
-        let img_keep = suc
-        this.img_keep = img_keep.data
-        console.log(img_keep)
+        console.log(suc)
+        this.img_keep = suc
       }, err => console.log(err))
 
     }
@@ -96,7 +95,8 @@ export class DataAddHomeComponent implements OnInit {
     ///info/photo
     if (confirm("You want to delete ? ")) {
       this._dataResort.deletePhotoService(id).subscribe(suc => {
-        console.log(suc)
+       
+       this.img_keep = suc   
       }, err => console.log(err))
     }
   }
