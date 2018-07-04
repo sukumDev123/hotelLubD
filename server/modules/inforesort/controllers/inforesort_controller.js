@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-
+import mongoose from 'mongoose'
+const PhotoPath = mongoose.model("PhotoPath")
 
 function readFileAsync(pathFile) {
     return new Promise((res, rej) => {
@@ -17,11 +18,11 @@ function readFileAsync(pathFile) {
 
 function writeFileAsync(pathFile, data) {
     return new Promise((res, rej) => {
-        fs.writeFile(path.resolve(pathFile), JSON.stringify(data), 'utf8', (err, dataInfo) => {
+        fs.writeFile(pathFile, JSON.stringify(data),  (err, dataInfo) => {
             if (err) {
-                rej(err)
+                rej(false)
             } else {
-                res(dataInfo)
+                res(true)
             }
         })
     })
@@ -38,42 +39,61 @@ export function deletePhoto() {
         res.json(show)
     }))
 }
-export async function readFile(req, res) {
+export async function readFile(req, res , next) {
     try {
         let read = await readFileAsync("./modules/inforesort/models/resort_th.json")
-        let readPhoto = await readFileAsync("./modules/inforesort/models/photo_path.json")
         read = JSON.parse(read)
-        readPhoto = JSON.parse(readPhoto)
-        read.photoMain = readPhoto.photoMain
+        let photoMain = await PhotoPath.find()
+        let photo 
+        if(!photoMain.length){
+            photo = '/main/photo1.jpg'
+        }else {
+            photo = photoMain[photoMain.length - 1]
+
+        }
+        read.photoMain = photo
         res.json(read)
     } catch (error) {
-        res.status(404).json({
-            message: "Not Found \n" + error
-        })
+        next(error)
     }
 
 }
-
-export async function changePhoto(req, res) {
-    
-    let id_ = req.files[0].filename.split(".")[0]
+export async function getPhotoKeep(req,res,next) {
     try {
-        if(req.files){
-        let pathFocued = './modules/inforesort/models/photo_path.json'
-        let readPhotopath = await readFileAsync(pathFocued)
-        readPhotopath = JSON.parse(readPhotopath)
-        readPhotopath.phototemp.push({
-            id : id_ ,
-            photopath: req.files[0].path
-        })
-        let writeFileValue = await writeFileAsync(pathFocued, readPhotopath)
-        res.json({
-            message : "Save Image Photo Success ."
-        })    
-        }
+        let readPhoto = await PhotoPath.find()
         
+        res.json(readPhoto)
     } catch (error) {
-        console.log(error)
+        next(error)
+    }
+}
+export async function changePhoto(req, res , next) {
+    try {
+        let id_ = req.files[0].filename.split(".")[0]
+
+        if (req.files) {
+            let pathFocued = './modules/inforesort/models/add_photo.json'
+            let readFile = await readFileAsync(pathFocued)
+            readFile = JSON.parse(readFile)
+            readFile.data.push({
+                id:id_,
+                photoPath : req.files[0].filename
+            })
+            let newObj = await writeFileAsync(pathFocued,readFile)
+            if(newObj){
+                res.json({
+                    message : "Save Image Success." ,
+                    data : JSON.stringify(readFile)
+                })
+            }
+            next("Can't Uploads Image")
+            
+        } else {
+            console.log("FIle is not required")
+        }
+
+    } catch (error) {
+        next(error)
     }
 
 }

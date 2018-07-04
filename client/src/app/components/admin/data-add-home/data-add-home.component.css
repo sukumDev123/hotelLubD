@@ -1,0 +1,38 @@
+.show_img_dir{
+    background: rgba(0,0,0,0.5);
+    width:100%;
+    z-index: 1000;
+    height: 100%;
+    position: fixed;
+    left: 0;
+}
+.img_show_all{
+    padding: 20px;
+    
+    
+}
+.borderPhotoAll{
+    height: 300px;
+    width:100%;
+    overflow: scroll;
+    background: rgba(0,0,0,0.1)
+
+
+}
+.img_show_all img:hover{
+    box-shadow: 0 0 10px 1px rgba(0,0,0,0.5)
+}
+.img_show_all img{
+    width: 320px;
+    height: 200px;
+    cursor: pointer;
+    border-radius: 3px;  
+}
+.img_dir{
+    background: white;
+    width: 95%;
+    padding: 20px;
+    margin: auto;
+    margin-top:10%;
+    box-shadow: 0 0 30px 2px rgba(0,0,0,0.3)
+}

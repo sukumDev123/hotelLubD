@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import host from '../../host.global'
-import { DataResort } from '../../interface/data.interface';
+import { DataResort } from '../../interface/data.interface'
+import { PhotoIs } from '../../interface/photoKeep';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +24,8 @@ export class DataShowService {
   }
   deletePhotoService(idDelete) : Observable<any>{
     return this._http.delete<any>(`${this._host}/api/data/info/photo/${idDelete}` )
+  }
+  getPhotoKeep() : Observable<PhotoIs> {
+    return this._http.get<PhotoIs>(`${this._host}/api/data/info/photo`)
   }
 }
