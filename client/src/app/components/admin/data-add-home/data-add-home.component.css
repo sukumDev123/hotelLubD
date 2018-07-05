@@ -10,6 +10,13 @@
 .img_show_all {
   padding: 20px;
 }
+.noti{
+  position: fixed ;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 2000;
+}
 
 .borderPhotoAll {
   height: 300px;

@@ -8,9 +8,7 @@ import {
 import {
   DataShowService
 } from '../../../services/dataShow/data-show.service';
-import {
-  DataResortClass
-} from '../../../class/data-reosrt.class';
+
 import _host from '../../../host.global'
 import {
   DataResort
@@ -34,6 +32,8 @@ export class DataAddHomeComponent implements OnInit {
     title2: '',
     descriton2: ''
   }
+  success: string
+  error: string
   downloadsFileFirst: boolean = false
   img_data_temp: Array < File >
     host: string = _host
@@ -46,8 +46,7 @@ export class DataAddHomeComponent implements OnInit {
 
   ngOnInit() {
     this._dataResort.readData().subscribe(suc => {
-      let data = new DataResortClass(suc)
-      this._data_ = data.getShowData()
+      this._data_ = suc
       this.img_data = (this.host + this._data_.photoMain)
     })
 
@@ -85,9 +84,20 @@ export class DataAddHomeComponent implements OnInit {
       }
       this._dataResort.changePhoto(formData).subscribe(suc => {
         //this.img_keep = JSON.parse(suc).data
-        console.log(suc)
+
         this.img_keep = suc
-      }, err => console.log(err))
+        this.success = "Add photo list to resort success."
+        setTimeout(() => {
+          this.success = ''
+        }, 3000)
+
+      }, err => {
+        this.error = "Can't add photo list."
+        setTimeout(() => {
+          this.error = ''
+        }, 3000)
+
+      })
 
     }
   }
@@ -97,17 +107,39 @@ export class DataAddHomeComponent implements OnInit {
       this._dataResort.deletePhotoService(id).subscribe(suc => {
 
         this.img_keep = suc
-      }, err => console.log(err))
+        this.success = "This photo deleted."
+        setTimeout(() => {
+          this.success = ''
+        }, 3000)
+
+      }, err => {
+        this.error = " Can't delete this photo."
+        setTimeout(() => {
+          this.error = ''
+        }, 3000)
+
+      })
     }
   }
-  submitUpdate() {
 
-  }
   UpdatePhotoMainPath() {
     let img_file = this.img_data.split('/')[4]
     this._dataResort.changePhotoMain(img_file).subscribe(suc => {
       this.img_data = `${this.host}/subPhoto/${suc[0].photoMain}`
+      this.success = "Change Photo main Success."
+      setTimeout(() => {
+        this.success = ''
+      }, 3000)
+    }, err => {
+      this.error = "Can not Change PhotoMain."
+      setTimeout(() => {
+        this.error = ''
+      }, 3000)
+    })
+  }
+  // ------------------------------- > photo handler
 
-    },err => console.log(err))
+  submitUpdate() {
+    console.log(this._data_)
   }
 }
