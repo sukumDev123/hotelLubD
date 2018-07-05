@@ -10,6 +10,7 @@ import { UserServiceService } from './services/users/auth/user-service.service'
 import { StoreModule  } from '@ngrx/store'
 import bookingReducer from './reducer/booking.reducer';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceprot } from './auth. interceptor';
 
 function tokenGetter () {
   return localStorage.getItem('Login')
@@ -37,7 +38,11 @@ function tokenGetter () {
     AdminServiceService
     , DataShowService
     ,UserServiceService
-   
+    , {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceprot,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

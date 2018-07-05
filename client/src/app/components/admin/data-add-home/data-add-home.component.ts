@@ -48,7 +48,7 @@ export class DataAddHomeComponent implements OnInit {
     this._dataResort.readData().subscribe(suc => {
       this._data_ = suc
       this.img_data = (this.host + this._data_.photoMain)
-    })
+    }, err => console.log(err))
 
   }
   seletePhoto(photo: string) {
@@ -61,7 +61,7 @@ export class DataAddHomeComponent implements OnInit {
   }
   showDataIs_() {
     this._dataResort.getPhotoKeep().subscribe(suc => {
-      console.log(suc)
+
       if (suc.length) {
         this.img_keep = suc
         this.img_keep_show = true
@@ -73,8 +73,6 @@ export class DataAddHomeComponent implements OnInit {
     }, err => console.log(err))
   }
   saveUploads(e) {
-    // let arrayFile = []
-    // arrayFile[0] = this.img_data_temp
 
     const formData: any = new FormData();
     const files: Array < File > = this.img_data_temp;
@@ -140,6 +138,18 @@ export class DataAddHomeComponent implements OnInit {
   // ------------------------------- > photo handler
 
   submitUpdate() {
-    console.log(this._data_)
+    this._dataResort.changeData(this._data_).subscribe(suc => {
+      this._data_ = suc
+      this.success = "Update Data Success."
+      setTimeout(() => {
+        this.success = ''
+      }, 3000)
+    }, err => {
+      this.error = err.error.message
+      this._data_ = err.error.data
+      setTimeout(() => {
+        this.error = ''
+      }, 3000)
+    })
   }
 }

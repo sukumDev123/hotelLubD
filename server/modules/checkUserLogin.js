@@ -15,7 +15,7 @@ function authorizationCheck(req) {
                 res(jwtFind)
             } catch (error) {
                 rej({
-                    status : 400 ,
+                    status : 401 ,
                     messge : error
                 })
             }

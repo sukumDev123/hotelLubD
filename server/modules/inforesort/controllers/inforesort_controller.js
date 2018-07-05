@@ -28,7 +28,7 @@ function writeFileAsync(pathFile, data) {
     })
 }
 
-const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && data.title2 && data.descriton2) ? true : false
+const isNotNull = _data => (_data.title && _data.photoMain && _data.detail && _data.address && _data.phone && _data.title2 && _data.descriton2) ? true : false
 
 
 
@@ -154,11 +154,12 @@ export async function writeFileResort(req, res) {
     try {
         if (isNotNull(req.body)) {
             let read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
-            res.json(read)
-
+            let find_ = await readFileAsync("./modules/inforesort/models/resort_th.json")
+            res.json(JSON.parse(find_))
         } else {
-            res.json({
-                message: 'Data is empty.'
+            res.status(403).json({
+                message: 'Data is empty.' ,
+                data : req.body
             })
         }
     } catch (error) {
