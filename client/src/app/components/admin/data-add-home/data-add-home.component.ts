@@ -145,11 +145,17 @@ export class DataAddHomeComponent implements OnInit {
         this.success = ''
       }, 3000)
     }, err => {
-      this.error = err.error.message
-      this._data_ = err.error.data
-      setTimeout(() => {
-        this.error = ''
-      }, 3000)
+      if (err.status === 401) {
+        alert(err.msg.message)
+        this._user.Logout()
+      } else {
+        this.error = err.msg.message
+        this._data_ = err.msg.data
+
+        setTimeout(() => {
+          this.error = ''
+        }, 3000)
+      }
     })
   }
 }
