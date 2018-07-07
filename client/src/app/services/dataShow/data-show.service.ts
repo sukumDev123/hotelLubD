@@ -29,7 +29,9 @@ export class DataShowService {
   constructor(private _http: HttpClient , private _user : UserGlobalService) {}
 
   readData(): Observable < DataResort > {
-    return this._http.get < DataResort > (`${this._host}/api/data/info/resort`)
+    return this._http.get < DataResort > (`${this._host}/api/data/info/resort`).pipe(
+      catchError(this.errHandler)
+    )
   }
   changeData(data: DataResort): Observable < DataResort> {
     return this._http.post < any > (`${this._host}/api/data/info/resort`, data).pipe(
@@ -44,15 +46,23 @@ export class DataShowService {
     })
   }
   changePhoto(photo): Observable < any > {
-    return this._http.post < any > (`${this._host}/api/data/info/photo`, photo)
+    return this._http.post < any > (`${this._host}/api/data/info/photo`, photo).pipe(
+      catchError(this.errHandler)
+    )
   }
   deletePhotoService(idDelete): Observable < any > {
-    return this._http.delete < any > (`${this._host}/api/data/info/photo/${idDelete}`)
+    return this._http.delete < any > (`${this._host}/api/data/info/photo/${idDelete}`).pipe(
+      catchError(this.errHandler)
+    )
   }
   getPhotoKeep(): Observable < any > {
-    return this._http.get < any > (`${this._host}/api/data/info/photo`)
+    return this._http.get < any > (`${this._host}/api/data/info/photo`).pipe(
+      catchError(this.errHandler)
+    )
   }
   changePhotoMain(file: string): Observable < any > {
-    return this._http.put < any > (`${this._host}/api/data/info/photo/${file}`, file)
+    return this._http.put < any > (`${this._host}/api/data/info/photo/${file}`, file).pipe(
+      catchError(this.errHandler)
+    )
   }
 }

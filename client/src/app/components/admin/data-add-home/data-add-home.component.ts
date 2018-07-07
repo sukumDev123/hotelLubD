@@ -16,6 +16,9 @@ import {
 import {
   PhotoIs
 } from '../../../interface/photoKeep';
+import {
+  Router
+} from '../../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-data-add-home',
@@ -41,14 +44,37 @@ export class DataAddHomeComponent implements OnInit {
   changeData: string = ''
   img_keep: PhotoIs
   img_keep_show: boolean = false
-  constructor(private _user: UserGlobalService, private _dataResort: DataShowService) {}
+  constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router) {}
 
+  sendErrorMsg(err) { // Error msg for send user
+    if (err.status === 401) {
+      this._user.Logout()
+      alert(err.msg)
+    } else if (err.status === 0) {
+      this._router.navigate(['/problem/pagr'])
+    }
+    this.error = err.meg
+    setTimeout(() => {
+      this.error = ''
+    }, 3000)
+  }
+  successMsg(data, msg) {
+    {
+      this.img_keep = data
+      this.success = msg
+      setTimeout(() => {
+        this.success = ''
+      }, 3000)
+
+    }
+
+  }
 
   ngOnInit() {
     this._dataResort.readData().subscribe(suc => {
       this._data_ = suc
       this.img_data = (this.host + this._data_.photoMain)
-    }, err => console.log(err))
+    }, err => this.sendErrorMsg(err))
 
   }
   seletePhoto(photo: string) {
@@ -68,9 +94,8 @@ export class DataAddHomeComponent implements OnInit {
 
       } else {
         this.downloadsFileFirst = true
-
       }
-    }, err => console.log(err))
+    }, err => this.sendErrorMsg(err))
   }
   saveUploads(e) {
 
@@ -80,82 +105,27 @@ export class DataAddHomeComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         formData.append("photo", files[i], files[i]['name']);
       }
-      this._dataResort.changePhoto(formData).subscribe(suc => {
-        //this.img_keep = JSON.parse(suc).data
+      this._dataResort.changePhoto(formData).subscribe(suc => this.successMsg(suc, "Uploads Image SUccess."), err =>
+        this.sendErrorMsg(err)
 
-        this.img_keep = suc
-        this.success = "Add photo list to resort success."
-        setTimeout(() => {
-          this.success = ''
-        }, 3000)
-
-      }, err => {
-        this.error = "Can't add photo list."
-        setTimeout(() => {
-          this.error = ''
-        }, 3000)
-
-      })
+      )
 
     }
   }
   deletePhoto(id: string) {
     ///info/photo
     if (confirm("You want to delete ? ")) {
-      this._dataResort.deletePhotoService(id).subscribe(suc => {
-
-        this.img_keep = suc
-        this.success = "This photo deleted."
-        setTimeout(() => {
-          this.success = ''
-        }, 3000)
-
-      }, err => {
-        this.error = " Can't delete this photo."
-        setTimeout(() => {
-          this.error = ''
-        }, 3000)
-
-      })
+      this._dataResort.deletePhotoService(id).subscribe(suc => this.successMsg(suc, "Deleted Image Success"), err => this.sendErrorMsg(err))
     }
   }
 
   UpdatePhotoMainPath() {
     let img_file = this.img_data.split('/')[4]
-    this._dataResort.changePhotoMain(img_file).subscribe(suc => {
-      this.img_data = `${this.host}/subPhoto/${suc[0].photoMain}`
-      this.success = "Change Photo main Success."
-      setTimeout(() => {
-        this.success = ''
-      }, 3000)
-    }, err => {
-      this.error = "Can not Change PhotoMain."
-      setTimeout(() => {
-        this.error = ''
-      }, 3000)
-    })
+    this._dataResort.changePhotoMain(img_file).subscribe(suc => this.successMsg(`${this.host}/subPhoto/${suc[0].photoMain}`, "Change Photo main Success."), err => this.sendErrorMsg(err))
   }
   // ------------------------------- > photo handler
 
   submitUpdate() {
-    this._dataResort.changeData(this._data_).subscribe(suc => {
-      this._data_ = suc
-      this.success = "Update Data Success."
-      setTimeout(() => {
-        this.success = ''
-      }, 3000)
-    }, err => {
-      if (err.status === 401) {
-        alert(err.msg.message)
-        this._user.Logout()
-      } else {
-        this.error = err.msg.message
-        this._data_ = err.msg.data
-
-        setTimeout(() => {
-          this.error = ''
-        }, 3000)
-      }
-    })
+    this._dataResort.changeData(this._data_).subscribe(suc => this.successMsg(suc , "Update Data Success." ) , err => this.sendErrorMsg(err))
   }
 }
