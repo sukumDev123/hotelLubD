@@ -14,37 +14,39 @@ import {
 } from 'rxjs/operators';
 import {
   RoomAdd,
-  RoomDetail
+  RoomDetail,
+  RoomArray,
+  RoomObject
 } from '../../../interface/room.interface';
 
 interface RoomCallBack {
   data: RoomAdd,
-    msg: String
+    msg: string
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomServiceService {
-  host: string = _host
+  private host: string = _host
   constructor(private _http: HttpClient) {}
 
-  handlerError(err) {
+  private handlerError(err) {
     return throwError({
       msg: err.error,
       status: err.status
     })
   }
 
-  addRoom(data: RoomAdd): Observable < RoomCallBack > {
-    return this._http.post < any > (`${this.host}/api/room`, data).pipe(
+  addRoom(data: RoomAdd): Observable < RoomObject > {
+    return this._http.post < any > (`${this.host}/api/room/add`, data).pipe(
       catchError(this.handlerError)
     )
 
   }
-  showRoom(): Observable < Array < RoomDetail >> {
+  showRoom(): Observable < RoomArray> {
     // TODO: to do created service for show room all data return array Room
-    return this._http.get < any > (`${this.host}/api`).pipe(
+    return this._http.get < any > (`${this.host}/api/room/show`).pipe(
       catchError(this.handlerError)
     )
   }

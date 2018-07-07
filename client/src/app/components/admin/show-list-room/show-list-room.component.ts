@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoomServiceService } from '../../../services/admin/roomS/room-service.service';
 
 @Component({
   selector: 'app-show-list-room',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowListRoomComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _room : RoomServiceService) { }
 
   ngOnInit() {
+    this._room.showRoom().subscribe(suc => {
+      console.log(suc)
+    })
   }
 
 }

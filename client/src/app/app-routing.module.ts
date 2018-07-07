@@ -39,7 +39,7 @@ const routes: Routes = [
     path: 'admin', component: AdminCoreComponent,  canActivate: [AdminGuard] , children: [
       { path: 'home', component: DataAddHomeComponent,  } ,
       { path : 'roomAdd' , component : AddRoomComponent } ,
-       {path : 'show' , component : ShowListRoomComponent}
+       {path : 'roomselect' , component : ShowListRoomComponent}
     ]
   },
   {

@@ -1,18 +1,18 @@
 class User {
-    protected firstname : String = ''
-    protected lastname : String = ''
-    protected phone : String = ''
-    protected email : String = ''
-    protected username : String = ''
-    protected password : String = ''
-    protected password2 : String = ''
-    protected roles  : String = ''
+    protected firstname : string = ''
+    protected lastname : string = ''
+    protected phone : string = ''
+    protected email : string = ''
+    protected username : string = ''
+    protected password : string = ''
+    protected password2 : string = ''
+    protected roles  : string = ''
     constructor( ) {
     } 
     
   }
 export class SignIn extends User {
-    constructor(username : String , password : String ) {
+    constructor(username : string , password : string ) {
       super() 
       this.username = username
       this.password = password
@@ -29,7 +29,7 @@ export class SignIn extends User {
 
   }
 export class Signup extends User {
-    constructor(firstname : String , lastname : String , email : String , username : String , password : String , password2 : String,phone : String , roles : String){
+    constructor(firstname : string , lastname : string , email : string , username : string , password : string , password2 : string,phone : string , roles : string){
       super()
       this.firstname = firstname
       this.lastname = lastname 

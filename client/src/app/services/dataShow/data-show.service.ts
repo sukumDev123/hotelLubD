@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 import { UserGlobalService } from '../users/user/user-global.service';
 
 interface DataResortCallBack {
-  message : String ,
+  message : string ,
   data : DataResort
 }
 

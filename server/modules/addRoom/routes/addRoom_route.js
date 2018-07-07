@@ -9,8 +9,8 @@ export function addRoom() {
 
     const router = Router();
     
-    router.route('/resort/rooms').get(rm_c.showRooms).post(checkUserLogin ,rm_c.addNewRoom)
-    router.route('/resort/room/:idRoom').get(rm_c.showRoom).put(checkUserLogin , rm_c.updateRoom).delete(checkUserLogin , rm_c.deleteRoom)
-    router.param('idRoom', rm_c.getParamRoom)
+    router.get('/show' , rm_c.getRoomData)
+    router.post('/add' , checkUserLogin , rm_c.add_new_room)
+    //router.param('num_select', rm_c.param_show_data)
     return router
 }

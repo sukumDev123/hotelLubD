@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomAdd } from '../../../interface/room.interface';
+import { RoomAdd, RoomDetail } from '../../../interface/room.interface';
+import { RoomServiceService } from '../../../services/admin/roomS/room-service.service';
+import { UserGlobalService } from '../../../services/users/user/user-global.service';
 
 
 
@@ -16,19 +18,23 @@ export class AddRoomComponent implements OnInit {
   }
   successMsgValue : string
   errorMsgValue : string
-  constructor() { }
+  constructor( private _room : RoomServiceService  , private _user : UserGlobalService) { }
 
   ngOnInit() {
   }
 
-  successMsgFunction( msg : string , delay_time : number  ) : void {
+  successMsgFunction( msg : string , data : RoomDetail   ) : void {
     this.successMsgValue = msg
+    console.log(data)
     setTimeout(() => {
       this.successMsgValue = ''
-    } , delay_time)
+    } , 3000)
    // NOTE: This is show messge Success. 
   }
-  errorMsg ( msg : string ) : void {
+  errorMsg ( msg : string , status : number ) : void {
+    if(status === 401 ) {
+      this._user.Logout()
+    }
     this.errorMsgValue = msg 
     setTimeout(() => {
       this.errorMsgValue = ''
@@ -38,10 +44,10 @@ export class AddRoomComponent implements OnInit {
 
   submitAddRoom() : void {
     if(this.room.name && this.room.number && this.room.priceRoom) {
-      console.log(this.room)
+      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message , suc.data ) , err => this.errorMsg(err.msg , err.status) )
 
     }else {
-      this.errorMsg("Plasae input every fils.")
+      this.errorMsg("Plasae input every fils." , 0 )
     }
   }
 
