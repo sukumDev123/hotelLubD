@@ -19,7 +19,7 @@ function tokenGetter () {
 @NgModule({
   declarations: [
     AppComponent,
-    ...AppComponentRoute,
+    ...AppComponentRoute
   ],
   imports: [
     BrowserModule,

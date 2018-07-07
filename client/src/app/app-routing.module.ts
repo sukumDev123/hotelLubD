@@ -5,7 +5,6 @@ import { DataAddHomeComponent } from './components/admin/data-add-home/data-add-
 import { SiginupComponent } from './components/auth/siginup/siginup.component';
 import { SignupAdminComponent } from './components/admin/signup-admin/signup-admin.component';
 import { ContentAdminComponent } from './components/admin/content-admin/content-admin.component';
-import { ContentPriceComponent } from './components/admin/content-price/content-price.component';
 import { AdminCoreComponent } from './components/admin/admin-core/admin-core.component';
 import { Page404Component } from './components/page404/page404.component';
 import { Page500Component } from './components/page500/page500.component';
@@ -64,7 +63,6 @@ export const AppComponentRoute = [
   , SiginComponent
   , SignupAdminComponent
   , ContentAdminComponent
-  , ContentPriceComponent
   , AdminCoreComponent
   , Page404Component
   , Page500Component

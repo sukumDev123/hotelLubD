@@ -21,9 +21,17 @@ import {
 import { Router } from '@angular/router';
 import { UserGlobalService } from '../users/user/user-global.service';
 
+interface DataResortCallBack {
+  message : String ,
+  data : DataResort
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class DataShowService {
   private _host = host
   constructor(private _http: HttpClient , private _user : UserGlobalService) {}
@@ -33,7 +41,7 @@ export class DataShowService {
       catchError(this.errHandler)
     )
   }
-  changeData(data: DataResort): Observable < DataResort> {
+  changeData(data: DataResort): Observable < DataResortCallBack > {
     return this._http.post < any > (`${this._host}/api/data/info/resort`, data).pipe(
       catchError(this.errHandler)
       

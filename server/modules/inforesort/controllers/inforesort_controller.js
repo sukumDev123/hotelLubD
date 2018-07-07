@@ -155,7 +155,10 @@ export async function writeFileResort(req, res) {
         if (isNotNull(req.body)) {
             let read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
             let find_ = await readFileAsync("./modules/inforesort/models/resort_th.json")
-            res.json(JSON.parse(find_))
+            res.json({
+                message : "Write File Success.",
+                data : JSON.parse(find_)
+            })
         } else {
             res.status(403).json({
                 message: 'Data is empty.' ,

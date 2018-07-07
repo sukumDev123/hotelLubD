@@ -39,7 +39,7 @@ export class DataAddHomeComponent implements OnInit {
   error: string
   downloadsFileFirst: boolean = false
   img_data_temp: Array < File >
-    host: string = _host
+  host: string = _host
   img_data: string = ''
   changeData: string = ''
   img_keep: PhotoIs
@@ -48,25 +48,27 @@ export class DataAddHomeComponent implements OnInit {
 
   sendErrorMsg(err) { // Error msg for send user
     if (err.status === 401) {
+      let msg = err.msg == 'object' ? err.msg.message : err.msg
       this._user.Logout()
-      alert(err.msg)
+      alert(msg)
     } else if (err.status === 0) {
-      this._router.navigate(['/problem/pagr'])
-    }
+      this._router.navigate(['/page/problem'])
+    } 
     this.error = err.meg
     setTimeout(() => {
       this.error = ''
     }, 3000)
   }
+
   successMsg(data, msg) {
-    {
+    
       this.img_keep = data
       this.success = msg
       setTimeout(() => {
         this.success = ''
       }, 3000)
 
-    }
+    
 
   }
 
@@ -126,6 +128,6 @@ export class DataAddHomeComponent implements OnInit {
   // ------------------------------- > photo handler
 
   submitUpdate() {
-    this._dataResort.changeData(this._data_).subscribe(suc => this.successMsg(suc , "Update Data Success." ) , err => this.sendErrorMsg(err))
+    this._dataResort.changeData(this._data_).subscribe(suc => this.successMsg(suc.data , suc.message ) , err => this.sendErrorMsg(err))
   }
 }
