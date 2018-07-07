@@ -16,6 +16,12 @@
         <input type="text" [(ngModel)]='room.number' name='number' class="form-control">
       </div>
       <div class="md-form p-2">
+        <select class='form-control' [(ngModel)]='room.type' name='type'>
+          <option value="{{ room.type }}"> {{ room.type }} </option>
+          <option *ngFor='let data of room_type' value="{{ data }} "> {{ data }} </option>
+        </select>
+      </div>
+      <div class="md-form p-2">
         <label for="name"> ราคาห้อง </label>
 
         <input type="text" [(ngModel)]='room.priceRoom' name='price' class="form-control">
@@ -25,6 +31,7 @@
           เพิ่มห้อง
         </button>
       </div>
+
     </form>
   </div>
 

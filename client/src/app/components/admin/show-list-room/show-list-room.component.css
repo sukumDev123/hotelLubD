@@ -1,0 +1,15 @@
+.edit{
+    position: relative;
+    left: 100px;
+    cursor: pointer;
+}
+
+.edit:hover{
+    color:rgba(255, 239, 14, 0.959);
+}
+.data{
+    text-align: left;
+}
+.bottom_date{
+    text-align: right 
+}

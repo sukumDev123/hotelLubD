@@ -35,7 +35,8 @@ const RoomSchema = new Schema({
     priceRoom : {
         type : Number , 
         default : 0 
-    }
+    },
+    type : String
 })
 
 

@@ -1,3 +1,34 @@
-<p>
-  show-list-room works!
-</p>
+<div class="container">
+  <div class="col-12 col-md-8 marginC">
+    <div class="row">
+      <div *ngIf='roomListIsNotEmpty'>
+        <div class="col-12 col-md-4 p-2 " *ngFor='let data of roomList'>
+          <div class="data">
+            <div class="edit">
+              <i class="far fa-edit"></i>
+            </div>
+            <h5 class="textKati text-primary">
+              {{ data.name }}
+            </h5>
+            <div class="bottom_date">
+              <div class="col-12">
+                <p style='background: red;'>{{ data.type }}</p>
+              </div>
+              <p> {{ data.priceRoom }}.00 </p>
+              <div class="col-12">
+                <small class="text-right textKati"> {{ data.create_at }} </small>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div *ngIf='!roomListIsNotEmpty' class="col-12 col-md-4 marginC">
+        <h5 class='showBecauseEmptyArray'>
+          Array is Empty.
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
