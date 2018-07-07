@@ -1,3 +1,31 @@
-<p>
-  add-room works!
-</p>
+<div class="container p-3">
+  <div class="col-12 col-md-6 marginC">
+    <div class="col-12 p-1 ">
+      <h5 class="textKati text-center text-primary">
+        เพิ่มรายชื่อห้อง
+      </h5>
+    </div>
+    <form (ngSubmit)="submitAddRoom()">
+      <div class="md-form p-2">
+        <label for="name"> ชื่อของห้อง </label>
+        <input type="text" placeholder="ชื่อห้อง" [(ngModel)]='room.name' name='name' class="form-control">
+      </div>
+      <div class="md-form p-2">
+        <label for="name"> เลขห้อง </label>
+
+        <input type="text" [(ngModel)]='room.number' name='number' class="form-control">
+      </div>
+      <div class="md-form p-2">
+        <label for="name"> ราคาห้อง </label>
+
+        <input type="text" [(ngModel)]='room.priceRoom' name='price' class="form-control">
+      </div>
+      <div class="md-from p-2">
+        <button type='submit' class="btn btn-primary btn-block">
+          เพิ่มห้อง
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
