@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoomAdd } from '../../../interface/room.interface';
 
 
 
@@ -25,18 +26,19 @@ export class AddRoomComponent implements OnInit {
     setTimeout(() => {
       this.successMsgValue = ''
     } , delay_time)
-    
+   // NOTE: This is show messge Success. 
   }
   errorMsg ( msg : string ) : void {
     this.errorMsgValue = msg 
     setTimeout(() => {
       this.errorMsgValue = ''
     })
+    // NOTE: This is message Error
   }
 
   submitAddRoom() : void {
-    console.log(this.room)
     if(this.room.name && this.room.number && this.room.priceRoom) {
+      console.log(this.room)
 
     }else {
       this.errorMsg("Plasae input every fils.")

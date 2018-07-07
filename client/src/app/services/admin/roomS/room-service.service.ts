@@ -12,6 +12,10 @@ import {
 import {
   catchError
 } from 'rxjs/operators';
+import {
+  RoomAdd,
+  RoomDetail
+} from '../../../interface/room.interface';
 
 interface RoomCallBack {
   data: RoomAdd,
@@ -38,8 +42,11 @@ export class RoomServiceService {
     )
 
   }
-  showRoom() {
+  showRoom(): Observable < Array < RoomDetail >> {
     // TODO: to do created service for show room all data return array Room
+    return this._http.get < any > (`${this.host}/api`).pipe(
+      catchError(this.handlerError)
+    )
   }
   deleteRoom() {
     //TODO: To do is deleted serveice for delete room which isn't need.
