@@ -18,6 +18,9 @@ import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthComponent } from './components/auth/auth/auth.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { AboutRoomComponent } from './components/admin/about-room/about-room.component';
+import { AddRoomComponent } from './components/admin/add-room/add-room.component';
+import { ShowListRoomComponent } from './components/admin/show-list-room/show-list-room.component';
 
 const routes: Routes = [
   {
@@ -35,7 +38,11 @@ const routes: Routes = [
   { path: 'signup/admin', component: SignupAdminComponent },
   {
     path: 'admin', component: AdminCoreComponent,  canActivate: [AdminGuard] , children: [
-      { path: 'home', component: DataAddHomeComponent,  }
+      { path: 'home', component: DataAddHomeComponent,  } ,
+      { path: 'room' , component : AboutRoomComponent ,children : [
+       { path : 'add' , component : AddRoomComponent } ,
+       {path : 'show' , component : ShowListRoomComponent}
+      ] }
     ]
   },
   {
@@ -73,4 +80,7 @@ export const AppComponentRoute = [
   , CoreUserComponent
   , AuthComponent
   , BookingComponent
+  , AboutRoomComponent
+  , AddRoomComponent
+  , ShowListRoomComponent
 ];
