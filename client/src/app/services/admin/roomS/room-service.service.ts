@@ -31,31 +31,35 @@ export class RoomServiceService {
   private host: string = _host
   constructor(private _http: HttpClient) {}
 
+
   private handlerError(err) {
     return throwError({
       msg: err.error,
       status: err.status
     })
   }
-
+ 
   addRoom(data: RoomAdd): Observable < RoomObject > {
     return this._http.post < any > (`${this.host}/api/room/add`, data).pipe(
       catchError(this.handlerError)
     )
 
   }
-  showRoom(): Observable < RoomArray> {
+  showRoom(): Observable < RoomArray > {
     // TODO: to do created service for show room all data return array Room
     return this._http.get < any > (`${this.host}/api/room/show`).pipe(
       catchError(this.handlerError)
     )
   }
-  editRoom(data : RoomDetail , id : string ) :Observable<RoomObject> {
-    return this._http.put<any>(`${this.host}/api/room/edit/${id}` , data ).pipe(
+  editRoom(data: RoomDetail, id: string): Observable < RoomObject > {
+    return this._http.put < any > (`${this.host}/api/room/edit/${id}`, data).pipe(
       catchError(this.handlerError)
     )
   }
-  deleteRoom() {
+  deleteRoom(id: string): Observable < RoomArray > {
     //TODO: To do is deleted serveice for delete room which isn't need.
+    return this._http.delete < any > (`${this.host}/api/room/delete/${id}`).pipe(
+      catchError(this.handlerError)
+    )
   }
 }

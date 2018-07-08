@@ -11,6 +11,9 @@ import {
 import {
   UserGlobalService
 } from '../../../services/users/user/user-global.service';
+import {
+  ErrHandlerService
+} from '../../../services/err-handler/err-handler.service';
 
 @Component({
   selector: 'app-show-list-room',
@@ -25,7 +28,7 @@ export class ShowListRoomComponent implements OnInit {
   roomTemp: RoomDetail
   roomListIsNotEmpty: boolean = false
   show_edit_boolean: boolean = false
-  constructor(private _room: RoomServiceService, private _user: UserGlobalService) {}
+  constructor(private _room: RoomServiceService, private _user: UserGlobalService, private _err: ErrHandlerService) {}
 
   successMsgFunction(msg: string, data: RoomDetail): void {
     this.successMsgValue = msg
@@ -35,18 +38,11 @@ export class ShowListRoomComponent implements OnInit {
     }, 3000)
     // NOTE: This is show messge Success. 
   }
-  errorMsg(msg: string, status: number): void {
-    if (status === 401) {
-      alert(msg)
-      this._user.Logout()
-    }
-    this.errorMsgValue = msg
+  time_out_300() {
     setTimeout(() => {
       this.errorMsgValue = ''
-    })
-    // NOTE: This is message Error
+    }, 3000)
   }
-
 
   dateShow(date: string): string {
     let d = new Date(date)
@@ -64,6 +60,9 @@ export class ShowListRoomComponent implements OnInit {
         this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
         console.log(this.roomList)
       }
+    }, err => {
+      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
+      this.time_out_300()
     })
   }
   edit_data(data: RoomDetail) {
@@ -77,12 +76,26 @@ export class ShowListRoomComponent implements OnInit {
   }
 
   edit_page_submit() {
-    this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg.message, err.status))
+    this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
+      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
+      this.time_out_300()
+    })
 
   }
 
-  delete_data() {
-
+  delete_data(id: string) {
+    this._room.deleteRoom(id).subscribe(suc => {
+      this.roomList = []
+      if (suc.data.length) {
+        this.roomListIsNotEmpty = true
+        this.roomList = suc.data
+        this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
+        console.log(this.roomList)
+      }
+    }, err => {
+      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
+      this.time_out_300()
+    })
   }
 
 }

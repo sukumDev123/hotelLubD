@@ -12,6 +12,9 @@ import {
 import {
   UserGlobalService
 } from '../../../services/users/user/user-global.service';
+import {
+  ErrHandlerService
+} from '../../../services/err-handler/err-handler.service';
 
 
 
@@ -30,7 +33,7 @@ export class AddRoomComponent implements OnInit {
   }
   successMsgValue: string
   errorMsgValue: string
-  constructor(private _room: RoomServiceService, private _user: UserGlobalService) {}
+  constructor(private _room: RoomServiceService, private _user: UserGlobalService, private _err: ErrHandlerService) {}
 
   ngOnInit() {}
 
@@ -42,24 +45,18 @@ export class AddRoomComponent implements OnInit {
     }, 3000)
     // NOTE: This is show messge Success. 
   }
-  errorMsg(msg: string, status: number): void {
-    if (status === 401) {
-      alert(msg)
-      this._user.Logout()
-    }
-    this.errorMsgValue = msg
-    setTimeout(() => {
-      this.errorMsgValue = ''
-    })
-    // NOTE: This is message Error
-  }
 
   submitAddRoom(): void {
     if (this.room.name && this.room.number && this.room.priceRoom) {
-      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg.message, err.status))
+      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
+        this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
+        setTimeout(() => {
+          this.errorMsgValue = ''
+        }, 3000)
+      })
 
     } else {
-      this.errorMsg("Plasae input every fils.", 0)
+      //this.err("Plasae input every fils.", 0)
     }
   }
 
