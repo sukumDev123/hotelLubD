@@ -1,0 +1,41 @@
+import {
+  Injectable
+} from '@angular/core';
+import {
+  UserGlobalService
+} from '../users/user/user-global.service';
+import {
+  Router
+} from '../../../../node_modules/@angular/router';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ErrHandlerService {
+
+  constructor(private _router: Router, private _user: UserGlobalService) {}
+
+
+
+  err_handler_msg(msg: string, status: number) {
+    if (status === 401) {
+      alert(msg)
+      this._user.Logout()
+    }
+    let msg_ = this.msg_is_chnage(msg)
+    return msg_
+  }
+  private msg_is_chnage(msg: string) {
+    let test = msg.split(' ')
+    let new_
+    if (test[0] == "E11000") {
+      new_ = "หมายเลขห้องที่ท่านเลือก มีอยู่ในระบบเรียบร้อยแล้ว"
+    } else {
+      new_ = msg
+    }
+    return new_
+  }
+
+
+
+}
