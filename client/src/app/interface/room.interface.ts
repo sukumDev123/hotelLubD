@@ -2,7 +2,7 @@ export interface RoomAdd {
   name: string,
     number: number,
     priceRoom: number,
-    type : string
+    type: string
 }
 export interface RoomDetail {
   name: string,
@@ -11,8 +11,8 @@ export interface RoomDetail {
     liveDate: Date,
     liveLast: Date,
     liveNum: Date,
-    type : string ,
-    id: string
+    type: string,
+    _id: string
 }
 export interface RoomArray {
   data: Array < RoomDetail > ,
@@ -22,4 +22,3 @@ export interface RoomObject {
   data: RoomDetail,
     message: string
 }
-

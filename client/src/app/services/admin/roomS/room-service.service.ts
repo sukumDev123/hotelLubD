@@ -50,7 +50,7 @@ export class RoomServiceService {
       catchError(this.handlerError)
     )
   }
-  editRoom(data : RoomAdd , id : string ) :Observable<RoomObject> {
+  editRoom(data : RoomDetail , id : string ) :Observable<RoomObject> {
     return this._http.put<any>(`${this.host}/api/room/edit/${id}` , data ).pipe(
       catchError(this.handlerError)
     )

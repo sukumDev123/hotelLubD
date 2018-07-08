@@ -8,6 +8,9 @@ import {
 import {
   RoomDetail
 } from '../../../interface/room.interface';
+import {
+  UserGlobalService
+} from '../../../services/users/user/user-global.service';
 
 @Component({
   selector: 'app-show-list-room',
@@ -15,9 +18,35 @@ import {
   styleUrls: ['./show-list-room.component.css']
 })
 export class ShowListRoomComponent implements OnInit {
-  roomList: Array < RoomDetail >
-    roomListIsNotEmpty: boolean = false
-  constructor(private _room: RoomServiceService) {}
+  room_type: Array < string > = ['ห้องเดียว', 'ห้องคู่']
+  successMsgValue: string
+  errorMsgValue: string
+  roomList: Array < RoomDetail > = []
+  roomTemp: RoomDetail
+  roomListIsNotEmpty: boolean = false
+  show_edit_boolean: boolean = false
+  constructor(private _room: RoomServiceService, private _user: UserGlobalService) {}
+
+  successMsgFunction(msg: string, data: RoomDetail): void {
+    this.successMsgValue = msg
+    console.log(data)
+    setTimeout(() => {
+      this.successMsgValue = ''
+    }, 3000)
+    // NOTE: This is show messge Success. 
+  }
+  errorMsg(msg: string, status: number): void {
+    if (status === 401) {
+      alert(msg)
+      this._user.Logout()
+    }
+    this.errorMsgValue = msg
+    setTimeout(() => {
+      this.errorMsgValue = ''
+    })
+    // NOTE: This is message Error
+  }
+
 
   dateShow(date: string): string {
     let d = new Date(date)
@@ -37,9 +66,17 @@ export class ShowListRoomComponent implements OnInit {
       }
     })
   }
-  edit_data() {
-
+  edit_data(data: RoomDetail) {
+    this.show_edit_boolean = true
+    this.roomTemp = data
+    console.log(this.roomTemp)
   }
+
+  edit_page_submit() {
+  //  this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg, err.status))
+    console.log(this.roomTemp.type )
+  }
+
   delete_data() {
 
   }

@@ -13,6 +13,29 @@
 .edit_a {
   cursor: pointer;
 }
+/** NOTE: css edit page show  */
+.edit_page_show{
+
+  position: fixed;
+  width:100%;
+  background: rgba(0,0,0,0.5);
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: 1000;
+}
+
+.form_dev{
+  padding: 20px;
+  background: white;
+  width: 100%;
+  position: relative;
+  top:60px;
+  border-radius: 6px;
+  box-shadow: 0 0 20px 1px rgba(0,0,0,0.2)
+}
+
+/* NOTE: end css edit page   */
 
 .close_list :hover {
   color: rgb(235, 112, 112)
