@@ -44,6 +44,7 @@ export class AddRoomComponent implements OnInit {
   }
   errorMsg(msg: string, status: number): void {
     if (status === 401) {
+      alert(msg)
       this._user.Logout()
     }
     this.errorMsgValue = msg

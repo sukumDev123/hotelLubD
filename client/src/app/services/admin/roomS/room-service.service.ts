@@ -50,6 +50,11 @@ export class RoomServiceService {
       catchError(this.handlerError)
     )
   }
+  editRoom(data : RoomAdd , id : string ) :Observable<RoomObject> {
+    return this._http.put<any>(`${this.host}/api/room/edit/${id}` , data ).pipe(
+      catchError(this.handlerError)
+    )
+  }
   deleteRoom() {
     //TODO: To do is deleted serveice for delete room which isn't need.
   }

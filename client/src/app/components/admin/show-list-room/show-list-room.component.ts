@@ -21,7 +21,7 @@ export class ShowListRoomComponent implements OnInit {
 
   dateShow(date: string): string {
     let d = new Date(date)
-    let date_format = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
+    let date_format = `วันที่สร้าง : ${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
 
 
     return date_format
@@ -36,6 +36,12 @@ export class ShowListRoomComponent implements OnInit {
         console.log(this.roomList)
       }
     })
+  }
+  edit_data() {
+
+  }
+  delete_data() {
+
   }
 
 }

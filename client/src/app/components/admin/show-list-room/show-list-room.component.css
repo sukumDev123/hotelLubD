@@ -1,15 +1,35 @@
-.edit{
-    position: relative;
+.edit {
+  /* position: relative;
     left: 100px;
-    cursor: pointer;
+    cursor: pointer; */
+  text-align: right
 }
 
-.edit:hover{
-    color:rgba(255, 239, 14, 0.959);
+.photo_img {
+  width: 100%;
 }
-.data{
-    text-align: left;
+
+.close_list,
+.edit_a {
+  cursor: pointer;
 }
-.bottom_date{
-    text-align: right 
+
+.close_list :hover {
+  color: rgb(235, 112, 112)
+}
+
+.edit_a :hover {
+  color: rgba(255, 239, 14, 0.959);
+}
+
+.show_detail p {
+  margin: 0
+}
+
+.data {
+  text-align: left;
+}
+
+.bottom_date {
+  text-align: right
 }

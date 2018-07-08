@@ -1,28 +1,39 @@
 <div class="container">
   <div class="col-12 col-md-8 marginC">
     <div class="row">
-      <div *ngIf='roomListIsNotEmpty'>
-        <div class="col-12 col-md-4 p-2 " *ngFor='let data of roomList'>
-          <div class="data">
-            <div class="edit">
-              <i class="far fa-edit"></i>
-            </div>
-            <h5 class="textKati text-primary">
-              {{ data.name }}
-            </h5>
-            <div class="bottom_date">
-              <div class="col-12">
-                <p style='background: red;'>{{ data.type }}</p>
-              </div>
-              <p> {{ data.priceRoom }}.00 </p>
-              <div class="col-12">
-                <small class="text-right textKati"> {{ data.create_at }} </small>
+      <!-- <div *ngIf='roomListIsNotEmpty'> -->
+      <div class="col-12 col-md-4 p-2 " *ngFor='let data of roomList'>
+        <div class="data">
+          <div class="photo_div">
+            <img src="" alt="photo type room" class="photo_img">
+          </div>
+          <div class="edit">
+            <a (click)='edit_data()' class='p-2 edit_a' >
+                <i class="far fa-edit"></i>
+            </a>
+            
+            <a (click)='delete_data()' class='p-2 close_list' >
+                <i class="fas fa-times"></i>
+            </a>
+          </div>
+          <h5 class="textKati text-primary">
+            {{ data.name }}
+          </h5>
+          <div class="col-12 p-2 show_detail">
+            <p>{{ data.type }}</p>
+            <p> {{ data.priceRoom }}.00 บาท </p>
 
-              </div>
+          </div>
+          <div class="bottom_date">
+
+            <div class="col-12">
+              <small class="text-right textKati"> {{ data.create_at }} </small>
+
             </div>
           </div>
-
         </div>
+
+        <!-- </div> -->
       </div>
       <div *ngIf='!roomListIsNotEmpty' class="col-12 col-md-4 marginC">
         <h5 class='showBecauseEmptyArray'>
