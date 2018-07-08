@@ -11,6 +11,7 @@ export function addRoom() {
     
     router.get('/show' , rm_c.getRoomData)
     router.post('/add' , checkUserLogin , rm_c.add_new_room)
-    //router.param('num_select', rm_c.param_show_data)
+    router.put('/edit/:id_room' , rm_c.edit_room )
+    router.param('id_room' , rm_c.param_id_room)
     return router
 }
