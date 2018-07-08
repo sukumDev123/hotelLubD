@@ -56,7 +56,7 @@ export class AddRoomComponent implements OnInit {
 
   submitAddRoom(): void {
     if (this.room.name && this.room.number && this.room.priceRoom) {
-      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg, err.status))
+      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg.message, err.status))
 
     } else {
       this.errorMsg("Plasae input every fils.", 0)

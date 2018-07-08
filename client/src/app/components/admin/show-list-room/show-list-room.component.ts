@@ -71,10 +71,14 @@ export class ShowListRoomComponent implements OnInit {
     this.roomTemp = data
     console.log(this.roomTemp)
   }
+  change_select(e) {
+    let edit_ = e.target.value
+    this.roomTemp.type = edit_
+  }
 
   edit_page_submit() {
-  //  this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg, err.status))
-    console.log(this.roomTemp.type )
+    this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => this.errorMsg(err.msg.message, err.status))
+
   }
 
   delete_data() {

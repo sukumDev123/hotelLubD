@@ -1,14 +1,20 @@
 <div class="container">
+  <div class="noti" *ngIf='successMsgValue || errorMsgValue'>
+
+    <p class="success" *ngIf="successMsgValue">{{ successMsgValue }}</p>
+    <p class='error' *ngIf="errorMsgValue">{{ errorMsgValue }}</p>
+
+  </div>
   <div class="edit_page_show" *ngIf='show_edit_boolean'>
-  
+
 
     <div class="form_dev col-12 col-md-6 marginC ">
-        <div class="edit">
-            <a (click)='show_edit_boolean = false;' class='p-2 close_list'>
-              <i class="fas fa-times"></i>
-            </a>
-          </div>
-        <h1 class='textKati text-primary p-2 text-center' >Edit Room</h1>
+      <div class="edit">
+        <a (click)='show_edit_boolean = false;' class='p-2 close_list'>
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
+      <h1 class='textKati text-primary p-2 text-center'>Edit Room</h1>
       <form class='col-12 col-md-8 marginC' (ngSubmit)="edit_page_submit()">
         <div class="md-form">
           <label for="name">ชื่อห้อง</label>
@@ -25,9 +31,9 @@
           <input type="text" [(ngModel)]='roomTemp.priceRoom' name='priceRoom' class="form-control">
         </div>
         <div class="md-form">
-            <label for="type_room">ประเภทห้อง </label>
+          <label for="type_room">ประเภทห้อง </label>
 
-          <select ([ngModel])='roomTemp.type' name='type' class='form-control'>
+          <select ([ngModel])='roomTemp.type' name='type' (change)='change_select($event)' class='form-control'>
             <option value="{{ roomTemp.type }}"> {{ roomTemp.type }} </option>
             <option *ngFor='let room_t of room_type' value="{{ room_t }}"> {{ room_t }} </option>
           </select>
