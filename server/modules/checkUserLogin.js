@@ -53,10 +53,8 @@ export async function checkUserLogin(req, res, next) {
         req.user = findUser
         next()
     } catch (error) {
-        res.status(error.status).json({
-            status: error.status,
-            messge: "Promise.... Auth\n or " + error.messge
-        })
+
+        next(error)
     }
 }
 

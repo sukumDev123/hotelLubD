@@ -23,7 +23,7 @@ export async function edit_room(req, res, next) {
             data: find_new_update_data
         })
     } catch (error) {
-
+        next(error)
     }
 }
 export async function add_new_room(req, res, next) {
@@ -43,6 +43,19 @@ export async function add_new_room(req, res, next) {
                 message: "Reqire is not auth."
             })
         }
+    } catch (error) {
+        next(error)
+    }
+}
+export async function delete_room(req,res,next) {
+    try {
+        let id_room = req.room_id
+        let delete_this_room = await Room.findByIdAndRemove(id_room)
+        let find_ = await Room.find().limit(10).sort('-created_at')
+        res.json({
+            message : "Delete Room success.",
+            data : find_
+        })
     } catch (error) {
         next(error)
     }

@@ -1,4 +1,3 @@
-
 import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
@@ -53,17 +52,18 @@ function viewEngine(app) {
 	app.use(express.static('./public'))
 }
 
-function setNotFonud(req, res,next) {
+function setNotFonud(req, res, next) {
 	let err = new Error('Not Found')
 	err.status = 404
-	next(error)
+	next(err)
 }
-function handlerErroo(error,req,res,next){
-	res.status(error.status || 500).json({
-		error: {
-			state : error.state,
-			message : error.message
-		}
+
+function handlerErroo(error, req, res, next) {
+	return res.status(error.status || 500).json({
+
+		status: error.state,
+		message: error.message
+
 	})
 }
 
@@ -84,10 +84,10 @@ function routerPath(app) {
 	const {
 		contentRoutes
 	} = require(path.resolve('./modules/content/routes/content_route'))
-	app.use('/api/get' , function(req,res) {
+	app.use('/api/get', function (req, res) {
 		res.json({
 
-			"user" : "test"
+			"user": "test"
 		})
 	})
 	app.use('/api/user', userRoutes())
