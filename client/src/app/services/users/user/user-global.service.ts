@@ -1,7 +1,15 @@
-import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
-import { UserInfo } from '../../../interface/userinterface';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  JwtHelperService
+} from '@auth0/angular-jwt';
+import {
+  Router
+} from '@angular/router';
+import {
+  UserInfo
+} from '../../../interface/userinterface';
 
 
 
@@ -12,8 +20,8 @@ import { UserInfo } from '../../../interface/userinterface';
 })
 export class UserGlobalService {
 
-  constructor( private jwtHelper: JwtHelperService ,private _router : Router) { }
-  
+  constructor(private jwtHelper: JwtHelperService, private _router: Router) {}
+
   Logout() {
     if (this.isLogin()) {
       localStorage.removeItem("Login")
@@ -31,13 +39,15 @@ export class UserGlobalService {
   getSession() {
     return localStorage.getItem("Login")
   }
-  
+
   UserData(): UserInfo {
-    try {
-      return this.jwtHelper.decodeToken(this.getSession())
-    } catch (error) {
-      alert("Token is not ture")
-      this.Logout()
+    if (this.isLogin()) {
+      try {
+        return this.jwtHelper.decodeToken(this.getSession())
+      } catch (error) {
+        alert("Token is not ture")
+        this.Logout()
+      }
     }
     return {
       username: '',
@@ -47,6 +57,7 @@ export class UserGlobalService {
       roles: ['null'],
       _id: ''
     }
+
   }
 
   checkTokenExp() {
