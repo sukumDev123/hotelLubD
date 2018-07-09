@@ -1,15 +1,30 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-8 p-2">
-      <h5 class="text-center textKati">
-        My room is not empty
-      </h5>
+
       <div class="content-room">
-        <div class="data-room-show" *ngFor='let room of rooms; let i = index'>
-          <div class="room-detail" (click)="selete_this_room(room , i)">
-            <p [ngStyle]="{
-              'color' : color_style[i]
-            }" >{{ room.number }}</p>
+        <div class="row">
+
+          <div class="col-12 col-md-8 box_rooms ">
+            <h5 class="text-center p-3 textKait">
+              My room is not empty
+            </h5>
+            <div class="row">
+              <div class=" col-6 col-md-4 center_room " *ngFor='let room of rooms' (click)="selete_this_room(room)" >
+                <div class="name_text">
+                  <small for="nameroom" class="textKait"> ชนิดของห้อง : {{ room.type }} </small>
+
+                </div>
+                <h1 class="text-primary text-center textKait"> {{ room.number }}</h1>
+                <div class="price_text">
+                  <small for="roomprice" class="textKait"> ราคาห้องละ : {{ room.priceRoom }} บาท </small>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="col-12 col-md-4">
 
           </div>
         </div>
@@ -19,7 +34,11 @@
   <div class="row">
 
     <div class="col-12 col-md 6">
-      <h5> ขั้นตอนการจองรีสรอ์ท _1</h5>
+      <h5> คำนวนรายการ </h5>
+      <p> num_room : {{ cal_price_num.num_room }} </p>
+      <p>
+        total_price : {{ cal_price_num.total_price }}
+      </p>
     </div>
     <div class="col-12 col-md 6">
       <h5>จองรีสอร์ท</h5>

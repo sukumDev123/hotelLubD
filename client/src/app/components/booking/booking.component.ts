@@ -19,7 +19,7 @@ import {
 import {
   UserInfo
 } from '../../interface/userinterface';
-
+import * as $ from 'jquery'
 interface Booking {
   user_booking: UserInfo,
     room: Array < RoomDetail > ,
@@ -27,6 +27,10 @@ interface Booking {
     check_in: Date,
     check_out: Date,
     total_price: number,
+}
+interface CalPriceNum {
+  total_price: number,
+    num_room: number
 }
 
 @Component({
@@ -37,9 +41,13 @@ interface Booking {
 export class BookingComponent implements OnInit {
   rooms: Array < RoomDetail > = []
   booking_now: Booking
-  color_style: Array < string >
-    // room_is_empty: Array < RoomDetail > = []
-    constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService) {}
+  color_style: Array < string > = []
+  cal_price_num: CalPriceNum = {
+    total_price: 0,
+    num_room: 0
+  }
+  // room_is_empty: Array < RoomDetail > = []
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService) {}
 
   data_is_defult() {
     return {
@@ -54,8 +62,11 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     defualtHeader.coreJquery()
+    $('.center_room').hover(function() {
+      console.log("tes")
+    } )
     this.booking_now = this.data_is_defult()
-    this._room.showRoom().subscribe(suc => {
+    this._room.showRoom().subscribe((suc) => {
       this.rooms = this.check_room_is_empty(suc.data)
       this.color_style = new Array(this.rooms.length - 1)
     }, err => {
@@ -89,14 +100,16 @@ export class BookingComponent implements OnInit {
         this.booking_now.room.push(exists)
 
       } catch (error) {
-        this.booking_now.room.splice(error , 1)
-        this.color_style[index] = 'black'
+        //console.log(error)
+        //this.booking_now.room.splice(index, 1)
+        //this.color_style[index] = 'black'
         //this.booking_now.room.pop(error)
       }
     } else {
-
       this.booking_now.room.push(room)
     }
+
+    this.cal_price_num = this.cal_price_num_function()
 
     console.log(this.booking_now.room)
 
@@ -107,10 +120,24 @@ export class BookingComponent implements OnInit {
     return new Promise((res, rej) => {
       let filter_ = new_old.filter(room_exists => room_exists.number === new_room.number)
       if (filter_.length) {
-        rej(new_room) // false is this room exists in array
+        rej(false) // false is this room exists in array
       } else {
         res(new_room) // true is this room not exists in array
       }
     })
+  }
+
+  cal_price_num_function(): CalPriceNum {
+    let cal_: CalPriceNum
+    let temp = 0
+    //let price_ = this.booking_now.room.reduce((sum, room_input) => sum = room_input.priceRoom, 0)
+    this.booking_now.room.forEach(suc => {
+      temp += suc.priceRoom
+    })
+    cal_ = {
+      total_price: temp,
+      num_room: 0
+    }
+    return cal_
   }
 }

@@ -12,7 +12,8 @@ export interface RoomDetail {
     liveLast: Date,
     liveNum: Date,
     type: string,
-    _id: string
+    _id: string,
+    priceRoom: number
 }
 export interface RoomArray {
   data: Array < RoomDetail > ,
