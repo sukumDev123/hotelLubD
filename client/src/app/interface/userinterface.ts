@@ -1,11 +1,11 @@
-export interface User {
-    username : string ,
-    password : string ,
-    firstname : string ,
-    lastname : string , 
-    roles : string ,
-    create_at : Date , 
-    email : string ,
-    phone : string,
+export interface UserInfo {
+  username: string,
+    displayname: string,
+    firstname: string,
+    lastname: string,
+    roles: Array < string > ,
+    _id: string
+}
+export interface UserToken {
     id_token : string
 }

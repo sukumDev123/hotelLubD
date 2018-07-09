@@ -8,7 +8,7 @@ const check_remember = (user, remember) => new Promise(async (res, rej) => {
 
     try {
         if (remember) {
-            const token = await jwt.sign(user, config.env.config)
+            const token = await jwt.sign(user, config.env.secret) 
             res(token)
 
         } else {
@@ -94,7 +94,7 @@ export async function signIn(req, res, next) {
         let signinSuccess = await loginUser(user, req, remember)
         res.json(signinSuccess);
     } catch (error) {
-        res.status(error.status).json(error)
+        res.status(error.status ? error.status : 500).json(error)
     }
 
 }

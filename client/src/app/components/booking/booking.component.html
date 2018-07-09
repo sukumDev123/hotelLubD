@@ -1,10 +1,38 @@
 <div class="container">
   <div class="row">
+    <div class="col-12 col-md-8 p-2">
+      <h5 class="text-center textKati">
+        My room is not empty
+      </h5>
+      <div class="content-room">
+        <div class="data-room-show" (click)="selete_this_room(room)"  *ngFor='let room of rooms'>
+          <p>{{ room.number }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
     <div class="col-12 col-md 6">
       <h5> ขั้นตอนการจองรีสรอ์ท </h5>
     </div>
     <div class="col-12 col-md 6">
       <h5>จองรีสอร์ท</h5>
+      <form (ngSubmit)="bookingFunction()" #bookingForm='ngForm'>
+
+        <div class="md-form p-2">
+          <input type="date" class="form-control">
+        </div>
+        <div class="md-form p-2">
+          <input type="date" class="form-control">
+        </div>
+
+        <div class="md-form">
+          <button class="btn btn-block" type='submit' [disabled]="!bookingForm.form.valid">
+            สำรองห้องพัก
+          </button>
+        </div>
+      </form>
     </div>
 
 

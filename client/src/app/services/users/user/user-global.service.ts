@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { UserInfo } from '../../../interface/userinterface';
 
 
 
 
-interface UserInfo {
-  username: string,
-  displayname: string,
-  firstname: string,
-  lastname: string,
-  roles: Array<string>,
-  _id: string
-}
 
 @Injectable({
   providedIn: 'root'

@@ -4,26 +4,23 @@ const Schema = mongoose.Schema
 
 
 const BookingSchema = new Schema({
-    userBooking: {},
+    user_booking: {},
     room: [],
     create_at: {
         type: Date,
         default: Date.now
 
     },
-    status: {
-        type: Boolean,
-        default: false
-    },
-    checkIn: {
+   
+    check_in: {
         type: Date,
         required: true
     },
-    checkOut: {
+    check_out: {
         type: Date,
         required: true
     },
-    totalPrice: {
+    total_price: {
         type: Number,
         default: 0
     }
