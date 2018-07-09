@@ -12,15 +12,18 @@ class User {
     
   }
 export class SignIn extends User {
-    constructor(username : string , password : string ) {
+    private remem  : boolean = false
+    constructor(username : string , password : string   , remember : boolean ) {
       super() 
       this.username = username
       this.password = password
+      this.remem = remember
     }
     getDataUser() {
         return {
             username : this.username ,
-            password : this.password
+            password : this.password ,
+            remember : this.remem
         }
     }
     

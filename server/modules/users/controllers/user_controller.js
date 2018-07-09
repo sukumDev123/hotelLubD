@@ -4,18 +4,43 @@ import passport from "passport";
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 
+const check_remember = (user, remember) => new Promise(async (res, rej) => {
 
-function loginUser(user, req) {
+    try {
+        if (remember) {
+            const token = await jwt.sign(user, config.env.config)
+            res(token)
+
+        } else {
+            const token = await jwt.sign(user, config.env.secret, {
+                expiresIn: config.env.exp
+            })
+            res(token)
+        }
+
+
+    } catch (error) {
+        rej(error)
+    }
+})
+
+function loginUser(user, req, remember) {
     return new Promise((res, rej) => {
         user.password = undefined
         user.salt = undefined
-        
+
         req.login(user, async err => {
             if (err) {
                 rej(err)
             } else {
-                const token = await jwt.sign(user.toObject() , config.env.secret , {expiresIn : config.env.exp})
-                res({ id_token :  token})
+                try {
+                    const token = await check_remember(user.toObject(), remember)
+                    res({
+                        id_token: token
+                    })
+                } catch (error) {
+                    rej(error)
+                }
             }
         })
     })
@@ -29,7 +54,10 @@ function saveUser(data) {
         user.displayname = user.firstname + ' ' + user.lastname;
         user.save(err => {
             if (err) {
-                rej({ status: 404,err })
+                rej({
+                    status: 404,
+                    err
+                })
             } else {
                 res(user)
             }
@@ -37,7 +65,7 @@ function saveUser(data) {
     })
 }
 
-function userSignInF(req,res,next) {
+function userSignInF(req, res, next) {
     return new Promise((res, rej) => {
         passport.authenticate('local', {
             session: false
@@ -60,8 +88,10 @@ function userSignInF(req,res,next) {
 
 export async function signIn(req, res, next) {
     try {
-        let user = await userSignInF(req,res,next)
-        let signinSuccess = await loginUser(user, req)
+        let remember = req.body.remember
+        req.body.remember = undefined
+        let user = await userSignInF(req, res, next)
+        let signinSuccess = await loginUser(user, req, remember)
         res.json(signinSuccess);
     } catch (error) {
         res.status(error.status).json(error)
@@ -70,7 +100,7 @@ export async function signIn(req, res, next) {
 }
 
 export function findType(req, res, next, typeP) {
-    
+
     if (typeP == 'admin') {
         req.roles = 'admin';
         next();
@@ -82,8 +112,8 @@ export function findType(req, res, next, typeP) {
 export async function singup(req, res, next) {
     delete req.body.password2;
     try {
-        let userData = await saveUser(req) 
-        let loginSuccess = await loginUser(userData, req)
+        let userData = await saveUser(req)
+        let loginSuccess = await loginUser(userData, req, false)
         res.json(loginSuccess)
     } catch (error) {
         res.status(error.status).json(error)

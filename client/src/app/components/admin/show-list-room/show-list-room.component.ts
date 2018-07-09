@@ -32,7 +32,6 @@ export class ShowListRoomComponent implements OnInit {
 
   successMsgFunction(msg: string, data: RoomDetail): void {
     this.successMsgValue = msg
-    console.log(data)
     setTimeout(() => {
       this.successMsgValue = ''
     }, 3000)
@@ -58,7 +57,6 @@ export class ShowListRoomComponent implements OnInit {
         this.roomListIsNotEmpty = true
         this.roomList = suc.data
         this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
-        console.log(this.roomList)
       }
     }, err => {
       this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
@@ -68,7 +66,6 @@ export class ShowListRoomComponent implements OnInit {
   edit_data(data: RoomDetail) {
     this.show_edit_boolean = true
     this.roomTemp = data
-    console.log(this.roomTemp)
   }
   change_select(e) {
     let edit_ = e.target.value
@@ -90,7 +87,9 @@ export class ShowListRoomComponent implements OnInit {
         this.roomListIsNotEmpty = true
         this.roomList = suc.data
         this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
-        console.log(this.roomList)
+
+      } else {
+        this.roomListIsNotEmpty = false
       }
     }, err => {
       this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)

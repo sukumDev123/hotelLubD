@@ -61,8 +61,8 @@ function setNotFonud(req, res, next) {
 function handlerErroo(error, req, res, next) {
 	return res.status(error.status || 500).json({
 
-		status: error.state,
-		message: error.message
+		status: error.status,
+		message: `Probleam is : ${error.message}`
 
 	})
 }

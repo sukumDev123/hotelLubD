@@ -37,8 +37,6 @@ import {
 import {
   AuthInterceprot
 } from './auth.interceptor';
-import { ErrHandlerComponent } from './components/err-handler/err-handler.component';
-
 function tokenGetter() {
   return localStorage.getItem('Login')
 }
@@ -46,8 +44,7 @@ function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    ...AppComponentRoute,
-    ErrHandlerComponent
+    ...AppComponentRoute
   ],
   imports: [
     BrowserModule,

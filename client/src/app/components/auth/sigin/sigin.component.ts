@@ -33,7 +33,8 @@ export class SiginComponent implements OnInit {
   }
 
   Login() {
-    let signin_ = new SignIn(this.auth.username,this.auth.password)
+    let signin_ = new SignIn(this.auth.username,this.auth.password  , this.auth.remember )
+    
     this._auth.lognInService(signin_.getDataUser()).subscribe(suc => {
       this._user.setSession(suc.id_token)
       this._router.navigate(['/core/home'])

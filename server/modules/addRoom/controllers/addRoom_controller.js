@@ -66,7 +66,10 @@ export async function param_id_room(req, res, next, id) {
         req.room_id = find_by_id._id
         next()
     } catch (error) {
-        next(error)
+        next({
+            message : error.message,
+            status : 304
+        })
     }
 }
 // export function param_show_data(req, res, next, id) {

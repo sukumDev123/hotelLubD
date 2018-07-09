@@ -1,10 +1,18 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 import http from 'http';
-import { app } from './config/lib/express';
-import { databaseMongoose } from './config/lib/mongoose';
-import { socketSetting } from './config/lib/socket';
-import { passportFunction } from './config/lib/passport';
-
+import {
+    app
+} from './config/lib/express';
+import {
+    databaseMongoose
+} from './config/lib/mongoose';
+import {
+    socketSetting
+} from './config/lib/socket';
+import {
+    passportFunction
+} from './config/lib/passport';
+import chalk from 'chalk'
 async function onInit() {
     try {
         let db = await databaseMongoose();
@@ -13,12 +21,15 @@ async function onInit() {
         passportFunction();
         socketSetting(serverHttp);
         serverHttp.listen(port, () => {
+            console.log(chalk.green("-----------------------------------------"))
             console.log(`RUN ON MODE : ${process.env.NODE_ENV}`)
             console.log(`RUN ON PORT : ${port}`)
             console.log(`DB : ${db}`)
+            console.log(chalk.green("-----------------------------------------"))
+
         })
     } catch (error) {
-        console.log(`can't run : \n ${error}`)
+        console.log(chalk.red.bold(`can't run : \n ${error}`))
 
     }
 }

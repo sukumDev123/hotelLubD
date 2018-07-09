@@ -18,6 +18,7 @@ export class ErrHandlerService {
 
 
   err_handler_msg(msg: string, status: number) {
+    
     if (status === 401) {
       alert(msg)
       this._user.Logout()
@@ -29,7 +30,7 @@ export class ErrHandlerService {
     let test = msg.split(' ')
     let new_
     if (test[0] == "E11000") {
-      new_ = "หมายเลขห้องที่ท่านเลือก มีอยู่ในระบบเรียบร้อยแล้ว"
+      new_ = "รายการนี้มีอยู่ในระบบแล้ว ข้อมูลไม่สามารถซ่ำกันได้ โปรดตรวจสอบข้อมูลให้ดี"
     } else {
       new_ = msg
     }

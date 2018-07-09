@@ -49,6 +49,7 @@ export class AddRoomComponent implements OnInit {
   submitAddRoom(): void {
     if (this.room.name && this.room.number && this.room.priceRoom) {
       this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
+        console.log(err)
         this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
         setTimeout(() => {
           this.errorMsgValue = ''
