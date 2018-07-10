@@ -55,7 +55,9 @@ export class UserGlobalService {
       firstname: '',
       lastname: '',
       roles: ['null'],
-      _id: ''
+      _id: '',
+      phone: '',
+      email: ''
     }
 
   }

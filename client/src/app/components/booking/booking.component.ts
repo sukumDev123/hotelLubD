@@ -41,6 +41,8 @@ import {
 })
 export class BookingComponent implements OnInit {
 
+  show_new_user_input: boolean = false
+
   rooms: Array < RoomDetail > = []
 
   booking_now: Booking
@@ -77,8 +79,9 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     defualtHeader.coreJquery()
+    this.booking_now = this.data_is_defult()
     this._state.select < any > ('rooms').subscribe(suc => {
-      console.log( typeof suc)
+      this.booking_now.room = suc
       this.cal_price_num = this.cal_price_num_function(suc)
     }, err => console.log(err))
 
@@ -116,12 +119,12 @@ export class BookingComponent implements OnInit {
       this.booking_now.check_out = new Date(e.target.value)
     }
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
-    this.cal_price_num = this.cal_price_num_function( this.booking_now.room )
+    this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
     //  
   }
 
 
-  cal_price_num_function( data :  any ): CalPriceNum {
+  cal_price_num_function(data: any): CalPriceNum {
     let cal_: CalPriceNum
     let num_ = data.room.length
     let price_ = data.room.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
@@ -153,6 +156,7 @@ export class BookingComponent implements OnInit {
 
 
 
+  //TODO: Created function for check room empty or not 
 
 
 
@@ -169,9 +173,17 @@ export class BookingComponent implements OnInit {
     // TODO: this function get booking done.
 
     if (this.cal_price_num.total_price_room) {
-      console.log(this.booking_now)
+      if (this.check_this_is_user(this.booking_now.user_booking)) {
+        this.show_new_user_input = true
+      } else {
+        console.log(this.booking_now)
+
+      }
     } else {
       console.log('empty')
     }
+  }
+  check_this_is_user(user_booking: UserInfo) {
+    return user_booking.email && user_booking.firstname && user_booking.lastname && user_booking.phone
   }
 }

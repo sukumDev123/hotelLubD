@@ -7,7 +7,7 @@ import {
 
 
 export const ADD_ROOM = "ADD ROOM"
-export const SPLICE_ROOM = "SPLICE ROOM"
+export const CHECK_ROOM = "CHECK ROOM"
 export const VIEW_ROOM = "VIEW ROOM"
 
 
@@ -21,7 +21,7 @@ export class ADD_ROOM_CLASS {
 }
 
 export class SPLICE_ROOM_CLASS {
-  readonly type = SPLICE_ROOM
+  readonly type = CHECK_ROOM
   constructor(public payloads: any) {}
 }
 

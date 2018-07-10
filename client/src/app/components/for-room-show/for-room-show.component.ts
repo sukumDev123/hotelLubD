@@ -40,22 +40,14 @@ export class ForRoomShowComponent implements OnInit {
     'color': 'black',
     'font_size': '16px'
   }
-  booking_now: Booking
+  booking_now: RoomDetail[]
 
   constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _store: Store < RoomArrayIs > ) {}
 
-  data_is_defult() {
-    return {
-      user_booking: this._user.UserData(),
-      room: this.rooms,
-      create_at: new Date(),
-      check_in: new Date(),
-      check_out: new Date(),
-      total_price: 0
-    }
-  }
   ngOnInit() {
-    this.booking_now = this.data_is_defult()
+    //  this.data_is_defult()
+    this.booking_now = this.rooms
+    
     this._room.showRoom().subscribe((suc) => {
       this.rooms = this.check_room_is_empty(suc.data)
       this.color_style = new Array(this.rooms.length - 1)
@@ -76,36 +68,28 @@ export class ForRoomShowComponent implements OnInit {
   async selete_this_room(room: RoomDetail, index: number) {
     this.color_style[index] = "rgb(44,125,246)"
     this.font_style[index] = "white"
-    if (this.booking_now.room.length) {
+    if (this.booking_now.length) {
       try {
-        let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now.room)
-        this.booking_now.room.push(exists)
-        // this._store.dispatch({
-        //   type: ADD_ROOM,
-        //   payloads: exists
-        // })
-
-        // this.color_style[index] = "black"
+        let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now)
+        this.booking_now.push(exists)
 
       } catch (error) {
 
         if (error.status === 'check_room_selecte_is_not_exisis') {
-          this.booking_now.room.splice(error.data, 1)
+          this.booking_now.splice(error.data, 1)
           this.color_style[index] = 'white'
           this.font_style[index] = "black"
 
         }
       }
     } else {
-
-
-      this.booking_now.room.push(room)
+      this.booking_now.push(room)
     }
 
-    console.log(this.booking_now.room)
+    console.log(this.booking_now)
     this._store.dispatch({
       type: ADD_ROOM,
-      payloads: this.booking_now.room
+      payloads: this.booking_now
     })
     // NOTE: this function selecte room and cal price room , num room , and total price 
   }
@@ -125,21 +109,7 @@ export class ForRoomShowComponent implements OnInit {
       res(new_room)
     })
   }
-  cal_price_total_everything(price: number, ngiht: number): number {
 
-    this.style_total_price_all = {
-      'color': 'rgb(44,125,246)',
-      'font_size': '20px'
-    }
-    setTimeout(() => {
-      this.style_total_price_all = {
-        'color': 'black',
-        'font_size': '16px'
-      }
-    }, 1000)
-
-    return (price * ngiht)
-  }
 
 
 }
