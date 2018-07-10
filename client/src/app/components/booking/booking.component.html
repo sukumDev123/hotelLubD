@@ -1,41 +1,24 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-8 p-2">
+    <div class="col-12 p-2">
 
       <div class="content-room">
+        <h5 class="text-center p-3 textKait">
+          My room is empty
+        </h5>
         <div class="row">
 
-          <div class="col-12 col-md-8 box_rooms ">
-            <h5 class="text-center p-3 textKait">
-              My room is empty
-            </h5>
-            <div class="row">
-              <div class=" col-6 col-md-4 center_room " [ngStyle]="{ 'background' : color_style[i] ,'color': font_style[i]  }" *ngFor='let room of rooms ; let i = index;'
-                (click)="selete_this_room(room , i)">
-                <div class="name_text">
-                  <small for="nameroom" class="textKait"> ชนิดของห้อง : {{ room.type }} </small>
-
-                </div>
-                <h1 class="text-center textKait"> {{ room.number }}</h1>
-                <div class="price_text">
-                  <small for="roomprice" class="textKait"> ราคาห้องละ : {{ room.priceRoom }} บาท </small>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-          <div class="col-12 col-md-4">
-
-          </div>
+          <app-for-room-show></app-for-room-show>
+          
         </div>
       </div>
     </div>
   </div>
+
   <div class="row">
 
     <div class="col-12 col-md 6">
-      <h5> คำนวนรายการ </h5>
+      <h5 class='p-2 text-primary'> คำนวนรายการ </h5>
       <div class="cal_total_price p-2">
         <p> จำนวนห้อง : {{ cal_price_num.num_room }} </p>
         <p>
@@ -43,21 +26,26 @@
         </p>
         <p> จำนวนคืนที่เข้าพัก : {{ cal_price_num.night_num }} </p>
         <div class="div_total text-right ">
-          <h5>
-            <strong> รวมเป็นเงิน : บาท </strong>
-          </h5>
+          <p [ngStyle]='{
+            "color" : style_total_price_all.color ,
+            "font-size" : style_total_price_all.font_size
+          }'>
+            <strong> รวมเป็นเงิน : {{cal_price_num.price_total}} บาท </strong>
+          </p>
         </div>
       </div>
     </div>
     <div class="col-12 col-md 6">
-      <h5>จองรีสอร์ท</h5>
+      <h5 class='text-primary p-2'>จองรีสอร์ท</h5>
       <form (ngSubmit)="bookingFunction()" #bookingForm='ngForm'>
 
         <div class="md-form p-2">
-          <input type="date" (change)="cal_num_night($event , 'date_in') " class="form-control">
+          <input type="date" ([ngModel])="booking_now.check_in" value='{{ booking_now.check_in.toString() }}' name='check_in' (change)="cal_num_night($event , 'date_in') "
+            class="form-control" required>
         </div>
         <div class="md-form p-2">
-          <input type="date" (change)="cal_num_night($event , 'date_out')" class="form-control">
+          <input type="date" (change)="cal_num_night($event , 'date_out')" ([ngModel])="booking_now.check_out" name='check_out' class="form-control"
+            required>
         </div>
 
         <div class="md-form">

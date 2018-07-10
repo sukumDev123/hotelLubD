@@ -37,6 +37,10 @@ import {
 import {
   AuthInterceprot
 } from './auth.interceptor';
+import {
+  ForRoomShowComponent
+} from './components/for-room-show/for-room-show.component';
+
 function tokenGetter() {
   return localStorage.getItem('Login')
 }
@@ -44,7 +48,9 @@ function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    ...AppComponentRoute
+    ...AppComponentRoute,
+
+    ForRoomShowComponent
   ],
   imports: [
     BrowserModule,

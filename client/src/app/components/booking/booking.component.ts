@@ -20,7 +20,10 @@ import {
   UserInfo
 } from '../../interface/userinterface';
 import * as $ from 'jquery'
-import { Booking, CalPriceNum } from '../../interface/booking.interface';
+import {
+  Booking,
+  CalPriceNum
+} from '../../interface/booking.interface';
 
 
 @Component({
@@ -29,18 +32,27 @@ import { Booking, CalPriceNum } from '../../interface/booking.interface';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+
   rooms: Array < RoomDetail > = []
+
   booking_now: Booking
-  date_in: Date = new Date()
-  date_out: Date = new Date()
+
   color_style: Array < string > = []
+
   cal_price_num: CalPriceNum = {
     total_price_room: 0,
     num_room: 0,
     night_num: 0,
     price_total: 0
   }
+
+  style_total_price_all: any = {
+    'color': 'black',
+    'font_size': '16px'
+  }
+
   font_style: Array < string > = []
+
   // room_is_empty: Array < RoomDetail > = []
   constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService) {}
 
@@ -72,10 +84,10 @@ export class BookingComponent implements OnInit {
     })
 
   }
-  check_room_is_empty(data: Array < RoomDetail > ): Array < RoomDetail > {
+  check_room_is_empty(data: Array < RoomDetail > , type_show: string = 'all'): Array < RoomDetail > {
     let data_call_back: Array < RoomDetail >
-
-      data_call_back = data
+      if (type_show === 'all')
+        data_call_back = data
 
     return data_call_back
   }
@@ -95,12 +107,12 @@ export class BookingComponent implements OnInit {
   cal_num_night(e, date_is) {
 
     if (date_is === 'date_in') {
-      this.date_in = new Date(e.target.value)
+      this.booking_now.check_in = new Date(e.target.value)
 
     } else {
-      this.date_out = new Date(e.target.value)
+      this.booking_now.check_out = new Date(e.target.value)
     }
-    this.cal_price_num.night_num = this.check_min_7(this.date_in, this.date_out)
+    this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function()
     //  
   }
@@ -109,62 +121,77 @@ export class BookingComponent implements OnInit {
 
 
 
-  async selete_this_room(room: RoomDetail, index: number) {
-    this.color_style[index] = "rgb(44,125,246)"
-    this.font_style[index] = "white"
-    if (this.booking_now.room.length) {
-      try {
-        let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now.room)
-        this.booking_now.room.push(exists)
-        // this.color_style[index] = "black"
+  // async selete_this_room(room: RoomDetail, index: number) {
+  //   this.color_style[index] = "rgb(44,125,246)"
+  //   this.font_style[index] = "white"
+  //   if (this.booking_now.room.length) {
+  //     try {
+  //       let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now.room)
+  //       this.booking_now.room.push(exists)
+  //       // this.color_style[index] = "black"
 
-      } catch (error) {
+  //     } catch (error) {
 
-        if (error.status === 'check_room_selecte_is_not_exisis') {
-          this.booking_now.room.splice(error.data, 1)
-          this.color_style[index] = 'white'
-          this.font_style[index] = "rgb(44,125,246)"
+  //       if (error.status === 'check_room_selecte_is_not_exisis') {
+  //         this.booking_now.room.splice(error.data, 1)
+  //         this.color_style[index] = 'white'
+  //         this.font_style[index] = "black"
 
-        }
-      }
-    } else {
-      this.booking_now.room.push(room)
-    }
-    this.cal_price_num = this.cal_price_num_function()
+  //       }
+  //     }
+  //   } else {
+  //     this.booking_now.room.push(room)
+  //   }
+  //   this.cal_price_num = this.cal_price_num_function()
 
-    // NOTE: this function selecte room and cal price room , num room , and total price 
-  }
-  check_room_selecte_is_not_exisis(new_room: RoomDetail, new_old: Array < RoomDetail > ): Promise < RoomDetail > {
-    return new Promise((res, rej) => {
+  //   // NOTE: this function selecte room and cal price room , num room , and total price 
+  // }
+  // check_room_selecte_is_not_exisis(new_room: RoomDetail, new_old: Array < RoomDetail > ): Promise < RoomDetail > {
+  //   return new Promise((res, rej) => {
 
-      new_old.forEach((r, index) => {
-        if (r._id === new_room._id) {
-          console.log(true, index)
-          rej({
-            status: 'check_room_selecte_is_not_exisis',
-            data: index
-          })
-          return
-        }
-      })
-      res(new_room)
-    })
-  }
+  //     new_old.forEach((r, index) => {
+  //       if (r._id === new_room._id) {
+  //         console.log(true, index)
+  //         rej({
+  //           status: 'check_room_selecte_is_not_exisis',
+  //           data: index
+  //         })
+  //         return
+  //       }
+  //     })
+  //     res(new_room)
+  //   })
+  // }
 
   cal_price_num_function(): CalPriceNum {
     let cal_: CalPriceNum
     let num_ = this.booking_now.room.length
     let price_ = this.booking_now.room.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
-    let nigh_ = this.cal_price_num.night_num ? this.cal_price_num.night_num : 0
+    let nigh_ = this.cal_price_num.night_num ? this.cal_price_num.night_num : 1
+    let total_ = (num_ || price_ || nigh_) ? this.cal_price_total_everything(price_, nigh_) : 0
     cal_ = {
       total_price_room: price_,
       num_room: num_,
       night_num: nigh_,
-      price_total: 0
+      price_total: total_
     }
     return cal_
   }
+  cal_price_total_everything(price: number, ngiht: number): number {
 
+    this.style_total_price_all = {
+      'color': 'rgb(44,125,246)',
+      'font_size': '20px'
+    }
+    setTimeout(() => {
+      this.style_total_price_all = {
+        'color': 'black',
+        'font_size': '16px'
+      }
+    }, 1000)
+
+    return (price * ngiht)
+  }
 
 
 
@@ -182,5 +209,11 @@ export class BookingComponent implements OnInit {
   //end 
   bookingFunction() {
     // TODO: this function get booking done.
+
+    if (this.cal_price_num.total_price_room) {
+      console.log(this.booking_now)
+    } else {
+      console.log('empty')
+    }
   }
 }

@@ -1,0 +1,18 @@
+<div class="col-12 col-md-6 marginC  box_rooms ">
+
+    <div class="row">
+      <div class=" col-6 col-md-4 center_room " [ngStyle]="{ 'background' : color_style[i] ,'color': font_style[i]  }" *ngFor='let room of rooms ; let i = index;'
+        (click)="selete_this_room(room , i)">
+        <div class="name_text">
+          <small for="nameroom" class="textKait"> ชนิดของห้อง : {{ room.type }} </small>
+
+        </div>
+        <h1 class="text-center textKait"> {{ room.number }}</h1>
+        <div class="price_text">
+          <small for="roomprice" class="textKait"> ราคาห้องละ : {{ room.priceRoom }} บาท </small>
+        </div>
+      </div>
+
+    </div>
+
+  </div>

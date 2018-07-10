@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+input[type='date'],
+input[type='time'] {
+  -webkit-appearance: none;
+}
+
 input.ng-valid[required],
 input.ng-valid.required {
   border-left: 5px solid rgb(138, 216, 35);
@@ -38,30 +43,34 @@ label,
   color: white;
   box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.1)
 }
+
 .colorBulr {
-  color:rgba(0,0,0,0.8)
+  color: rgba(0, 0, 0, 0.8)
 }
+
 #navBar_box {
   -webkit-transition: all 2s;
   transition: all 2s;
 }
-.err{
-  padding:  10px;
+
+.err {
+  padding: 10px;
   background: rgb(243, 69, 69);
   color: white;
-  border-radius:  6px;
+  border-radius: 6px;
 }
+
 .success {
   background: rgb(129, 250, 81);
   padding: 10px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
-.noti{
-  position: fixed ;
+
+.noti {
+  position: fixed;
   bottom: 0;
   right: 0;
   padding: 10px;
   z-index: 2000;
-  
 }
