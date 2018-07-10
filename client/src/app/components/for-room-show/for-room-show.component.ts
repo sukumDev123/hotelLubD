@@ -17,7 +17,15 @@ import {
 import {
   Booking
 } from '../../interface/booking.interface';
-
+import {
+  Store
+} from '@ngrx/store'
+import {
+  RoomArrayIs
+} from '../../store/reducers/booking.reducers';
+import {
+  ADD_ROOM
+} from '../../store/actions/booking.action';
 @Component({
   selector: 'app-for-room-show',
   templateUrl: './for-room-show.component.html',
@@ -34,7 +42,7 @@ export class ForRoomShowComponent implements OnInit {
   }
   booking_now: Booking
 
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _store: Store < RoomArrayIs > ) {}
 
   data_is_defult() {
     return {
@@ -72,6 +80,11 @@ export class ForRoomShowComponent implements OnInit {
       try {
         let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now.room)
         this.booking_now.room.push(exists)
+        // this._store.dispatch({
+        //   type: ADD_ROOM,
+        //   payloads: exists
+        // })
+
         // this.color_style[index] = "black"
 
       } catch (error) {
@@ -84,10 +97,16 @@ export class ForRoomShowComponent implements OnInit {
         }
       }
     } else {
+
+
       this.booking_now.room.push(room)
     }
 
-
+    console.log(this.booking_now.room)
+    this._store.dispatch({
+      type: ADD_ROOM,
+      payloads: this.booking_now.room
+    })
     // NOTE: this function selecte room and cal price room , num room , and total price 
   }
   check_room_selecte_is_not_exisis(new_room: RoomDetail, new_old: Array < RoomDetail > ): Promise < RoomDetail > {

@@ -30,7 +30,6 @@ import {
 import {
   StoreModule
 } from '@ngrx/store'
-import bookingReducer from './reducer/booking.reducer';
 import {
   JwtModule
 } from '@auth0/angular-jwt';
@@ -40,6 +39,7 @@ import {
 import {
   ForRoomShowComponent
 } from './components/for-room-show/for-room-show.component';
+import { reducer_total } from './store/reducers/index.reducer';
 
 function tokenGetter() {
   return localStorage.getItem('Login')
@@ -57,9 +57,7 @@ function tokenGetter() {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      booking: bookingReducer
-    }),
+    StoreModule.forRoot( reducer_total ),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

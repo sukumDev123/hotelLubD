@@ -7,10 +7,10 @@ export interface RoomAdd {
 export interface RoomDetail {
   name: string,
     number: number,
-    create_at: string,
+    create_at: Date,
     liveDate: Date,
     liveLast: Date,
-    liveNum: Date,
+    
     type: string,
     _id: string,
     priceRoom: number

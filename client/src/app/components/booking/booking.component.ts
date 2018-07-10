@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import * as defualtHeader from '../../jquery/core.jquery'
 import {
-  RoomArray,
+
   RoomDetail
 } from '../../interface/room.interface';
 import {
@@ -25,7 +25,15 @@ import {
   CalPriceNum
 } from '../../interface/booking.interface';
 
-
+import {
+  Store
+} from '@ngrx/store'
+import {
+  RoomArrayIs
+} from '../../store/reducers/booking.reducers';
+import {
+  RoomsIs
+} from '../../store/reducers/index.reducer';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -54,7 +62,7 @@ export class BookingComponent implements OnInit {
   font_style: Array < string > = []
 
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _state: Store < RoomsIs > ) {}
 
   data_is_defult() {
     return {
@@ -69,21 +77,16 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     defualtHeader.coreJquery()
-    // $('.center_room').hover(function () {
-    //   console.log("tes")
-    // })
-    this.booking_now = this.data_is_defult()
-    this._room.showRoom().subscribe((suc) => {
-      this.rooms = this.check_room_is_empty(suc.data)
-      this.color_style = new Array(this.rooms.length - 1)
-      this.font_style = new Array(this.rooms.length - 1)
-    }, err => {
-      this._err.err_handler_msg(err.msg.message, err.status)
-      this.color_style = new Array(0)
-      this.font_style = new Array(0)
-    })
+    this._state.select < any > ('rooms').subscribe(suc => {
+      console.log( typeof suc)
+      this.cal_price_num = this.cal_price_num_function(suc)
+    }, err => console.log(err))
+
 
   }
+
+
+
   check_room_is_empty(data: Array < RoomDetail > , type_show: string = 'all'): Array < RoomDetail > {
     let data_call_back: Array < RoomDetail >
       if (type_show === 'all')
@@ -113,60 +116,15 @@ export class BookingComponent implements OnInit {
       this.booking_now.check_out = new Date(e.target.value)
     }
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
-    this.cal_price_num = this.cal_price_num_function()
+    this.cal_price_num = this.cal_price_num_function( this.booking_now.room )
     //  
   }
 
 
-
-
-
-  // async selete_this_room(room: RoomDetail, index: number) {
-  //   this.color_style[index] = "rgb(44,125,246)"
-  //   this.font_style[index] = "white"
-  //   if (this.booking_now.room.length) {
-  //     try {
-  //       let exists = await this.check_room_selecte_is_not_exisis(room, this.booking_now.room)
-  //       this.booking_now.room.push(exists)
-  //       // this.color_style[index] = "black"
-
-  //     } catch (error) {
-
-  //       if (error.status === 'check_room_selecte_is_not_exisis') {
-  //         this.booking_now.room.splice(error.data, 1)
-  //         this.color_style[index] = 'white'
-  //         this.font_style[index] = "black"
-
-  //       }
-  //     }
-  //   } else {
-  //     this.booking_now.room.push(room)
-  //   }
-  //   this.cal_price_num = this.cal_price_num_function()
-
-  //   // NOTE: this function selecte room and cal price room , num room , and total price 
-  // }
-  // check_room_selecte_is_not_exisis(new_room: RoomDetail, new_old: Array < RoomDetail > ): Promise < RoomDetail > {
-  //   return new Promise((res, rej) => {
-
-  //     new_old.forEach((r, index) => {
-  //       if (r._id === new_room._id) {
-  //         console.log(true, index)
-  //         rej({
-  //           status: 'check_room_selecte_is_not_exisis',
-  //           data: index
-  //         })
-  //         return
-  //       }
-  //     })
-  //     res(new_room)
-  //   })
-  // }
-
-  cal_price_num_function(): CalPriceNum {
+  cal_price_num_function( data :  any ): CalPriceNum {
     let cal_: CalPriceNum
-    let num_ = this.booking_now.room.length
-    let price_ = this.booking_now.room.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
+    let num_ = data.room.length
+    let price_ = data.room.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
     let nigh_ = this.cal_price_num.night_num ? this.cal_price_num.night_num : 1
     let total_ = (num_ || price_ || nigh_) ? this.cal_price_total_everything(price_, nigh_) : 0
     cal_ = {

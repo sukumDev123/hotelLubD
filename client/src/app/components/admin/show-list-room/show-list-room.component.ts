@@ -43,12 +43,12 @@ export class ShowListRoomComponent implements OnInit {
     }, 3000)
   }
 
-  dateShow(date: string): string {
+  dateShow(date: string): Date {
     let d = new Date(date)
     let date_format = `วันที่สร้าง : ${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
 
 
-    return date_format
+    return d
   }
   ngOnInit() {
     this._room.showRoom().subscribe(suc => {
@@ -56,7 +56,7 @@ export class ShowListRoomComponent implements OnInit {
       if (suc.data.length) {
         this.roomListIsNotEmpty = true
         this.roomList = suc.data
-        this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
+       // this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
       }
     }, err => {
       this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
@@ -86,7 +86,7 @@ export class ShowListRoomComponent implements OnInit {
       if (suc.data.length) {
         this.roomListIsNotEmpty = true
         this.roomList = suc.data
-        this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
+       // this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
 
       } else {
         this.roomListIsNotEmpty = false

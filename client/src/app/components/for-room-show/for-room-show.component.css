@@ -1,20 +1,20 @@
 .box_rooms {
-    padding: 20px;
-    overflow: scroll;
-  
-    height: 300px;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .center_room {
-    padding: 10px;
-    cursor: pointer;
-    color: rgb(6, 7, 9)
-  }
-  
-  .center_room:hover {
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-  }
-  
+  padding: 20px;
+  overflow: scroll;
+  height: 300px;
+  text-align: center;
+  width: 100%;
+}
+
+.center_room {
+  padding: 10px;
+  cursor: pointer;
+  color: rgb(6, 7, 9);
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+.center_room:hover {
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
