@@ -6,11 +6,11 @@
   text-align: center
 }
 
-
 .center_room {
   margin: 10px;
   padding: 10px;
   cursor: pointer;
+  color: rgb(44, 125, 246)
 }
 
 .center_room:hover {
