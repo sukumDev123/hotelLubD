@@ -1,20 +1,37 @@
 <div class="container p-3">
-  <div class="col-12 col-md 6">
+  <div  class='noti' *ngIf='msg_show' >
+  <app-err-component></app-err-component>
+
+  </div>
+  <div class="col-12">
     <h5 class='text-primary p-2'>จองรีสอร์ท</h5>
     <form (ngSubmit)="bookingFunction()" #bookingForm='ngForm'>
-      <div class="new_user_come_reserve">
-        <div class="sub_new_user_come_reserve">
-          <div class="md-form">
-            <input type="text" class="form-control">
+      <div *ngIf='show_new_user_input' class="new_user_come_reserve">
+        <div class="sub_new_user_come_reserve col-12 col-md-6">
+          <div class="md-from">
+            <h5 class="textKait">ตรวจสอบรายชื่อ</h5>
           </div>
           <div class="md-form">
-            <input type="text" class="form-control">
+            <label for="firstname"> ชื่อ : </label>
+            <input type="text" [(ngModel)]='booking_now.user_booking.firstname' placeholder="firstname...." name='firstname' class="form-control">
           </div>
           <div class="md-form">
-            <input type="text" class="form-control">
+            <label for="lastname"> นามสกุล : </label>
+
+            <input type="text" [(ngModel)]='booking_now.user_booking.lastname' placeholder="lastname..." name='lastname' class="form-control">
           </div>
           <div class="md-form">
-            <input type="text" class="form-control">
+            <label for="phone"> เบอร์โทร : </label>
+
+            <input type="text" [(ngModel)]='booking_now.user_booking.phone' placeholder="phone..." name='phone' class="form-control">
+          </div>
+          <div class="md-form">
+            <label for="email"> email : </label>
+
+            <input type="text" [(ngModel)]='booking_now.user_booking.email' placeholder="email..." name='email' class="form-control">
+          </div>
+          <div class="md-form">
+            <button type='button' (click)="ok_user_input()" class="btn btn-block btn-primary"> ตกลง </button>
           </div>
         </div>
       </div>
@@ -28,7 +45,11 @@
       </div>
 
       <div class="md-form">
-        <button class="btn btn-block" type='submit' [disabled]="!bookingForm.form.valid">
+        <button class="btn btn-block" type='button' *ngIf='!show_button_submit' (click)='show_new_user_input = true;'>
+          สำรองห้องพัก
+        </button>
+
+        <button class="btn btn-block btn-primary" *ngIf='show_button_submit' type='submit' [disabled]="!bookingForm.form.valid" >
           สำรองห้องพัก
         </button>
       </div>

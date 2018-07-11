@@ -40,6 +40,7 @@ import {
   ForRoomShowComponent
 } from './components/for-room-show/for-room-show.component';
 import { reducer_total } from './store/reducers/index.reducer';
+import { ErrComponentComponent } from './components/err-component/err-component.component';
 
 function tokenGetter() {
   return localStorage.getItem('Login')
@@ -50,7 +51,9 @@ function tokenGetter() {
     AppComponent,
     ...AppComponentRoute,
 
-    ForRoomShowComponent
+    ForRoomShowComponent,
+
+    ErrComponentComponent
   ],
   imports: [
     BrowserModule,

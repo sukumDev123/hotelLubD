@@ -46,7 +46,7 @@ export class ForRoomShowComponent implements OnInit {
 
   ngOnInit() {
     //  this.data_is_defult()
-    this.booking_now = this.rooms
+    this.booking_now = []
     
     this._room.showRoom().subscribe((suc) => {
       this.rooms = this.check_room_is_empty(suc.data)

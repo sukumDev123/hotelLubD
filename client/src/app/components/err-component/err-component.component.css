@@ -1,0 +1,16 @@
+.conponents{
+    position: fixed;
+    width: 20%;
+    bottom: 10px ;
+    right: 10px;
+}
+.msg_hander {
+    padding: 10px;
+    border-bottom: .5px solid rgba(0,0,0,0.2)
+}
+.bottom_msg {
+    padding: 10px;
+}
+.bottom_msg p{
+    margin: 0 ;
+}

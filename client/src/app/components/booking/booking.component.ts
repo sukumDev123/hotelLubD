@@ -32,8 +32,10 @@ import {
   RoomArrayIs
 } from '../../store/reducers/booking.reducers';
 import {
-  RoomsIs
+  ManagetReducer
 } from '../../store/reducers/index.reducer';
+import { MSG_ADD } from '../../store/actions/err.action';
+import { Message } from '../../store/reducers/err.reducer';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -42,6 +44,10 @@ import {
 export class BookingComponent implements OnInit {
 
   show_new_user_input: boolean = false
+
+  show_button_submit: boolean = false
+
+  msg_show: boolean = false
 
   rooms: Array < RoomDetail > = []
 
@@ -64,7 +70,7 @@ export class BookingComponent implements OnInit {
   font_style: Array < string > = []
 
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _state: Store < RoomsIs > ) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _state: Store < ManagetReducer > ) {}
 
   data_is_defult() {
     return {
@@ -174,16 +180,34 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
-        this.show_new_user_input = true
+
       } else {
         console.log(this.booking_now)
 
       }
     } else {
-      console.log('empty')
+      this.msg_show = true
     }
   }
   check_this_is_user(user_booking: UserInfo) {
     return user_booking.email && user_booking.firstname && user_booking.lastname && user_booking.phone
+  }
+  // NOTE: Check user is guest or user.
+  ok_user_input() {
+    console.log(this.booking_now.user_booking)
+    if (this.check_this_is_user(this.booking_now.user_booking)) {
+      this.show_new_user_input = false
+      this.show_button_submit = true
+    }else {
+      let msg_input : Message = {
+        message : 'โปรดกรอกข้อมูล ของลูกค้าให้ครบ',
+        status : 'input is empty feild' ,
+        type : 'err' ,
+        date_in : new Date().getHours()
+        
+      }
+      this.msg_show = true
+      this._state.dispatch({ type : MSG_ADD , payloads : msg_input })
+    }
   }
 }
