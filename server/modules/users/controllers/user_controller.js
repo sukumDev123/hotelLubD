@@ -8,7 +8,9 @@ const check_remember = (user, remember) => new Promise(async (res, rej) => {
 
     try {
         if (remember) {
-            const token = await jwt.sign(user, config.env.secret) 
+            const token = await jwt.sign(user, config.env.secret , {
+                expiresIn : config.env.expremember
+            } ) 
             res(token)
 
         } else {

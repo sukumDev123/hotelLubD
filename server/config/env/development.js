@@ -8,9 +8,12 @@ const config =  {
 
     },
     exp:'1h',
-
+    expremember : '5h'  ,
     port: 3000 ,
     debug : true
 }
+/** 
+ * @returns { config }
+ */
 
 export  default config
