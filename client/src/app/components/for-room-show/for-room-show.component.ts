@@ -53,7 +53,7 @@ export class ForRoomShowComponent implements OnInit {
       this.color_style = new Array(this.rooms.length - 1)
       this.font_style = new Array(this.rooms.length - 1)
     }, err => {
-      this._err.err_handler_msg(err.msg.message, err.status)
+      this._err.set_msg_type(err.msg.message, "load data is problem." , 'err' , new Date().getHours() , true   , err.status )
       this.color_style = new Array(0)
       this.font_style = new Array(0)
     })

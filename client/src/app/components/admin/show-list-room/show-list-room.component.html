@@ -1,8 +1,6 @@
 <div class="container">
-  <div class="noti" *ngIf='successMsgValue || errorMsgValue'>
-
-    <p class="success" *ngIf="successMsgValue">{{ successMsgValue }}</p>
-    <p class='error' *ngIf="errorMsgValue">{{ errorMsgValue }}</p>
+  <div class='noti'>
+    <app-err-component></app-err-component>
 
   </div>
   <div class="edit_page_show" *ngIf='show_edit_boolean'>

@@ -49,15 +49,12 @@ export class AddRoomComponent implements OnInit {
   submitAddRoom(): void {
     if (this.room.name && this.room.number && this.room.priceRoom) {
       this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
-        console.log(err)
-        this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
-        setTimeout(() => {
-          this.errorMsgValue = ''
-        }, 3000)
+
+        this._err.set_msg_type(err.msg.message, 'Add room is problem.', 'err', new Date().getHours(), true, err.status)
       })
 
     } else {
-      //this.err("Plasae input every fils.", 0)
+      this._err.set_msg_type('ใส่ให้ครับทุกช่องด้วยครับ.' ,'feild is empty .' , 'err' , new Date().getHours() , true , 123 )
     }
   }
 

@@ -1,22 +1,17 @@
 import * as err_action from '../actions/err.action'
+import {
+  MessageCreated
+} from '../../interface/msg-create.interface';
 
 
-export interface MessageCreated {
-  message: string,
-    status: string,
-    date_in: number,
-    type: string ,
-    msg_show:boolean
-}
-export const err_test_msg: MessageCreated = {
+const err_test_msg: MessageCreated = {
   message: 'test',
   status: '200',
   date_in: 0,
-  type: 'success' ,
-  msg_show : false 
+  type: 'success',
+  msg_show: false,
+  status_number: 200
 }
-
-
 export function err_reducer(state: MessageCreated = err_test_msg, action: err_action.ActionErr): MessageCreated {
   switch (action.type) {
     case err_action.MSG_ADD:
@@ -27,8 +22,8 @@ export function err_reducer(state: MessageCreated = err_test_msg, action: err_ac
           status: action.payloads.status,
           date_in: action.payloads.date_in,
           type: action.payloads.type,
-          msg_show : action.payloads.msg_show
-        } 
+          msg_show: action.payloads.msg_show
+        }
       }
 
 

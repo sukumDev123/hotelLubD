@@ -6,11 +6,9 @@ import {
   Store
 } from '@ngrx/store'
 import {
-  MessageCreated
-} from '../../store/reducers/err.reducer';
-import {
   ManagetReducer
 } from '../../store/reducers/index.reducer';
+import { MessageCreated } from '../../interface/msg-create.interface';
 @Component({
   selector: 'app-err-component',
   templateUrl: './err-component.component.html',

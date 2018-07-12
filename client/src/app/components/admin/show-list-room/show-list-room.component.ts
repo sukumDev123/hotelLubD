@@ -37,11 +37,7 @@ export class ShowListRoomComponent implements OnInit {
     }, 3000)
     // NOTE: This is show messge Success. 
   }
-  time_out_300() {
-    setTimeout(() => {
-      this.errorMsgValue = ''
-    }, 3000)
-  }
+ 
 
   dateShow(date: string): Date {
     let d = new Date(date)
@@ -59,8 +55,8 @@ export class ShowListRoomComponent implements OnInit {
        // this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
       }
     }, err => {
-      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
-      this.time_out_300()
+     
+      this._err.set_msg_type(err.msg.message, " load array is problem. " , 'err' , new Date().getHours() , true , err.status )
     })
   }
   edit_data(data: RoomDetail) {
@@ -74,8 +70,8 @@ export class ShowListRoomComponent implements OnInit {
 
   edit_page_submit() {
     this._room.editRoom(this.roomTemp, this.roomTemp._id).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
-      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
-      this.time_out_300()
+      
+      this._err.set_msg_type(err.msg.message, "Edit is problem." , 'err' , new Date().getHours() , true , err.status )
     })
 
   }
@@ -92,8 +88,8 @@ export class ShowListRoomComponent implements OnInit {
         this.roomListIsNotEmpty = false
       }
     }, err => {
-      this.errorMsgValue = this._err.err_handler_msg(err.msg.message, err.status)
-      this.time_out_300()
+     
+      this._err.set_msg_type(err.msg.message, "delete is problem." , 'err' , new Date().getHours() , true , err.status )
     })
   }
 

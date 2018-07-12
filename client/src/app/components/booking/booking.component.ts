@@ -37,9 +37,6 @@ import {
 import {
   MSG_ADD
 } from '../../store/actions/err.action';
-import {
-  MessageCreated
-} from '../../store/reducers/err.reducer';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -207,7 +204,7 @@ export class BookingComponent implements OnInit {
       this.show_new_user_input = false
       this.show_button_submit = true
     } else {
-      this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true)
+      this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true , 123 )
     }
   }
 }

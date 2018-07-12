@@ -1,8 +1,6 @@
 <div class="container p-3">
-  <div class="noti" *ngIf='successMsgValue || errorMsgValue'>
-
-    <p class="success" *ngIf="successMsgValue">{{ successMsgValue }}</p>
-    <p class='error' *ngIf="errorMsgValue">{{ errorMsgValue }}</p>
+  <div class='noti'>
+    <app-err-component></app-err-component>
 
   </div>
   <div class="col-12 col-md-6 marginC">

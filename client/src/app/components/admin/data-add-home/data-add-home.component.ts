@@ -44,7 +44,7 @@ export class DataAddHomeComponent implements OnInit {
   changeData: string = ''
   img_keep: PhotoIs
   img_keep_show: boolean = false
-  constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router) {}
+  constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router ) {}
 
   sendErrorMsg(err) { // Error msg for send user
     if (err.status === 401) {

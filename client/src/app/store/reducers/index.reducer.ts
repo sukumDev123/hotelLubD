@@ -1,6 +1,7 @@
 import { reducerRoom, RoomArrayIs } from "./booking.reducers";
 import { ActionReducerMap } from "../../../../node_modules/@ngrx/store";
-import { MessageCreated, err_reducer } from "./err.reducer";
+import {  err_reducer } from "./err.reducer";
+import { MessageCreated } from "../../interface/msg-create.interface";
 
 export interface ManagetReducer {
     rooms : RoomArrayIs ,

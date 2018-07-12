@@ -1,8 +1,6 @@
 <div class="container">
-  <div class="noti"   *ngIf='success || error' >
-    
-    <p class="success" *ngIf="success" >{{ success }}</p>
-    <p class='error' *ngIf="error" >{{ error }}</p>
+  <div class='noti'>
+    <app-err-component></app-err-component>
 
   </div>
   <div *ngIf="img_keep_show" class="show_img_dir">

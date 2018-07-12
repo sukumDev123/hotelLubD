@@ -1,7 +1,7 @@
 import {
   Action
 } from '@ngrx/store'
-import {  MessageCreated } from '../reducers/err.reducer';
+import { MessageCreated } from '../../interface/msg-create.interface';
 
 
 
