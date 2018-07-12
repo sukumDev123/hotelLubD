@@ -1,4 +1,4 @@
-<div class="conponents {{ err_msg.type }} ">
+<div *ngIf='msg_show' class="conponents {{ err_msg.type }} ">
   <div class="msg_hander">
     <h5 class='textKait' >
     Message is : {{ err_msg.type }}

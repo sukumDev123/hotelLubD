@@ -34,8 +34,12 @@ import {
 import {
   ManagetReducer
 } from '../../store/reducers/index.reducer';
-import { MSG_ADD } from '../../store/actions/err.action';
-import { Message } from '../../store/reducers/err.reducer';
+import {
+  MSG_ADD
+} from '../../store/actions/err.action';
+import {
+  MessageCreated
+} from '../../store/reducers/err.reducer';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -69,8 +73,12 @@ export class BookingComponent implements OnInit {
 
   font_style: Array < string > = []
 
+
+
+  
+
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _err: ErrHandlerService, private _state: Store < ManagetReducer > ) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > ) {}
 
   data_is_defult() {
     return {
@@ -198,16 +206,8 @@ export class BookingComponent implements OnInit {
     if (this.check_this_is_user(this.booking_now.user_booking)) {
       this.show_new_user_input = false
       this.show_button_submit = true
-    }else {
-      let msg_input : Message = {
-        message : 'โปรดกรอกข้อมูล ของลูกค้าให้ครบ',
-        status : 'input is empty feild' ,
-        type : 'err' ,
-        date_in : new Date().getHours()
-        
-      }
-      this.msg_show = true
-      this._state.dispatch({ type : MSG_ADD , payloads : msg_input })
+    } else {
+      this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true)
     }
   }
 }
