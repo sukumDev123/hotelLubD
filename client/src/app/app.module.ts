@@ -39,28 +39,34 @@ import {
 import {
   ForRoomShowComponent
 } from './components/for-room-show/for-room-show.component';
-import { reducer_total } from './store/reducers/index.reducer';
-import { ErrComponentComponent } from './components/err-component/err-component.component';
+import {
+  reducer_total
+} from './store/reducers/index.reducer';
+import {
+  ErrComponentComponent
+} from './components/err-component/err-component.component';
+import { UserGlobalService } from './services/users/user/user-global.service';
 
-function tokenGetter() {
+export function tokenGetter() {
   return localStorage.getItem('Login')
 }
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...AppComponentRoute,
-
     ForRoomShowComponent,
+    ErrComponentComponent,
+    ...AppComponentRoute
 
-    ErrComponentComponent
+    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot( reducer_total ),
+    StoreModule.forRoot(reducer_total),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -69,7 +75,7 @@ function tokenGetter() {
     })
   ],
   providers: [
-    AdminServiceService, DataShowService, UserServiceService, {
+    AdminServiceService, DataShowService, UserServiceService,UserGlobalService, {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceprot,
       multi: true

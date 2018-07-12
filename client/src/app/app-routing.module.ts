@@ -21,7 +21,7 @@ import { BookingComponent } from './components/booking/booking.component';
 import { AddRoomComponent } from './components/admin/add-room/add-room.component';
 import { ShowListRoomComponent } from './components/admin/show-list-room/show-list-room.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: "core", component: CoreComponent, children: [
       { path: "home", component: HomeComponent },

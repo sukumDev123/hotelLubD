@@ -72,7 +72,7 @@ export class BookingComponent implements OnInit {
 
 
 
-  
+
 
   // room_is_empty: Array < RoomDetail > = []
   constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > ) {}
@@ -185,9 +185,9 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
+        console.log(this.booking_now)
 
       } else {
-        console.log(this.booking_now)
 
       }
     } else {
@@ -204,7 +204,7 @@ export class BookingComponent implements OnInit {
       this.show_new_user_input = false
       this.show_button_submit = true
     } else {
-      this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true , 123 )
+      this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true, 123)
     }
   }
 }
