@@ -9,7 +9,8 @@ import {
 } from '../../../../node_modules/@angular/router';
 
 import {
-  MSG_ADD
+  MSG_ADD,
+  OFF_MSG
 } from '../../store/actions/err.action';
 import {
   ManagetReducer
@@ -48,6 +49,12 @@ export class ErrHandlerService {
       type: MSG_ADD,
       payloads: msg_input
     })
+    setTimeout(() => {
+      this._state.dispatch({
+        type: OFF_MSG,
+        payloads: false
+      })
+    }, 3000)
   }
 
 

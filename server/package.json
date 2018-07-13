@@ -4,6 +4,11 @@
   "description": "For booking room",
   "main": "index.js",
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": [
+      "modules/inforesort/models/resort_th.json"
+    ]
+  },
   "scripts": {
     "start": "nodemon start.js",
     "test": "mocha ./modules/inforesort/test"

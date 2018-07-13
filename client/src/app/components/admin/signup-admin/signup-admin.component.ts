@@ -45,6 +45,8 @@ export class SignupAdminComponent implements OnInit {
   }
   onSubmit()  {
     let _admin = this.admin
+    console.log(_admin)
+
     let admin_ = new Signup(_admin.firstname,_admin.lastname,_admin.email,_admin.username,_admin.password,_admin.password2,_admin.phone,'admin')
     if(admin_.checkPasswordEqual()) {
 

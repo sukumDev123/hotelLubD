@@ -16,7 +16,7 @@ import {
   PhotoIs
 } from '../../interface/photoKeep';
 import {
-  catchError
+  catchError, map
 } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { UserGlobalService } from '../users/user/user-global.service';
@@ -43,6 +43,12 @@ export class DataShowService {
   }
   changeData(data: DataResort): Observable < DataResortCallBack > {
     return this._http.post < any > (`${this._host}/api/data/info/resort`, data).pipe(
+      // map(data =>  {
+      //   return {
+      //     ...data ,
+      //     data: JSON.parse(data.data)
+      //   }
+      // } ),
       catchError(this.errHandler)
       
     )

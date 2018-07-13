@@ -22,7 +22,7 @@ function writeFileAsync(pathFile, data) {
             if (err) {
                 rej(false)
             } else {
-                res(true)
+                res(dataInfo)
             }
         })
     })
@@ -44,8 +44,8 @@ export async function updatePhotomain(req, res, next) {
         let nameFile = req.name_file
         let find_ = await PhotoPath.find()
         let photo_ = find_[0]
-        photo_.photoMain = nameFile 
-        let findUp = await PhotoPath.findByIdAndUpdate(photo_._id , photo_)
+        photo_.photoMain = nameFile
+        let findUp = await PhotoPath.findByIdAndUpdate(photo_._id, photo_)
         let new_ = await PhotoPath.find()
         res.json(new_)
     } catch (error) {
@@ -153,16 +153,18 @@ export async function addPhotoOtherFile(req, res, next) {
 export async function writeFileResort(req, res) {
     try {
         if (isNotNull(req.body)) {
-            let read = await writeFileAsync("./modules/inforesort/models/resort_th.json", req.body)
-            let find_ = await readFileAsync("./modules/inforesort/models/resort_th.json")
+            let path_ = path.resolve('./modules/inforesort/models/resort_th.json')
+            let find_ = await fs.readFile(path_)
             res.json({
-                message : "Write File Success.",
-                data : JSON.parse(find_)
+                message: "Write File Success.",
+                data: JSON.stringify(req.body)
             })
+            let write = await fs.writeFile(path_, JSON.stringify(req.body))
+
         } else {
             res.status(403).json({
-                message: 'Data is empty.' ,
-                data : req.body
+                message: 'Data is empty.',
+                data: req.body
             })
         }
     } catch (error) {

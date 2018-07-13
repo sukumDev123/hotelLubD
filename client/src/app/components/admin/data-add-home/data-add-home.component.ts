@@ -19,6 +19,7 @@ import {
 import {
   Router
 } from '../../../../../node_modules/@angular/router';
+import { ErrHandlerService } from '../../../services/err-handler/err-handler.service';
 
 @Component({
   selector: 'app-data-add-home',
@@ -44,39 +45,25 @@ export class DataAddHomeComponent implements OnInit {
   changeData: string = ''
   img_keep: PhotoIs
   img_keep_show: boolean = false
-  constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router ) {}
+  constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router , private _err : ErrHandlerService ) {}
 
-  sendErrorMsg(err) { // Error msg for send user
-    if (err.status === 401) {
-      let msg = err.msg == 'object' ? err.msg.message : err.msg
-      this._user.Logout()
-      alert(msg)
-    } else if (err.status === 0) {
-      this._router.navigate(['/page/problem'])
-    } 
-    this.error = err.meg
-    setTimeout(() => {
-      this.error = ''
-    }, 3000)
-  }
+ 
 
   successMsg(data, msg) {
     
       this.img_keep = data
-      this.success = msg
-      setTimeout(() => {
-        this.success = ''
-      }, 3000)
 
+      this._err.set_msg_type(msg , `is callback : ${JSON.stringify(data)}` , 'success' , new Date().getHours() , true , 200   )
     
 
   }
 
   ngOnInit() {
+    
     this._dataResort.readData().subscribe(suc => {
       this._data_ = suc
       this.img_data = (this.host + this._data_.photoMain)
-    }, err => this.sendErrorMsg(err))
+    }, err => this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
 
   }
   seletePhoto(photo: string) {
@@ -97,7 +84,7 @@ export class DataAddHomeComponent implements OnInit {
       } else {
         this.downloadsFileFirst = true
       }
-    }, err => this.sendErrorMsg(err))
+    }, err =>  this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
   }
   saveUploads(e) {
 
@@ -108,7 +95,7 @@ export class DataAddHomeComponent implements OnInit {
         formData.append("photo", files[i], files[i]['name']);
       }
       this._dataResort.changePhoto(formData).subscribe(suc => this.successMsg(suc, "Uploads Image SUccess."), err =>
-        this.sendErrorMsg(err)
+      this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   )
 
       )
 
@@ -117,17 +104,17 @@ export class DataAddHomeComponent implements OnInit {
   deletePhoto(id: string) {
     ///info/photo
     if (confirm("You want to delete ? ")) {
-      this._dataResort.deletePhotoService(id).subscribe(suc => this.successMsg(suc, "Deleted Image Success"), err => this.sendErrorMsg(err))
+      this._dataResort.deletePhotoService(id).subscribe(suc => this.successMsg(suc, "Deleted Image Success"), err => this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
     }
   }
 
   UpdatePhotoMainPath() {
     let img_file = this.img_data.split('/')[4]
-    this._dataResort.changePhotoMain(img_file).subscribe(suc => this.successMsg(`${this.host}/subPhoto/${suc[0].photoMain}`, "Change Photo main Success."), err => this.sendErrorMsg(err))
+    this._dataResort.changePhotoMain(img_file).subscribe(suc => this.successMsg(`${this.host}/subPhoto/${suc[0].photoMain}`, "Change Photo main Success."), err =>  this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
   }
   // ------------------------------- > photo handler
 
   submitUpdate() {
-    this._dataResort.changeData(this._data_).subscribe(suc => this.successMsg(suc.data , suc.message ) , err => this.sendErrorMsg(err))
+    this._dataResort.changeData(this._data_).subscribe(suc => this.successMsg(suc.data , suc.message ) , err =>  this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
   }
 }

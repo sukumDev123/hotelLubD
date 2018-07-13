@@ -25,6 +25,13 @@ export function err_reducer(state: MessageCreated = err_test_msg, action: err_ac
           msg_show: action.payloads.msg_show
         }
       }
+    case err_action.OFF_MSG:
+      {
+        return {
+          ...state ,
+          msg_show : action.payloads
+        }
+      }
 
 
     default:

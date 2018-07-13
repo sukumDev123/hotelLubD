@@ -39,14 +39,18 @@ export class AddRoomComponent implements OnInit {
 
   successMsgFunction(msg: string, data: RoomDetail): void {
     this.successMsgValue = msg
-
-    this._err.set_msg_type(msg, ` add room detail :    ${JSON.stringify(data)}`, 'success', new Date().getHours(), true, 200)
+    console.log(data)
+    this._err.set_msg_type(msg, ` add room detail : ${JSON.stringify(data)}`, 'success', new Date().getHours(), true, 200)
     // NOTE: This is show messge Success. 
   }
 
   submitAddRoom(): void {
     if (this.room.name && this.room.number && this.room.priceRoom) {
-      this._room.addRoom(this.room).subscribe(suc => this.successMsgFunction(suc.message, suc.data), err => {
+      this._room.addRoom(this.room).subscribe(suc => {
+        console.log(suc)
+        this._err.set_msg_type(suc.message , ` data is : add success.` , 'success' , new Date().getHours() , true , 200)
+       // this.successMsgFunction(suc.message, suc.data)
+      }, err => {
 
         this._err.set_msg_type(err.msg.message, 'Add room is problem.', 'err', new Date().getHours(), true, err.status)
       })
