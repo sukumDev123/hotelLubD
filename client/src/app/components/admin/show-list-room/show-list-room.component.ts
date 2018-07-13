@@ -84,6 +84,7 @@ export class ShowListRoomComponent implements OnInit {
         this.roomList = suc.data
        // this.roomList.map(suc => suc.create_at = this.dateShow(suc.create_at))
 
+      this._err.set_msg_type(`Delete this photo id ${id} success`, "delete is not problem." , 'success' , new Date().getHours() , true , 200 )
       } else {
         this.roomListIsNotEmpty = false
       }

@@ -49,12 +49,13 @@ export class ErrHandlerService {
       type: MSG_ADD,
       payloads: msg_input
     })
+
     setTimeout(() => {
       this._state.dispatch({
         type: OFF_MSG,
         payloads: false
       })
-    }, 3000)
+    }, 1000)
   }
 
 
