@@ -83,15 +83,15 @@ export async function deleteReserveRoom(req, res) {
 export async function reserveRoom(req, res) {
 
     try {
-        let userOrNot = await userOrNotFunc(req)
-        if (userOrNot) {
-            userOrNot.reserveNum += 1
-            let checkture = await updateAsync(userOrNot)
-            req.body.userBooking = checkture
-        }
+        // let userOrNot = await userOrNotFunc(req)
+        // if (userOrNot) {
+        //     userOrNot.reserveNum += 1
+        //     let checkture = await updateAsync(userOrNot)
+        //     req.body.userBooking = checkture
+        // }
 
-        let reserveNow = await reserveNowFunc(req)
-        res.json(reserveNow)
+        // let reserveNow = await reserveNowFunc(req)
+        // res.json(reserveNow)
 
     } catch (error) {
 

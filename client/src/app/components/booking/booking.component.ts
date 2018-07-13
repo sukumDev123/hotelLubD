@@ -185,7 +185,7 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
-        console.log(this.booking_now)
+       
 
       } else {
 
