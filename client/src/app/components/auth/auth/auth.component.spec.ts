@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthComponent } from './auth.component';
+import { declarations, imports } from '../../../module.all.test';
+import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -8,7 +10,12 @@ describe('AuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthComponent ]
+      declarations: [ AuthComponent , declarations ] ,
+      imports : [imports] ,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: '/'
+      }]
     })
     .compileComponents();
   }));

@@ -19,6 +19,7 @@ import {
 import {
   UserGlobalService
 } from '../../../services/users/user/user-global.service';
+import { declarations, imports } from '../../../module.all.test';
 
 describe('AddRoomComponent', () => {
   let component: AddRoomComponent;
@@ -26,8 +27,8 @@ describe('AddRoomComponent', () => {
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
-        declarations: [AddRoomComponent],
-        imports: [FormsModule],
+        declarations: [AddRoomComponent , declarations],
+        imports: [FormsModule , imports],
       })
       .compileComponents();
   }));

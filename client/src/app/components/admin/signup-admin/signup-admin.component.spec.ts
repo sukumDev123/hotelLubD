@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupAdminComponent } from './signup-admin.component';
+import { imports, declarations } from '../../../module.all.test';
+import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
 
 describe('SignupAdminComponent', () => {
   let component: SignupAdminComponent;
@@ -8,7 +10,11 @@ describe('SignupAdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignupAdminComponent ]
+      declarations: [ SignupAdminComponent , declarations ] ,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: '/'
+      }],imports : [imports]
     })
     .compileComponents();
   }));

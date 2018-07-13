@@ -1,11 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AdminServiceService } from './admin-service.service';
+import { imports, declarations } from '../../../module.all.test';
+import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
 
 describe('AdminServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AdminServiceService]
+      providers: [AdminServiceService ,  {
+        provide: APP_BASE_HREF,
+        useValue: '/'
+      }] ,
+      imports:[imports] ,
+      declarations : [  declarations ] ,
+      
     });
   });
 

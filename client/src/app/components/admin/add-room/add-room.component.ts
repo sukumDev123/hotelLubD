@@ -39,10 +39,8 @@ export class AddRoomComponent implements OnInit {
 
   successMsgFunction(msg: string, data: RoomDetail): void {
     this.successMsgValue = msg
-    console.log(data)
-    setTimeout(() => {
-      this.successMsgValue = ''
-    }, 3000)
+
+    this._err.set_msg_type(msg, ` add room detail :    ${JSON.stringify(data)}`, 'success', new Date().getHours(), true, 200)
     // NOTE: This is show messge Success. 
   }
 
@@ -54,7 +52,7 @@ export class AddRoomComponent implements OnInit {
       })
 
     } else {
-      this._err.set_msg_type('ใส่ให้ครับทุกช่องด้วยครับ.' ,'feild is empty .' , 'err' , new Date().getHours() , true , 123 )
+      this._err.set_msg_type('ใส่ให้ครับทุกช่องด้วยครับ.', 'feild is empty .', 'err', new Date().getHours(), true, 123)
     }
   }
 

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SiginupComponent } from './siginup.component';
+import { imports, declarations } from '../../../module.all.test';
+import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
 
 describe('SiginupComponent', () => {
   let component: SiginupComponent;
@@ -8,7 +10,12 @@ describe('SiginupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SiginupComponent ]
+      declarations: [ SiginupComponent , declarations ] ,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: '/'
+      }],
+      imports :[imports]
     })
     .compileComponents();
   }));

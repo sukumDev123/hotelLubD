@@ -1,16 +1,34 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
 
-import { DataAddHomeComponent } from './data-add-home.component';
+import {
+  DataAddHomeComponent
+} from './data-add-home.component';
+import {
+  declarations,
+  imports
+} from '../../../module.all.test';
+import {
+  APP_BASE_HREF
+} from '../../../../../node_modules/@angular/common';
 
 describe('DataAddHomeComponent', () => {
   let component: DataAddHomeComponent;
-  let fixture: ComponentFixture<DataAddHomeComponent>;
+  let fixture: ComponentFixture < DataAddHomeComponent > ;
 
-  beforeEach(async(() => {
+  beforeEach(async (() => {
     TestBed.configureTestingModule({
-      declarations: [ DataAddHomeComponent ]
-    })
-    .compileComponents();
+        declarations: [DataAddHomeComponent, declarations],
+        imports: [imports],
+        providers: [{
+          provide: APP_BASE_HREF,
+          useValue: '/'
+        }]
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
