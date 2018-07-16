@@ -34,20 +34,21 @@ function updateAsync(data) {
     })
 }
 
-function reserveNowFunc(data) {
+async function reserveNowFunc(data) {
     return new Promise((res, rej) => {
         let booking = new Booking(data.body)
         booking.checkIn = new Date(booking.checkIn)
         booking.checkOut = new Date(booking.checkOut)
 
-        booking.save(err => {
-            if (err) {
-                rej(err)
-            } else {
-                res(booking)
-            }
-        })
-
+        try {
+            let save_ = booking.save()
+            res({
+                message: 'Save booking list success.',
+                status: 200
+            })
+        } catch (error) {
+            rej(error)
+        }
 
 
     })
@@ -62,7 +63,7 @@ export function showA_reser(req, res) {
 }
 export async function updateReserveRoom(req, res) {
     try {
-        let updateBooking = await Booking.findByIdAndUpdate(req.bookingParam._id , req.body)
+        let updateBooking = await Booking.findByIdAndUpdate(req.bookingParam._id, req.body)
         let findUser = await Booking.findById(req.bookingParam._id)
         res.json(findUser)
     } catch (error) {
@@ -73,25 +74,30 @@ export async function deleteReserveRoom(req, res) {
     try {
         let removeBooking = await Booking.findByIdAndRemove(req.bookingParam._id)
         res.json({
-            message : "Delete list booking success."
+            message: "Delete list booking success."
         })
     } catch (error) {
         res.status(403).json(error)
-        
+
     }
 }
 export async function reserveRoom(req, res) {
 
     try {
-        // let userOrNot = await userOrNotFunc(req)
-        // if (userOrNot) {
-        //     userOrNot.reserveNum += 1
-        //     let checkture = await updateAsync(userOrNot)
-        //     req.body.userBooking = checkture
-        // }
 
-        // let reserveNow = await reserveNowFunc(req)
-        // res.json(reserveNow)
+        let userOrNot = await userOrNotFunc(req)
+        if (userOrNot) {
+            userOrNot.reserveNum += 1
+            let checkture = await updateAsync(userOrNot)
+            req.body.userBooking = checkture
+        }
+
+        let reserveNow = await reserveNowFunc(req)
+        res.json({
+            message: reserveNow.message,
+            status: reserveNow.status,
+            datacall: JSON.stringify(req.body)
+        })
 
     } catch (error) {
 

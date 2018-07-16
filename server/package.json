@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "nodemon start.js",
-    "test": "mocha ./modules/inforesort/test"
+    "test": "mocha"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -19,7 +19,8 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -37,7 +38,6 @@
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^2.1.1",
-    "supertest": "^3.1.0"
+    "socket.io": "^2.1.1"
   }
 }
