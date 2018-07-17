@@ -20,6 +20,11 @@ interface BookingCallBack {
     message: string,
     status: number
 }
+interface BookingListCallBack {
+  data_list: Booking[],
+    message: string,
+    status: number
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +48,14 @@ export class BookingService {
 
   bookingNowService(data: Booking): Observable < BookingCallBack > {
     return this._http.post < any > (`${this._host}/api/booking/user/reserve`, data).pipe(
+      map(this.sucFunction),
+      catchError(this.err_hander)
+    )
+  }
+  bookingListService(limit: Number = 0): Observable < BookingListCallBack > {
+
+    let limit_size = limit ? `?limitSize=${limit}` : null
+    return this._http.get < any > (`${this._host}/api/booking/user/history${limit_size}`).pipe(
       map(this.sucFunction),
       catchError(this.err_hander)
     )

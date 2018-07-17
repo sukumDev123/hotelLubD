@@ -131,7 +131,11 @@ export async function historyRoom(req, res) {
         let bookings = await Booking.find({
             "userBooking._id": req.user._id
         }).sort('-create_at')
-        res.json(bookings)
+        res.json({
+            data_list: bookings,
+            message: "Find success.",
+            status: 200
+        })
     } catch (error) {
         console.log(error)
     }

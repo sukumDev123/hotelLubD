@@ -46,6 +46,7 @@ import {
   ErrComponentComponent
 } from './components/err-component/err-component.component';
 import { UserGlobalService } from './services/users/user/user-global.service';
+import { ListBookingComponent } from './components/admin/list-booking/list-booking.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Login')
@@ -56,7 +57,7 @@ export function tokenGetter() {
     AppComponent,
     ForRoomShowComponent,
     ErrComponentComponent,
-    ...AppComponentRoute
+    ...AppComponentRoute,
 
     
 
