@@ -55,7 +55,7 @@ export class ErrHandlerService {
         type: OFF_MSG,
         payloads: false
       })
-    }, 1000)
+    }, 5000)
   }
 
 

@@ -157,7 +157,7 @@ export async function writeFileResort(req, res) {
             let find_ = await fs.readFile(path_)
             res.json({
                 message: "Write File Success.",
-                data: JSON.stringify(req.body)
+                data: req.body
             })
             let write = await fs.writeFile(path_, JSON.stringify(req.body))
 

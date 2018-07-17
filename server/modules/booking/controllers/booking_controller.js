@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 const Booking = mongoose.model('Booking')
 const User = mongoose.model('User')
-
+const Room = mongoose.model('Room')
 
 function userOrNotFunc(data) {
     return new Promise((res, rej) => {
 
         User.find({
-            email: data.body.userBooking.email
+            email: data.body.user_booking.email
         }).then(suc => {
             if (!suc.length) {
                 res(false)
@@ -81,18 +81,38 @@ export async function deleteReserveRoom(req, res) {
 
     }
 }
+export function roomDateSetInSetOut(cI, cO, dataroom) {
+    return new Promise((res, rej) => {
+        try {
+            let room_find = []
+            dataroom.forEach(async room_id => {
+                let find_by_id = await Room.findById(room_id).select("liveDate liveLatest _id")
+                find_by_id.liveDate.push(cI) // check in date 
+                find_by_id.liveLatest.push(cO)
+                find_by_id.save()
+            }) // room all reser
+            res(true)
+        } catch (error) {
+            rej({
+                message: error ? JSON.stringify(error) : "Room Save is problum",
+                status: 503
+            })
+        }
+    })
+}
 export async function reserveRoom(req, res) {
 
     try {
 
-        let userOrNot = await userOrNotFunc(req)
-        if (userOrNot) {
+        let userOrNot = await userOrNotFunc(req) // check is user or not user
+        if (userOrNot) { // if user +1 reservenum
             userOrNot.reserveNum += 1
-            let checkture = await updateAsync(userOrNot)
-            req.body.userBooking = checkture
+            let checkture = await updateAsync(userOrNot) // update and find user
         }
 
-        let reserveNow = await reserveNowFunc(req)
+        let roomCreateDate = roomDateSetInSetOut(req.body.check_in, req.body.check_out, req.body.room) // set room checkin date and checkout date
+
+        let reserveNow = await reserveNowFunc(req) // booking success.
         res.json({
             message: reserveNow.message,
             status: reserveNow.status,

@@ -45,7 +45,7 @@
   <div class="col-12 col-md-8 marginC">
     <div class="row">
       <!-- <div *ngIf='roomListIsNotEmpty'> -->
-      <div class="col-12 col-md-4 p-2 " *ngFor='let data of roomList'>
+      <div class="col-12 col-md-4 p-2 " *ngFor='let data of roomList;let i = index'>
         <div class="data">
           <div class="photo_div">
             <img src="" alt="photo type room" class="photo_img">
@@ -71,13 +71,31 @@
 
             <div class="col-12">
               <small class="text-right textKati"> {{ data.create_at }} </small>
+              <label (click)="show_checkin_list(data.liveDate , i)" class='show_checkin_list'> Show Check in List </label>
+              <div [ngStyle]="
+               {
+                'display' : display[i] ? display[i] : 'none' ,
+                'box-shadow': '0 0 10px 1px rgba(0,0,0,0.3)',
+                'padding': '10px',
+                'position': 'fixed',
+                'background':'#ffffff',
+                'z-index':'1',
+                'border-radius':'6px' 
+               }
+              ">
+                <p *ngFor="let dateIn of data.liveDate ; let dateOut of data.liveLatest">{{setDateToString(dateIn , dateOut)}} </p>
 
+                <p [hidden]='data.liveDate.length'> ยังไม่มีการจองในห้องนี้ </p>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- </div> -->
       </div>
+      <!-- <div class="md-form col-12">
+        <button class='btn btn-block' type="button" (click)="showMore()" > Show More </button>
+      </div> -->
       <div *ngIf='!roomListIsNotEmpty' class="col-12 col-md-4 marginC">
         <h5 class='showBecauseEmptyArray'>
           Array is Empty.

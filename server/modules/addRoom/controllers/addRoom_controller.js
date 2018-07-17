@@ -3,7 +3,8 @@ const Room = mongoose.model('Room')
 
 export async function getRoomData(req, res, next) {
     try {
-        let find_ = await Room.find().limit(10).sort('-created_at').select("_id name number create_at priceRoom")
+        
+        let find_ = await Room.find().sort('-created_at').select("_id name number create_at priceRoom liveDate liveLatest ")
         res.json({
             data: find_,
             message: "Data message is array"

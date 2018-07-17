@@ -8,8 +8,8 @@ export interface RoomDetail {
   name: string,
     number: number,
     create_at: Date,
-    liveDate: Date,
-    liveLast: Date,
+    liveDate: Date[],
+    liveLast: Date[],
     
     type: string,
     _id: string,

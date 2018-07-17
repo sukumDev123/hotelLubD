@@ -52,8 +52,9 @@ export class DataAddHomeComponent implements OnInit {
   successMsg(data, msg) {
     
       this.img_keep = data
+      console.log(data)
 
-      this._err.set_msg_type(msg , `is callback : ${JSON.stringify(data)}` , 'success' , new Date().getHours() , true , 200   )
+      this._err.set_msg_type(msg , `is callback : ${(data.title)}` , 'success' , new Date().getHours() , true , 200   )
     
 
   }

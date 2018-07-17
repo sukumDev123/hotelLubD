@@ -37,6 +37,9 @@ import {
 import {
   MSG_ADD
 } from '../../store/actions/err.action';
+import {
+  BookingService
+} from '../../services/booking/booking.service';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -75,7 +78,7 @@ export class BookingComponent implements OnInit {
 
 
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > ) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > , private _booking: BookingService) {}
 
   data_is_defult() {
     return {
@@ -92,7 +95,7 @@ export class BookingComponent implements OnInit {
     defualtHeader.coreJquery()
     this.booking_now = this.data_is_defult()
     this._state.select < any > ('rooms').subscribe(suc => {
-      this.booking_now.room = suc
+      this.booking_now.room = suc.room
       this.cal_price_num = this.cal_price_num_function(suc)
     }, err => console.log(err))
 
@@ -185,7 +188,9 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
-       
+        this._booking.bookingNowService(this.booking_now).subscribe(suc => {
+          console.log(suc)
+        }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
 
       } else {
 
