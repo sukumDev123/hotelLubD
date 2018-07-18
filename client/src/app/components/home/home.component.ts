@@ -11,8 +11,12 @@ import {
 import * as $ from 'jquery'
 
 import _host from '../../host.global'
-import { UserGlobalService } from '../../services/users/user/user-global.service';
-import { DataResort } from '../../interface/data.interface';
+import {
+  UserGlobalService
+} from '../../services/users/user/user-global.service';
+import {
+  DataResort
+} from '../../interface/data.interface';
 
 
 
@@ -23,29 +27,28 @@ import { DataResort } from '../../interface/data.interface';
 })
 export class HomeComponent implements OnInit {
   host = _host
-  data_info : DataResort = {
+  loadingShow: boolean = false
+  data_info: DataResort = {
     title: '',
     address: '',
     detail: '',
     photoMain: '',
-    phone: '' ,
-    title2 : '',
-    descriton2 : ''
+    phone: '',
+    title2: '',
+    descriton2: ''
   };
-  constructor(public _readData: DataShowService, private _router: Router,  private _user : UserGlobalService ) {
-  }
+  constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService) {}
 
 
   ngOnInit() {
     this._user.checkTokenExp()
     this._readData.readData().subscribe(suc => {
       this.data_info = suc
-      console.log(suc)
+     // this.loadingShow = true
     }, err => {
       if (err.status === 0) {
         this._router.navigate(['/page/problem'])
       }
-
     })
 
     $("#navBar_box").css({

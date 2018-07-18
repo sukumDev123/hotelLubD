@@ -74,6 +74,79 @@ label,
   padding: 10px;
   z-index: 2000;
 }
+
 .msg {
   z-index: 10000;
 }
+
+/** load css */
+
+.load-div {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 3000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.load {
+  padding: 10px;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  position: fixed;
+  top: 15%;
+  text-align: center;
+  left: 48%;
+  animation: test 2s infinite alternate;
+}
+
+@keyframes test {
+  0% {
+    border: 30px solid rgb(35, 107, 216);
+    border-top: 30px solid rgba(0, 0, 0, 0);
+    border-bottom: 30px solid rgba(0, 0, 0, 0);
+    transform: rotate(0deg)
+  }
+  100% {
+    border-top: 30px solid rgba(35, 107, 216, 1);
+    border-bottom: 30px solid rgba(35, 107, 216, 1);
+    border-left: 30px solid rgba(0, 0, 0, 0);
+    border-right: 30px solid rgba(0, 0, 0, 0);
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes textP {
+  0% {
+    color: rgba(35, 107, 216, 0)
+  }
+  10% {
+    color: rgba(35, 107, 216, 0.1)
+  }
+  30% {
+    color: rgba(35, 107, 216, 0.3)
+  }
+  50% {
+    color: rgba(35, 107, 216, 0.5)
+  }
+  100% {
+    color: rgba(35, 107, 216, 1)
+
+  }
+}
+
+
+
+p.loader {
+  color: white;
+  font-size: 100px;
+  position: absolute;
+  left: 46%;
+  top: 30%;
+  animation: textP 2s infinite alternate;
+}
+
+/** */
