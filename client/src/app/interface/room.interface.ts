@@ -9,7 +9,7 @@ export interface RoomDetail {
     number: number,
     create_at: Date,
     liveDate: Date[],
-    liveLast: Date[],
+    liveLatest: Date[],
     
     type: string,
     _id: string,

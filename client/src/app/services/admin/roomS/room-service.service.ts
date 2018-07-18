@@ -45,7 +45,7 @@ export class RoomServiceService {
     )
 
   }
-  showRoom(limit : Number = 0): Observable < RoomArray > {
+  showRoom(limit: Number = 0): Observable < RoomArray > {
     // TODO: to do created service for show room all data return array Room
     console.log(limit)
     let li = limit ? `?limitSize=${limit}` : ''
@@ -61,6 +61,11 @@ export class RoomServiceService {
   deleteRoom(id: string): Observable < RoomArray > {
     //TODO: To do is deleted serveice for delete room which isn't need.
     return this._http.delete < any > (`${this.host}/api/room/delete/${id}`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+  removeRoomLive(data: RoomDetail, id: String): Observable < RoomArray > {
+    return this._http.put < any > (`${this.host}/api/room/delete/live/${id}`, data).pipe(
       catchError(this.handlerError)
     )
   }

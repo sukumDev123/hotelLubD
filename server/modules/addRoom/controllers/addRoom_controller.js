@@ -3,7 +3,7 @@ const Room = mongoose.model('Room')
 
 export async function getRoomData(req, res, next) {
     try {
-        
+
         let find_ = await Room.find().sort('-created_at').select("_id name number create_at priceRoom liveDate liveLatest type")
         res.json({
             data: find_,
@@ -69,6 +69,18 @@ export async function delete_room(req, res, next) {
         next(error)
     }
 }
+export async function update_liveDate(req, res, next) {
+    try {
+        await Room.findByIdAndUpdate(req.room_id , req.body)
+        res.status(200).json({
+            data : req.body ,
+            message : "Remove livedate and livelatest success."
+        })
+
+    } catch (error) {
+        next(error)
+    }
+}
 export async function param_id_room(req, res, next, id) {
     try {
         let find_by_id = await Room.findById(id).select('_id')
@@ -81,8 +93,3 @@ export async function param_id_room(req, res, next, id) {
         })
     }
 }
-// export function param_show_data(req, res, next, id) {
-//     let id_ = id
-//     req.num_select = id
-//     next()
-// }
