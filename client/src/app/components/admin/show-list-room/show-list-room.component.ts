@@ -43,12 +43,12 @@ export class ShowListRoomComponent implements OnInit {
   }
 
 
-  dateShow(date: string): Date {
+  dateShow(date: string): string {
     let d = new Date(date)
     let date_format = `วันที่สร้าง : ${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
 
 
-    return d
+    return date_format
   }
 
   showRoomFunction(limitshow: Number = 0): void {
@@ -89,11 +89,10 @@ export class ShowListRoomComponent implements OnInit {
     if (dateInIn && dateOutIn) {
       let dateIn = new Date(dateInIn)
       let dateOut = new Date(dateOutIn)
-      let in_ = `${dateIn.getDay()}/${dateIn.getMonth()}/${dateIn.getFullYear()} `
-      let out_ = `${dateOut.getDay()}/${dateOut.getMonth()}/${dateOut.getFullYear()} `
+      let in_ = `${dateIn.getDay()}/${dateIn.getMonth()}/${dateIn.getFullYear()}`
+      let out_ = `${dateOut.getDay()}/${dateOut.getMonth()}/${dateOut.getFullYear()}`
 
-      return `วันที่เช็คอิน : ${in_} 
-     วันที่่ช็ตเอ้า : ${out_}`
+      return `วันที่เช็คอิน : ${in_} วันที่่ช็ตเอ้า : ${out_}`
     }
     return null
   }
