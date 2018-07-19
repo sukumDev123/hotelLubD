@@ -47,6 +47,8 @@ import {
 })
 export class BookingComponent implements OnInit {
 
+  loadingShow: boolean = false
+
   show_new_user_input: boolean = false
 
   show_button_submit: boolean = false
@@ -101,7 +103,7 @@ export class BookingComponent implements OnInit {
       this.cal_price_num = this.cal_price_num_function(suc.room)
     }, err => console.log(err))
 
-
+    this.loadingShow = true
   }
 
 
@@ -192,8 +194,11 @@ export class BookingComponent implements OnInit {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
         this.booking_now.night_num = this.cal_price_num.night_num
         this.booking_now.total_price = this.cal_price_num.total_price_room
+        this.loadingShow = false
         this._booking.bookingNowService(this.booking_now).subscribe(suc => {
-          console.log(suc)
+          this.booking_now = this.data_is_defult()
+          this._msg.set_msg_type(suc.message , `Reserve status is success.` , 'success' , new Date().getHours() , true  , 200)
+          this.loadingShow = true
         }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
 
       } else {

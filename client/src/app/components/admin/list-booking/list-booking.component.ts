@@ -82,7 +82,7 @@ export class ListBookingComponent implements OnInit {
     this.page = this.pagination(pageNow, this.sizeData)
     try {
       this.loadingShow = false
-      let list_: BookingListCallBack = await this._bookList.bookingListService(pageNow * 10).toPromise()
+      let list_: BookingListCallBack = await this._bookList.bookingListService((pageNow - 1) * 10).toPromise()
       this.loadingShow = true
       this.bookList = list_.data_list
     } catch (error) {

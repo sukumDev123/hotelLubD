@@ -37,14 +37,18 @@
         </div>
         <div class="user_detail col-12 col-md-6 p-3">
           <h4 class='textKait'> รายการห้อง </h4>
-          <div class="p-3 data_scroll">
-            <h5 class='textKait'> หมายเลขห้อง: </h5>
-            <p class="textKait p-2"> {{ booking_select.room[0].number }} </p>
-            <h5 class='textKait'> เตียงคู่/เดียว: </h5>
-            <p class="textKait p-2">{{ booking_select.room[0].type }}</p>
-            <h5 class='textKait'> ราคา: </h5>
-            <p class="textKait p-2">{{ booking_select.room[0].priceRoom.toFixed(2) }}</p>
-
+          <div class="p-3 data_scroll"  >
+            <div *ngFor="let room of booking_select.room ; let i = index">
+              <h3 class='textKait text-primary text-right' >  ลำดับที่ {{ i+1 }} </h3>
+              <h5 class='textKait'> หมายเลขห้อง: </h5>
+              <p class="textKait p-2"> {{ room.number }} </p>
+              <h5 class='textKait'> เตียงคู่/เดียว: </h5>
+              <p class="textKait p-2">{{ room.type }}</p>
+              <h5 class='textKait'> ราคา: </h5>
+              <p class="textKait p-2">{{ room.priceRoom.toFixed(2) }}</p>
+  
+              <hr>
+            </div>
           </div>
 
         </div>
@@ -75,7 +79,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-10 marginC p-3">
+  <div class="col-12 col-md-10 marginC p-3" style='margin-top:10px;'>
     <div class="col-12  marginC">
       <table class="table">
         <thead>
@@ -120,5 +124,8 @@
 
       </ul>
     </nav>
+  </div>
+  <div *ngIf='!bookList.length' class="empty_array">
+    <h1 class='text-center textKait' > ไม่มีข้อมูล </h1>
   </div>
 </div>
