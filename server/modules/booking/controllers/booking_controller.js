@@ -80,7 +80,12 @@ export async function updateReserveRoom(req, res) {
 export async function deleteReserveRoom(req, res) {
     try {
         let removeBooking = await Booking.findByIdAndRemove(req.bookingParam._id)
+        let bookings = await Booking.find().limit(10)
+        let num = await Booking.count()
         res.json({
+            data_list: bookings,
+            status: 200,
+            size: num,
             message: "Delete list booking success."
         })
     } catch (error) {
@@ -134,20 +139,22 @@ export async function reserveRoom(req, res) {
 
     }
 }
-export async function historyRoom(req, res , next) {
+export async function historyRoom(req, res, next) {
     try {
-       
+
         if (req.query.start) {
             let bookings = await Booking.find().sort('-create_at').limit(10).skip(parseInt(req.query.start))
+            let num = await Booking.count()
             res.json({
                 data_list: bookings,
                 message: "Find success.",
-                status: 200
+                status: 200,
+                size: num
             })
 
-        }else{
+        } else {
             next({
-                message : "query string is not support" ,
+                message: "query string is not support",
                 status: 400
             })
         }

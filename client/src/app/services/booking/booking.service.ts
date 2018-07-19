@@ -48,5 +48,8 @@ export class BookingService {
     let limit_size = `?start=${limit}`
     return this._http.get < any > (`${this._host}/api/booking/user/history${limit_size}`)
   }
+  remove_data_book(id) : Observable<BookingListCallBack> {
+    return this._http.delete<any>(`${this._host}/api/booking/user/history/${id}`)
+  } 
 
 }

@@ -12,7 +12,8 @@ export interface Booking {
     check_in: Date,
     check_out: Date,
     total_price: number,
-    night_num : number
+    night_num : number ,
+    _id : string
 }
 export interface CalPriceNum {
   total_price_room: number,
@@ -29,5 +30,6 @@ export interface BookingCallBack {
 export interface BookingListCallBack {
   data_list: Booking[],
     message: string,
-    status: number
+    status: number ,
+    size: number
 }

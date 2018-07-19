@@ -88,7 +88,8 @@ export class BookingComponent implements OnInit {
       check_in: new Date(),
       check_out: new Date(),
       total_price: 0 ,
-      night_num : 0
+      night_num : 0,
+      _id : ''
     }
   }
 

@@ -1,4 +1,4 @@
-<div class="load-div" [hidden]="loadingShow" >
+<div class="load-div" [hidden]="loadingShow">
   <div class="load">
   </div>
   <p class="loader textKait"> load... </p>
@@ -9,12 +9,78 @@
     <app-err-component></app-err-component>
 
   </div>
+
+  <div class="show-detail-all-bk" *ngIf='show_detail_all_bk' >
+    <div class="show-detail-all col-12 col-md-8">
+      <a class="close-show-detail-all"> <i (click)="show_detail_all_bk = false ; booking_select = {} ; " class="fas fa-times"></i>  </a>
+      <h3 class="textKait text-center text-primary p-3">
+        Detail Booking
+      </h3>
+      <div class="col-12">
+        <h5 class="textKait">
+          วันที่จอง : {{setDateFormate(booking_select.create_at)}} 
+        </h5>
+      </div>
+      <div class="row">
+        <div class="user_detail col-12 col-md-6 p-3">
+          <h4 class='textKait'> ข้อมูล คนจอง </h4>
+          <div class="p-3 data_scroll">
+            <h5 class='textKait'> ชื่อ: </h5>
+            <p class="textKait p-2"> {{ booking_select.user_booking.displayname }} </p>
+            <h5 class='textKait'> email: </h5>
+            <p class="textKait p-2">{{ booking_select.user_booking.email }}</p>
+            <h5 class='textKait'> เบอร์โทร: </h5>
+            <p class="textKait p-2">{{ booking_select.user_booking.phone }}</p>
+
+          </div>
+
+        </div>
+        <div class="user_detail col-12 col-md-6 p-3">
+          <h4 class='textKait'> รายการห้อง </h4>
+          <div class="p-3 data_scroll">
+            <h5 class='textKait'> หมายเลขห้อง: </h5>
+            <p class="textKait p-2"> {{ booking_select.room[0].number }} </p>
+            <h5 class='textKait'> เตียงคู่/เดียว: </h5>
+            <p class="textKait p-2">{{ booking_select.room[0].type }}</p>
+            <h5 class='textKait'> ราคา: </h5>
+            <p class="textKait p-2">{{ booking_select.room[0].priceRoom.toFixed(2) }}</p>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="show_night_pricetotal p-3" >
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <h5 class="textKait">
+              วันที่เช็คอิน : 
+            </h5>
+            <p class='textKait p-2' > 
+            {{ setDateFormate(booking_select.check_in)}}  
+            </p>
+          </div>
+          <div class="col-12 col-md-6">
+              <h5 class="textKait">
+                  วันที่เช็คเอ้า : 
+                </h5>
+                <p class='textKait p-2' > 
+                {{ setDateFormate(booking_select.check_out)}}  
+                </p>
+          </div>
+        </div>
+       <div class="col-12 p-3 btn-primary text-center">
+         <h3 class="textKait">฿ {{ booking_select.total_price.toFixed(2) }} บาท</h3>
+       </div>
+      </div>
+    </div>
+  </div>
+
   <div class="col-12 col-md-10 marginC p-3">
     <div class="col-12  marginC">
       <table class="table">
         <thead>
-          <tr style='text-align: center' >
-              <th class='textKait' scope="col">Show</th>
+          <tr style='text-align: center'>
+            <th class='textKait' scope="col">Show</th>
 
             <th class='textKait' scope="col">ชื่อ</th>
             <th class='textKait' scope="col">จำนวนคืน</th>
@@ -27,21 +93,32 @@
           </tr>
         </thead>
         <tbody>
-          <tr style="text-align: center" *ngFor="let book of bookList ; let i = index" >
-            <th scope="row" class='viewDetail' > <i class="far fa-eye"></i> </th>
-            <td class='textKait'  >{{ book.user_booking.displayname }}</td>
-            <td class='textKait' >{{book.night_num}}</td>
+          <tr style="text-align: center" *ngFor="let book of bookList ; let i = index">
+            <th scope="row" class='viewDetail'>
+              <i (click)="select_bookingList(book)" class="far fa-eye"></i>
+            </th>
+            <td class='textKait'>{{ book.user_booking.displayname }}</td>
+            <td class='textKait'>{{book.night_num}}</td>
             <td class='textKait'>{{ book.room.length }}</td>
-           
-            <td class='textKait' >฿ {{ book.total_price.toFixed(2) }} </td>
+            <td class='textKait'>฿ {{ book.total_price.toFixed(2) }} </td>
             <td class="textKait"> {{ setDateFormate(book.create_at) }} </td>
-            <td class="textKait" class='closeList' >
-          <i class="fas fa-times"></i>
+            <td class="textKait" class='closeList'>
+              <i (click)='deleteBookingList(book , i)' class="fas fa-times"></i>
 
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+
+        <li class="page-item" *ngFor='let p of page;'>
+          <a class="page-link" (click)="pageChange(p)">{{p}}</a>
+        </li>
+
+
+      </ul>
+    </nav>
   </div>
 </div>
