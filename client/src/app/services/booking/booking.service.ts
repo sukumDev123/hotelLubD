@@ -8,23 +8,14 @@ import {
   Observable
 } from '../../../../node_modules/rxjs';
 import {
-  Booking
+  Booking, BookingCallBack, BookingListCallBack
 } from '../../interface/booking.interface';
 import host from '../../host.global';
 import {
   catchError,
   map
 } from '../../../../node_modules/rxjs/operators';
-interface BookingCallBack {
-  datacall: Booking,
-    message: string,
-    status: number
-}
-interface BookingListCallBack {
-  data_list: Booking[],
-    message: string,
-    status: number
-}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -54,11 +45,8 @@ export class BookingService {
   }
   bookingListService(limit: Number = 0): Observable < BookingListCallBack > {
 
-    let limit_size = limit ? `?limitSize=${limit}` : null
-    return this._http.get < any > (`${this._host}/api/booking/user/history${limit_size}`).pipe(
-      map(this.sucFunction),
-      catchError(this.err_hander)
-    )
+    let limit_size = limit ? `?limitSize=${limit}` : ''
+    return this._http.get < any > (`${this._host}/api/booking/user/history${limit_size}`)
   }
 
 }

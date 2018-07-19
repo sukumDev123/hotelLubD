@@ -16,9 +16,6 @@ import {
   SignupAdminComponent
 } from './components/admin/signup-admin/signup-admin.component';
 import {
-  ContentAdminComponent
-} from './components/admin/content-admin/content-admin.component';
-import {
   AdminCoreComponent
 } from './components/admin/admin-core/admin-core.component';
 import {
@@ -63,7 +60,9 @@ import {
 import {
   ShowListRoomComponent
 } from './components/admin/show-list-room/show-list-room.component';
-import { ListBookingComponent } from './components/admin/list-booking/list-booking.component';
+import {
+  ListBookingComponent
+} from './components/admin/list-booking/list-booking.component';
 
 export const routes: Routes = [{
     path: "core",
@@ -114,8 +113,8 @@ export const routes: Routes = [{
         component: ShowListRoomComponent
       },
       {
-        path:'list-booking',
-        component : ListBookingComponent
+        path: 'list-booking',
+        component: ListBookingComponent
       }
     ]
   },
@@ -157,5 +156,5 @@ export const routes: Routes = [{
 })
 export class AppRoutingModule {}
 export const AppComponentRoute = [
-  DataAddHomeComponent, SiginupComponent, SiginComponent, SignupAdminComponent, ContentAdminComponent, AdminCoreComponent, Page404Component, Page500Component, CoreComponent, HomeComponent, HistoryComponent, SettingComponent, CoreUserComponent, AuthComponent, BookingComponent, AddRoomComponent, ShowListRoomComponent , ListBookingComponent
+  DataAddHomeComponent, SiginupComponent, SiginComponent, SignupAdminComponent, AdminCoreComponent, Page404Component, Page500Component, CoreComponent, HomeComponent, HistoryComponent, SettingComponent, CoreUserComponent, AuthComponent, BookingComponent, AddRoomComponent, ShowListRoomComponent, ListBookingComponent
 ];

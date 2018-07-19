@@ -32,7 +32,8 @@ export class ErrHandlerService {
 
 
   set_msg_type(_msg: string, status: string, type: string, date: number, show_Is: boolean, status_number: number) {
-    if (status_number === 401) {
+    //console.log(status_number)
+    if (status_number == 401) {
       alert(_msg)
       this._user.Logout()
     }

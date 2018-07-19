@@ -22,7 +22,11 @@ const BookingSchema = new Schema({
     },
     total_price: {
         type: Number,
-        default: 0
+        required : true
+    } ,
+    night_num : {
+        type : Number , 
+        required : true
     }
 })
 

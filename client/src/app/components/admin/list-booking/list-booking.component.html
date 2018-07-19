@@ -1,25 +1,41 @@
+<div class="load-div" [hidden]="loadingShow" >
+  <div class="load">
+  </div>
+  <p class="loader textKait"> load... </p>
+</div>
+
 <div class="container">
   <div class='noti'>
     <app-err-component></app-err-component>
 
   </div>
-  <div class="col-12 col-md-6 marginC">
+  <div class="col-12 col-md-10 marginC p-3">
     <div class="col-12  marginC">
       <table class="table">
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+          <tr style='text-align: center' >
+              <th class='textKait' scope="col">Show</th>
+
+            <th class='textKait' scope="col">ชื่อ</th>
+            <th class='textKait' scope="col">จำนวนคืน</th>
+            <th class='textKait' scope="col">จำนวนห้อง</th>
+            <th class='textKait' scope="col">จำนวนเงิน</th>
+            <th class='textKait' scope="col">ลบ</th>
+
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr style="text-align: center" *ngFor="let book of bookList ; let i = index" >
+            <th scope="row" class='viewDetail' > <i class="far fa-eye"></i> </th>
+            <td class='textKait'  >{{ book.user_booking.displayname }}</td>
+            <td class='textKait' >{{book.night_num}}</td>
+            <td class='textKait'>{{ book.room.length }}</td>
+           
+            <td class='textKait' >฿ {{ book.total_price.toFixed(2) }} </td>
+            <td class="textKait" style='color:rgb(255, 107, 107)' >
+          <i class="fas fa-times"></i>
+
+            </td>
           </tr>
         </tbody>
       </table>

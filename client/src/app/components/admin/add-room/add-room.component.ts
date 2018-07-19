@@ -31,6 +31,7 @@ export class AddRoomComponent implements OnInit {
     priceRoom: 0,
     type: this.room_type[0]
   }
+  loadingShow: boolean = true
   successMsgValue: string
   errorMsgValue: string
   constructor(private _room: RoomServiceService, private _user: UserGlobalService, private _err: ErrHandlerService) {}
@@ -48,8 +49,8 @@ export class AddRoomComponent implements OnInit {
     if (this.room.name && this.room.number && this.room.priceRoom) {
       this._room.addRoom(this.room).subscribe(suc => {
         console.log(suc)
-        this._err.set_msg_type(suc.message , ` data is : add success.` , 'success' , new Date().getHours() , true , 200)
-       // this.successMsgFunction(suc.message, suc.data)
+        this._err.set_msg_type(suc.message, ` data is : add success.`, 'success', new Date().getHours(), true, 200)
+        // this.successMsgFunction(suc.message, suc.data)
       }, err => {
 
         this._err.set_msg_type(err.msg.message, 'Add room is problem.', 'err', new Date().getHours(), true, err.status)

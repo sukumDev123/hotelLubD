@@ -34,21 +34,21 @@ function updateAsync(data) {
     })
 }
 
-async function reserveNowFunc(data) {
-    return new Promise((res, rej) => {
+function reserveNowFunc(data) {
+    return new Promise(async (res, rej) => {
+        console.log(data.body)
         let data_real = {
             user_booking: data.body.user_booking,
             room: data.body.room,
             create_at: data.body.create_at,
-            check_out: data.body.create_out,
-            total_price: data.body.total_price
+            check_in: data.body.check_in,
+            check_out: data.body.check_out,
+            total_price: data.body.total_price,
+            night_num: data.body.night_num
         }
         let booking = new Booking(data_real)
-        booking.checkIn = new Date(booking.checkIn)
-        booking.checkOut = new Date(booking.checkOut)
-
         try {
-            let save_ = booking.save()
+            let save_ = await booking.save()
             res({
                 message: 'Save booking list success.',
                 status: 200
@@ -114,7 +114,8 @@ export async function reserveRoom(req, res) {
         let userOrNot = await userOrNotFunc(req) // check is user or not user
         if (userOrNot) { // if user +1 reservenum
             userOrNot.reserveNum += 1
-            let checkture = updateAsync(userOrNot) // update and find user
+            let checkture = await updateAsync(userOrNot) // update and find user
+            req.body.user_booking = checkture
         }
 
         let roomCreateDate = roomDateSetInSetOut(req.body.check_in, req.body.check_out, req.body.room) // set room checkin date and checkout date
@@ -135,16 +136,15 @@ export async function reserveRoom(req, res) {
 }
 export async function historyRoom(req, res) {
     try {
-        let bookings = await Booking.find({
-            "userBooking._id": req.user._id
-        }).sort('-create_at')
+        let bookings = await Booking.find().sort('-create_at')
         res.json({
             data_list: bookings,
             message: "Find success.",
             status: 200
         })
+
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 export async function getParamRoom(req, res, next, paramReser) {

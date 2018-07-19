@@ -87,7 +87,8 @@ export class BookingComponent implements OnInit {
       create_at: new Date(),
       check_in: new Date(),
       check_out: new Date(),
-      total_price: 0
+      total_price: 0 ,
+      night_num : 0
     }
   }
 
@@ -96,7 +97,7 @@ export class BookingComponent implements OnInit {
     this.booking_now = this.data_is_defult()
     this._state.select < any > ('rooms').subscribe(suc => {
       this.booking_now.room = suc.room
-      this.cal_price_num = this.cal_price_num_function(suc)
+      this.cal_price_num = this.cal_price_num_function(suc.room)
     }, err => console.log(err))
 
 
@@ -138,10 +139,10 @@ export class BookingComponent implements OnInit {
   }
 
 
-  cal_price_num_function(data: any): CalPriceNum {
+  cal_price_num_function(data: any = []): CalPriceNum {
     let cal_: CalPriceNum
-    let num_ = data.room.length
-    let price_ = data.room.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
+    let num_ =  data.length
+    let price_ = data.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
     let nigh_ = this.cal_price_num.night_num ? this.cal_price_num.night_num : 1
     let total_ = (num_ || price_ || nigh_) ? this.cal_price_total_everything(price_, nigh_) : 0
     cal_ = {
@@ -188,6 +189,8 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
+        this.booking_now.night_num = this.cal_price_num.night_num
+        this.booking_now.total_price = this.cal_price_num.total_price_room
         this._booking.bookingNowService(this.booking_now).subscribe(suc => {
           console.log(suc)
         }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))

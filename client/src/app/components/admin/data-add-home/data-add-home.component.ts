@@ -45,6 +45,7 @@ export class DataAddHomeComponent implements OnInit {
   changeData: string = ''
   img_keep: PhotoIs
   img_keep_show: boolean = false
+  loadingShow: boolean = false
   constructor(private _user: UserGlobalService, private _dataResort: DataShowService, private _router: Router , private _err : ErrHandlerService ) {}
 
  
@@ -64,6 +65,7 @@ export class DataAddHomeComponent implements OnInit {
     this._dataResort.readData().subscribe(suc => {
       this._data_ = suc
       this.img_data = (this.host + this._data_.photoMain)
+      this.loadingShow = true
     }, err => this._err.set_msg_type(err.msg.message , `${err.msg.message} is err` , 'err' , new Date().getHours() , true , err.status   ))
 
   }
