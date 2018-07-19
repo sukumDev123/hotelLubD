@@ -10,3 +10,11 @@
 .viewDetail i:hover {
   color: rgba(0, 0, 0, 1)
 }
+.closeList i{
+  color:rgba(255, 107, 107 , 0.5);
+  cursor: pointer;
+}
+.closeList i:hover{
+  color:rgba(255, 107, 107 , 1)
+
+}

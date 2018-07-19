@@ -134,14 +134,23 @@ export async function reserveRoom(req, res) {
 
     }
 }
-export async function historyRoom(req, res) {
+export async function historyRoom(req, res , next) {
     try {
-        let bookings = await Booking.find().sort('-create_at')
-        res.json({
-            data_list: bookings,
-            message: "Find success.",
-            status: 200
-        })
+       
+        if (req.query.start) {
+            let bookings = await Booking.find().sort('-create_at').limit(10).skip(parseInt(req.query.start))
+            res.json({
+                data_list: bookings,
+                message: "Find success.",
+                status: 200
+            })
+
+        }else{
+            next({
+                message : "query string is not support" ,
+                status: 400
+            })
+        }
 
     } catch (error) {
         next(error)

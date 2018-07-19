@@ -45,7 +45,7 @@ export class BookingService {
   }
   bookingListService(limit: Number = 0): Observable < BookingListCallBack > {
 
-    let limit_size = limit ? `?limitSize=${limit}` : ''
+    let limit_size = `?start=${limit}`
     return this._http.get < any > (`${this._host}/api/booking/user/history${limit_size}`)
   }
 

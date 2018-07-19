@@ -28,7 +28,7 @@ export class ListBookingComponent implements OnInit {
   async ngOnInit() {
 
     try {
-      let list_: BookingListCallBack = await this._bookList.bookingListService().toPromise()
+      let list_: BookingListCallBack = await this._bookList.bookingListService(10).toPromise()
       console.log(list_)
       this.loadingShow = true
       this.bookList = list_.data_list
@@ -46,5 +46,10 @@ export class ListBookingComponent implements OnInit {
     console.log(name)
     let nameSplit = name.length > 12 ? `${name.split(' ')[0]}...` : name
     return nameSplit
+  }
+  setDateFormate(date) : string {
+    let date_ = new Date(date)  
+    console.log(date_)
+    return `${date_.getDate()}/${date_.getMonth()}/${date_.getFullYear()}` 
   }
 }

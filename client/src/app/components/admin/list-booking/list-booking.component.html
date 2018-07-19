@@ -20,6 +20,8 @@
             <th class='textKait' scope="col">จำนวนคืน</th>
             <th class='textKait' scope="col">จำนวนห้อง</th>
             <th class='textKait' scope="col">จำนวนเงิน</th>
+            <th class='textKait' scope="col">วันที่จอง</th>
+
             <th class='textKait' scope="col">ลบ</th>
 
           </tr>
@@ -32,7 +34,8 @@
             <td class='textKait'>{{ book.room.length }}</td>
            
             <td class='textKait' >฿ {{ book.total_price.toFixed(2) }} </td>
-            <td class="textKait" style='color:rgb(255, 107, 107)' >
+            <td class="textKait"> {{ setDateFormate(book.create_at) }} </td>
+            <td class="textKait" class='closeList' >
           <i class="fas fa-times"></i>
 
             </td>
