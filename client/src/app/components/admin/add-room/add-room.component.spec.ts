@@ -12,10 +12,10 @@ import {
 } from '../../err-component/err-component.component';
 import {
   FormsModule
-} from '../../../../../node_modules/@angular/forms';
+} from '@angular/forms';
 import {
   HttpClientModule
-} from '../../../../../node_modules/@angular/common/http';
+} from '@angular/common/http';
 import {
   UserGlobalService
 } from '../../../services/users/user/user-global.service';

@@ -6,7 +6,7 @@ import {
 } from '../users/user/user-global.service';
 import {
   Router
-} from '../../../../node_modules/@angular/router';
+} from '@angular/router';
 
 import {
   MSG_ADD,
@@ -17,7 +17,7 @@ import {
 } from '../../store/reducers/index.reducer';
 import {
   Store
-} from '../../../../node_modules/@ngrx/store';
+} from '@ngrx/store';
 import {
   MessageCreated
 } from '../../interface/msg-create.interface';

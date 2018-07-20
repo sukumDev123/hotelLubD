@@ -30,7 +30,7 @@ import {
 } from '@ngrx/store'
 import {
   RoomArrayIs
-} from '../../store/reducers/booking.reducers';
+} from '../../store/reducers/room.reducers';
 import {
   ManagetReducer
 } from '../../store/reducers/index.reducer';
@@ -82,7 +82,7 @@ export class BookingComponent implements OnInit {
   // room_is_empty: Array < RoomDetail > = []
   constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > , private _booking: BookingService) {}
 
-  data_is_defult() {
+  data_is_defult() : Booking {
     return {
       user_booking: this._user.UserData(),
       room: this.rooms,
@@ -91,7 +91,8 @@ export class BookingComponent implements OnInit {
       check_out: new Date(),
       total_price: 0 ,
       night_num : 0,
-      _id : ''
+      _id : '',
+      status_enroll: false
     }
   }
 
@@ -202,7 +203,7 @@ export class BookingComponent implements OnInit {
         }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
 
       } else {
-
+        this._msg.set_msg_type('กรุณาใส่ข้อมูลของคุณให้ครบ', '' , 'err' ,new Date().getHours() , true  , 1234)
       }
     } else {
       this.msg_show = true

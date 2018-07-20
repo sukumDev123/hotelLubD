@@ -18,7 +18,7 @@ import {
 } from '../../../interface/photoKeep';
 import {
   Router
-} from '../../../../../node_modules/@angular/router';
+} from '@angular/router';
 import { ErrHandlerService } from '../../../services/err-handler/err-handler.service';
 
 @Component({

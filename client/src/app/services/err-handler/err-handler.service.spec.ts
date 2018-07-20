@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ErrHandlerService } from './err-handler.service';
-import { APP_BASE_HREF } from '../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { imports, declarations } from '../../module.all.test';
 
 describe('ErrHandlerService', () => {

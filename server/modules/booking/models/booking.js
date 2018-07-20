@@ -11,7 +11,7 @@ const BookingSchema = new Schema({
         default: Date.now
 
     },
-   
+
     check_in: {
         type: Date,
         required: true
@@ -22,11 +22,15 @@ const BookingSchema = new Schema({
     },
     total_price: {
         type: Number,
-        required : true
-    } ,
-    night_num : {
-        type : Number , 
-        required : true
+        required: true
+    },
+    night_num: {
+        type: Number,
+        required: true
+    },
+    status_enroll: {
+        type: Boolean,
+        default: false
     }
 })
 

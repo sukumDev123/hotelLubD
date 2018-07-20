@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SiginComponent } from './sigin.component';
-import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { declarations, imports } from '../../../module.all.test';
 
 describe('SiginComponent', () => {

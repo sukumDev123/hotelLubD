@@ -1,5 +1,5 @@
-import { reducerRoom, RoomArrayIs } from "./booking.reducers";
-import { ActionReducerMap } from "../../../../node_modules/@ngrx/store";
+import { reducerRoom, RoomArrayIs } from "./room.reducers";
+import { ActionReducerMap } from "@ngrx/store";
 import {  err_reducer } from "./err.reducer";
 import { MessageCreated } from "../../interface/msg-create.interface";
 

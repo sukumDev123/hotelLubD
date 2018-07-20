@@ -13,7 +13,8 @@ export interface Booking {
     check_out: Date,
     total_price: number,
     night_num : number ,
-    _id : string
+    _id : string ,
+    status_enroll : boolean
 }
 export interface CalPriceNum {
   total_price_room: number,

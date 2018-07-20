@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { DataShowService } from './data-show.service';
-import { APP_BASE_HREF } from '../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { imports, declarations } from '../../module.all.test';
 
 describe('DataShowService', () => {

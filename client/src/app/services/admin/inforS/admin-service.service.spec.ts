@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { AdminServiceService } from './admin-service.service';
 import { imports, declarations } from '../../../module.all.test';
-import { APP_BASE_HREF } from '../../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('AdminServiceService', () => {
   beforeEach(() => {

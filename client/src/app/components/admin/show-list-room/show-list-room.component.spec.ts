@@ -13,7 +13,7 @@ import {
 } from '../../../module.all.test';
 import {
   APP_BASE_HREF
-} from '../../../../../node_modules/@angular/common';
+} from '@angular/common';
 import {
   RoomServiceService
 } from '../../../services/admin/roomS/room-service.service';

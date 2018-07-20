@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import {
   Observable
-} from '../../../../node_modules/rxjs';
+} from 'rxjs';
 import {
   Booking, BookingCallBack, BookingListCallBack
 } from '../../interface/booking.interface';
@@ -14,7 +14,7 @@ import host from '../../host.global';
 import {
   catchError,
   map
-} from '../../../../node_modules/rxjs/operators';
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

@@ -2,7 +2,7 @@ import {
   RoomDetail
 } from "../../interface/room.interface";
 
-import * as r_a from '../actions/booking.action'
+import * as r_a from '../actions/room.action'
 
 
 export interface RoomArrayIs {

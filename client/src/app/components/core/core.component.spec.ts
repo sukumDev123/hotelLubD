@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoreComponent } from './core.component';
 import { declarations, imports } from '../../module.all.test';
-import { APP_BASE_HREF } from '../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('CoreComponent', () => {
   let component: CoreComponent;

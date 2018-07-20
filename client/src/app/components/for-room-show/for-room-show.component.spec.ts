@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ForRoomShowComponent } from './for-room-show.component';
 import { imports, declarations } from '../../module.all.test';
-import { APP_BASE_HREF } from '../../../../node_modules/@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('ForRoomShowComponent', () => {
   let component: ForRoomShowComponent;

@@ -63,6 +63,7 @@ import {
 import {
   ListBookingComponent
 } from './components/admin/list-booking/list-booking.component';
+import { SuccessBookingComponent } from './components/success-booking/success-booking.component';
 
 export const routes: Routes = [{
     path: "core",
@@ -74,6 +75,10 @@ export const routes: Routes = [{
       {
         path: 'booking',
         component: BookingComponent
+      },
+      {
+        path: 'success-booking',
+        component:SuccessBookingComponent
       },
       {
         path: "auth",
@@ -156,5 +161,6 @@ export const routes: Routes = [{
 })
 export class AppRoutingModule {}
 export const AppComponentRoute = [
-  DataAddHomeComponent, SiginupComponent, SiginComponent, SignupAdminComponent, AdminCoreComponent, Page404Component, Page500Component, CoreComponent, HomeComponent, HistoryComponent, SettingComponent, CoreUserComponent, AuthComponent, BookingComponent, AddRoomComponent, ShowListRoomComponent, ListBookingComponent
+  DataAddHomeComponent, SiginupComponent, SiginComponent, SignupAdminComponent, AdminCoreComponent, Page404Component, Page500Component, CoreComponent, HomeComponent, HistoryComponent, SettingComponent, CoreUserComponent, AuthComponent, BookingComponent, AddRoomComponent, ShowListRoomComponent, ListBookingComponent,SuccessBookingComponent
 ];
+

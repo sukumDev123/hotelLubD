@@ -13,22 +13,22 @@ import {
 } from "./components/err-component/err-component.component";
 import {
   BrowserModule
-} from "../../node_modules/@angular/platform-browser";
+} from "@angular/platform-browser";
 import {
   FormsModule
-} from "../../node_modules/@angular/forms";
+} from "@angular/forms";
 import {
   HttpClientModule
-} from "../../node_modules/@angular/common/http";
+} from "@angular/common/http";
 import {
   StoreModule
-} from "../../node_modules/@ngrx/store";
+} from "@ngrx/store";
 import {
   reducer_total
 } from "./store/reducers/index.reducer";
 import {
   JwtModule
-} from "../../node_modules/@auth0/angular-jwt";
+} from "@auth0/angular-jwt";
 import {
   tokenGetter
 } from "./app.module";

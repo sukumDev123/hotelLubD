@@ -22,10 +22,10 @@ import {
 } from '@ngrx/store'
 import {
   RoomArrayIs
-} from '../../store/reducers/booking.reducers';
+} from '../../store/reducers/room.reducers';
 import {
   ADD_ROOM
-} from '../../store/actions/booking.action';
+} from '../../store/actions/room.action';
 @Component({
   selector: 'app-for-room-show',
   templateUrl: './for-room-show.component.html',
