@@ -5,7 +5,7 @@ import {
 import * as defualtHeader from '../../jquery/core.jquery'
 import {
 
-  RoomDetail
+  RoomDetail, RoomArray
 } from '../../interface/room.interface';
 import {
   UserGlobalService
@@ -40,6 +40,7 @@ import {
 import {
   BookingService
 } from '../../services/booking/booking.service';
+import { ADD_ROOM } from '../../store/actions/room.action';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -80,29 +81,43 @@ export class BookingComponent implements OnInit {
 
 
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _state: Store < ManagetReducer > , private _booking: BookingService) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _store: Store < ManagetReducer > , private _booking: BookingService) {}
 
-  data_is_defult() : Booking {
+  data_is_defult(): Booking {
     return {
       user_booking: this._user.UserData(),
       room: this.rooms,
       create_at: new Date(),
       check_in: new Date(),
       check_out: new Date(),
-      total_price: 0 ,
-      night_num : 0,
-      _id : '',
+      total_price: 0,
+      night_num: 0,
+      _id: '',
       status_enroll: false
     }
   }
 
-  ngOnInit() {
+  setRoomOnForRoomShow(rooms: RoomArray) {
+    this._store.dispatch({
+      type: ADD_ROOM,
+      payloads: rooms.data
+    })
+  }
+  async ngOnInit() {
     defualtHeader.coreJquery()
     this.booking_now = this.data_is_defult()
-    this._state.select < any > ('rooms').subscribe(suc => {
+    try {
+      let rooms =  await this._room.showRoom().toPromise()
+     this.setRoomOnForRoomShow(rooms)
+    } catch (error) {
+      this._msg.set_msg_type(error.error.message , 'Status is not success loading data array. ' , 'err' , new Date().getHours() , true , error.status)
+    }
+    this._store.select < any > ('room_select').subscribe(suc => {
       this.booking_now.room = suc.room
       this.cal_price_num = this.cal_price_num_function(suc.room)
-    }, err => console.log(err))
+    }, err => {
+      alert(JSON.stringify(err))
+    })
 
     this.loadingShow = true
   }
@@ -130,13 +145,18 @@ export class BookingComponent implements OnInit {
   } // Check Date ..
 
   cal_num_night(e, date_is) {
-
+    this.booking_now.room.forEach(room => {
+      console.log(room)
+    })
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
+     
 
     } else {
       this.booking_now.check_out = new Date(e.target.value)
     }
+    this.setRoomOnForRoomShow({ data : [], message : 'test' })
+  
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
     //  
@@ -145,7 +165,7 @@ export class BookingComponent implements OnInit {
 
   cal_price_num_function(data: any = []): CalPriceNum {
     let cal_: CalPriceNum
-    let num_ =  data.length
+    let num_ = data.length
     let price_ = data.reduce((sum, room_input) => sum += room_input.priceRoom, 0)
     let nigh_ = this.cal_price_num.night_num ? this.cal_price_num.night_num : 1
     let total_ = (num_ || price_ || nigh_) ? this.cal_price_total_everything(price_, nigh_) : 0
@@ -193,20 +213,27 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
-        this.booking_now.night_num = this.cal_price_num.night_num
-        this.booking_now.total_price = this.cal_price_num.total_price_room
-        this.loadingShow = false
-        this._booking.bookingNowService(this.booking_now).subscribe(suc => {
-          this.booking_now = this.data_is_defult()
-          this._msg.set_msg_type(suc.message , `Reserve status is success.` , 'success' , new Date().getHours() , true  , 200)
-          this.loadingShow = true
-        }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
+
+        if (this.booking_now.room.length) {
+          
+          
+          this.booking_now.night_num = this.cal_price_num.night_num
+          this.booking_now.total_price = this.cal_price_num.total_price_room
+          this.loadingShow = false
+          this._booking.bookingNowService(this.booking_now).subscribe(suc => {
+            this.booking_now = this.data_is_defult()
+            this._msg.set_msg_type(suc.message, `Reserve status is success.`, 'success', new Date().getHours(), true, 200)
+            this.loadingShow = true
+          }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
+        } else {
+          this._msg.set_msg_type('กรุณาเลือหห้องที่ต้องการจอง', '', 'err', new Date().getHours(), true, 1234)
+        }
 
       } else {
-        this._msg.set_msg_type('กรุณาใส่ข้อมูลของคุณให้ครบ', '' , 'err' ,new Date().getHours() , true  , 1234)
+        this._msg.set_msg_type('กรุณาใส่ข้อมูลของคุณให้ครบ', '', 'err', new Date().getHours(), true, 1234)
       }
     } else {
-      this.msg_show = true
+      this._msg.set_msg_type('กรุณาทำรายการให้ถูกต้อง', '', 'err', new Date().getHours(), true, 1234)
     }
   }
   check_this_is_user(user_booking: UserInfo) {

@@ -26,6 +26,7 @@ import {
 import {
   ADD_ROOM
 } from '../../store/actions/room.action';
+import { ADD_ROOM_SELECT } from '../../store/actions/room-select.action';
 @Component({
   selector: 'app-for-room-show',
   templateUrl: './for-room-show.component.html',
@@ -47,16 +48,14 @@ export class ForRoomShowComponent implements OnInit {
   ngOnInit() {
     //  this.data_is_defult()
     this.booking_now = []
-    
-    this._room.showRoom().subscribe((suc) => {
-      this.rooms = this.check_room_is_empty(suc.data)
-      this.color_style = new Array(this.rooms.length - 1)
-      this.font_style = new Array(this.rooms.length - 1)
+    this._store.select < any > ('rooms').subscribe(suc => {
+      
+      this.rooms = this.check_room_is_empty(suc.room)
+     
     }, err => {
-      this._err.set_msg_type(err.msg.message, "load data is problem." , 'err' , new Date().getHours() , true   , err.status )
-      this.color_style = new Array(0)
-      this.font_style = new Array(0)
+      alert(JSON.stringify(err))
     })
+
   }
   check_room_is_empty(data: Array < RoomDetail > , type_show: string = 'all'): Array < RoomDetail > {
     let data_call_back: Array < RoomDetail >
@@ -86,19 +85,16 @@ export class ForRoomShowComponent implements OnInit {
       this.booking_now.push(room)
     }
 
-    console.log(this.booking_now)
     this._store.dispatch({
-      type: ADD_ROOM,
+      type: ADD_ROOM_SELECT,
       payloads: this.booking_now
     })
     // NOTE: this function selecte room and cal price room , num room , and total price 
   }
   check_room_selecte_is_not_exisis(new_room: RoomDetail, new_old: Array < RoomDetail > ): Promise < RoomDetail > {
     return new Promise((res, rej) => {
-
       new_old.forEach((r, index) => {
         if (r._id === new_room._id) {
-          console.log(true, index)
           rej({
             status: 'check_room_selecte_is_not_exisis',
             data: index

@@ -34,7 +34,7 @@ export function reducerRoom(state: RoomArrayIs = user_state, action: r_a.ROOM_AC
           ...state
         }
       }
-
+   
     default:
       return state
   }

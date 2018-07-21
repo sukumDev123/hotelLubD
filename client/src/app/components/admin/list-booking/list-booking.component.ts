@@ -106,7 +106,9 @@ export class ListBookingComponent implements OnInit {
     this.booking_select = booking
     this.show_detail_all_bk = true
   }
-
+  status_booking(bookingStatus) {
+    return bookingStatus ? "ยืนยัน" : "รอการยืนยัน"
+  }
   async deleteBookingList(book: Booking, index) {
     // this.bookList.splice(index , 1)
     // let sizeNew =this.bookList.length

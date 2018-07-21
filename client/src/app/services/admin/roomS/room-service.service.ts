@@ -49,9 +49,7 @@ export class RoomServiceService {
     // TODO: to do created service for show room all data return array Room
     console.log(limit)
     let li = limit ? `?limitSize=${limit}` : ''
-    return this._http.get < any > (`${this.host}/api/room/show${li}`).pipe(
-      catchError(this.handlerError)
-    )
+    return this._http.get < any > (`${this.host}/api/room/show${li}`)
   }
   editRoom(data: RoomDetail, id: string): Observable < RoomObject > {
     return this._http.put < any > (`${this.host}/api/room/edit/${id}`, data).pipe(
