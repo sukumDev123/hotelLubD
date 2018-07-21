@@ -77,7 +77,7 @@
           <div class="bottom_date">
 
             <div class="col-12">
-              <small class="text-right textKati"> {{ data.create_at }} </small>
+              <small class="text-right textKait"> {{ dateShow(data.create_at) }} </small>
               <label (click)="show_checkin_list(data.liveDate , i)" class='show_checkin_list'> Show Check in List </label>
               <div [ngStyle]="
                {
@@ -100,9 +100,7 @@
 
         <!-- </div> -->
       </div>
-      <!-- <div class="md-form col-12">
-        <button class='btn btn-block' type="button" (click)="showMore()" > Show More </button>
-      </div> -->
+
       <div *ngIf='!roomListIsNotEmpty' class="col-12 col-md-4 marginC">
         <h5 class='showBecauseEmptyArray'>
           Array is Empty.

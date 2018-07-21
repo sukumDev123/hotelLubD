@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Lub D resort รีสอร์ท ปราณบุรี-หัวหิน ติดกับบายพาสß</title>
@@ -9,9 +10,25 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
 </head>
+
 <body>
+  <div id="test">
+    <h1>หากต้องการ ฟิวเจอร์ที่สมบูณโปรดใช้ Chrome Browser.</h1>
+  </div>
   <app-root></app-root>
+  <script>
+    let windowChromeId = document.getElementById('test')
+    windowChromeId.style.display = 'none'
+    let windowChrome = window.chrome
+    if (!windowChrome) {
+      windowChromeId.style.display = 'block'
+
+    }
+
+  </script>
 </body>
+
 </html>

@@ -5,7 +5,8 @@ import {
 import * as defualtHeader from '../../jquery/core.jquery'
 import {
 
-  RoomDetail, RoomArray
+  RoomDetail,
+  RoomArray
 } from '../../interface/room.interface';
 import {
   UserGlobalService
@@ -40,13 +41,17 @@ import {
 import {
   BookingService
 } from '../../services/booking/booking.service';
-import { ADD_ROOM } from '../../store/actions/room.action';
+import {
+  ADD_ROOM
+} from '../../store/actions/room.action';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+
+  temp_room_session : RoomDetail[]
 
   loadingShow: boolean = false
 
@@ -97,20 +102,22 @@ export class BookingComponent implements OnInit {
     }
   }
 
-  setRoomOnForRoomShow(rooms: RoomArray) {
+  setRoomOnForRoomShow(rooms: RoomDetail[]) {
     this._store.dispatch({
       type: ADD_ROOM,
-      payloads: rooms.data
+      payloads: rooms
     })
   }
   async ngOnInit() {
     defualtHeader.coreJquery()
     this.booking_now = this.data_is_defult()
     try {
-      let rooms =  await this._room.showRoom().toPromise()
-     this.setRoomOnForRoomShow(rooms)
+      let rooms = await this._room.showRoom().toPromise()
+      this.setRoomOnForRoomShow(rooms.data)
+      this.temp_room_session = rooms.data
+      this.rooms = rooms.data
     } catch (error) {
-      this._msg.set_msg_type(error.error.message , 'Status is not success loading data array. ' , 'err' , new Date().getHours() , true , error.status)
+      this._msg.set_msg_type(error.error.message, 'Status is not success loading data array. ', 'err', new Date().getHours(), true, error.status)
     }
     this._store.select < any > ('room_select').subscribe(suc => {
       this.booking_now.room = suc.room
@@ -143,24 +150,47 @@ export class BookingComponent implements OnInit {
     res = Math.round(num_days) // day
     return res;
   } // Check Date ..
+// TODO: todo here is not success ....
+  roomIsEmptyCheck(date_select : Date, rooms: RoomDetail[]): Promise < RoomDetail[] > {
+    console.log(rooms)
+    return new Promise(res => {
+      let room_temps = [],
+        temp = []
+      rooms.forEach((room, i) => {
+        room.liveLatest.forEach((dateLatest, j) => {
+          let num = this.check_min_7(dateLatest, date_select)
+          if (num < 0) {
+            temp.push({
+              indexRoom: i
+            })
+          }
+        })
 
-  cal_num_night(e, date_is) {
-    this.booking_now.room.forEach(room => {
-      console.log(room)
+      })
+      temp.forEach(indexSplice => rooms.splice(indexSplice.indexRoom, 1))
+      room_temps = rooms
+      res(room_temps)
     })
+  }
+  async cal_num_night(e, date_is) {
+    let room_temps: RoomDetail[]
+
+    room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
+
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
-     
 
     } else {
       this.booking_now.check_out = new Date(e.target.value)
+
     }
-    this.setRoomOnForRoomShow({ data : [], message : 'test' })
-  
+    // this.setRoomOnForRoomShow({ data : [], message : 'test' })
+    this.rooms = room_temps
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
     //  
   }
+// TODO: todo here is not success ....
 
 
   cal_price_num_function(data: any = []): CalPriceNum {
@@ -215,8 +245,8 @@ export class BookingComponent implements OnInit {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
 
         if (this.booking_now.room.length) {
-          
-          
+
+
           this.booking_now.night_num = this.cal_price_num.night_num
           this.booking_now.total_price = this.cal_price_num.total_price_room
           this.loadingShow = false
