@@ -42,6 +42,9 @@ import {
   BookingService
 } from '../../services/booking/booking.service';
 import * as room_action from '../../store/actions/room.action';
+import {
+  Router
+} from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -85,7 +88,7 @@ export class BookingComponent implements OnInit {
 
 
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _store: Store < ManagetReducer > , private _booking: BookingService) {}
+  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _store: Store < ManagetReducer > , private _booking: BookingService, private _router: Router) {}
 
   data_is_defult(): Booking {
     return {
@@ -189,7 +192,7 @@ export class BookingComponent implements OnInit {
 
       let temp = numberTotal.filter(data => data.status === 0)
       numberTotal = numberTotal.sort((a, b) => a.index - b.index)
-      // console.log(numberTotal)
+      console.log(numberTotal)
       numberTotal.forEach((data, j) => {
         for (let i = 0; i < temp.length; i++) {
           if (temp[i].index === data.index) { // if index == index 
@@ -201,6 +204,8 @@ export class BookingComponent implements OnInit {
           }
         }
       })
+      console.log(temp)
+      temp = temp.sort((a, b) => a.index - b.index)
       temp.forEach((data, j) => {
         if (j > 0) {
           if (data.index === temp[j - 1].index) {
@@ -237,7 +242,6 @@ export class BookingComponent implements OnInit {
       }
     }
     this.rooms = []
-
     room_temps.forEach(index_ => {
       this.rooms.push(this.temp_room_session[index_.index])
     })
@@ -300,10 +304,7 @@ export class BookingComponent implements OnInit {
 
     if (this.cal_price_num.total_price_room) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
-
         if (this.booking_now.room.length) {
-
-
           this.booking_now.night_num = this.cal_price_num.night_num
           this.booking_now.total_price = this.cal_price_num.total_price_room
           this.loadingShow = false
@@ -311,11 +312,16 @@ export class BookingComponent implements OnInit {
             this.booking_now = this.data_is_defult()
             this._msg.set_msg_type(suc.message, `Reserve status is success.`, 'success', new Date().getHours(), true, 200)
             this.loadingShow = true
+            let nav = {
+              queryParams: {
+                'id_bookingList': JSON.stringify(suc)
+              }
+            }
+            this._router.navigate(['/core/success-booking'], nav)
           }, err => this._msg.set_msg_type(err.message, `${err.status} is err`, 'err', new Date().getHours(), true, err.status))
         } else {
           this._msg.set_msg_type('กรุณาเลือหห้องที่ต้องการจอง', '', 'err', new Date().getHours(), true, 1234)
         }
-
       } else {
         this._msg.set_msg_type('กรุณาใส่ข้อมูลของคุณให้ครบ', '', 'err', new Date().getHours(), true, 1234)
       }

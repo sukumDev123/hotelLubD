@@ -1,20 +1,22 @@
 <div class="col-12 col-md-8 marginC box_rooms ">
 
-    <div class="row">
-      <div class="col-12 col-md-4 "  *ngFor='let room of rooms ; let i = index;'
-        (click)="selete_this_room(room , i)">
-        <div class="col-12 center_room marginC" [ngStyle]="{ 'background' : color_style[i] ,'color': font_style[i]  }">
-          <div class="name_text">
-            <small for="nameroom" class="textKait"> ชนิดของห้อง : {{ room.type }} </small>
-  
-          </div>
-          <h1 class="text-center textKait"> {{ room.number }}</h1>
-          <div class="price_text">
-            <small for="roomprice" class="textKait"> ราคาห้องละ : {{ room.priceRoom }} บาท </small>
-          </div>
+  <div class="row">
+    <div class="col-12 col-md-4 " *ngFor='let room of rooms ; let i = index;' (click)="selete_this_room(room , i)">
+      <div class="col-12 center_room marginC" [ngStyle]="{ 'background' : color_style[i] ,'color': font_style[i]  }">
+        <div class="name_text">
+          <small for="nameroom" class="textKait"> ชนิดของห้อง : {{ room.type }} </small>
+
+        </div>
+        <h1 class="text-center textKait"> {{ room.number }}</h1>
+        <div class="price_text">
+          <small for="roomprice" class="textKait"> ราคาห้องละ : {{ room.priceRoom }} บาท </small>
         </div>
       </div>
 
     </div>
-
+    <div *ngIf='!rooms.length' class="col-12 text-center">
+      <h3> ไม่มีห้องว่างสำหรับวันนี้ </h3>
+    </div>
   </div>
+
+</div>
