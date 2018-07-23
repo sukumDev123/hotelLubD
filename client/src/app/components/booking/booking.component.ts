@@ -41,9 +41,8 @@ import {
 import {
   BookingService
 } from '../../services/booking/booking.service';
-import {
-  ADD_ROOM
-} from '../../store/actions/room.action';
+import * as room_action from '../../store/actions/room.action';
+
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -51,7 +50,7 @@ import {
 })
 export class BookingComponent implements OnInit {
 
-  temp_room_session : RoomDetail[]
+  temp_room_session: RoomDetail[]
 
   loadingShow: boolean = false
 
@@ -101,11 +100,25 @@ export class BookingComponent implements OnInit {
       status_enroll: false
     }
   }
+  getDataRoom() {
+    this._store.dispatch({
+      type: room_action.VIEW_ROOM
+    })
+  }
 
   setRoomOnForRoomShow(rooms: RoomDetail[]) {
     this._store.dispatch({
-      type: ADD_ROOM,
+      type: room_action.ADD_ROOM,
       payloads: rooms
+    })
+  }
+
+  storeRoomSelect() {
+    this._store.select < any > ('room_select').subscribe(suc => {
+      this.booking_now.room = suc.room
+      this.cal_price_num = this.cal_price_num_function(suc.room)
+    }, err => {
+      alert(JSON.stringify(err))
     })
   }
   async ngOnInit() {
@@ -113,20 +126,15 @@ export class BookingComponent implements OnInit {
     this.booking_now = this.data_is_defult()
     try {
       let rooms = await this._room.showRoom().toPromise()
-      this.setRoomOnForRoomShow(rooms.data)
       this.temp_room_session = rooms.data
+      this.setRoomOnForRoomShow(rooms.data)
       this.rooms = rooms.data
+      this.loadingShow = true
+
     } catch (error) {
       this._msg.set_msg_type(error.error.message, 'Status is not success loading data array. ', 'err', new Date().getHours(), true, error.status)
     }
-    this._store.select < any > ('room_select').subscribe(suc => {
-      this.booking_now.room = suc.room
-      this.cal_price_num = this.cal_price_num_function(suc.room)
-    }, err => {
-      alert(JSON.stringify(err))
-    })
-
-    this.loadingShow = true
+    this.storeRoomSelect()
   }
 
 
@@ -150,47 +158,96 @@ export class BookingComponent implements OnInit {
     res = Math.round(num_days) // day
     return res;
   } // Check Date ..
-// TODO: todo here is not success ....
-  roomIsEmptyCheck(date_select : Date, rooms: RoomDetail[]): Promise < RoomDetail[] > {
-    console.log(rooms)
+  // TODO: todo here is not success ....
+
+  getIndexOfDataNotEixstsAndExists(rooms_temp_main: RoomDetail[], select: number): Promise < any > {
     return new Promise(res => {
-      let room_temps = [],
-        temp = []
-      rooms.forEach((room, i) => {
+      let temp = []
+      rooms_temp_main.forEach((room, i) => {
         room.liveLatest.forEach((dateLatest, j) => {
-          let num = this.check_min_7(dateLatest, date_select)
-          if (num < 0) {
+          let dateIn = new Date(room.liveDate[j]).valueOf()
+          let dateLatestLet = new Date(dateLatest).valueOf()
+          if (dateIn <= select && select <= dateLatestLet) {
             temp.push({
-              indexRoom: i
+              index: i,
+              status: 1
+            })
+
+          } else {
+            temp.push({
+              index: i,
+              status: 0
             })
           }
         })
-
       })
-      temp.forEach(indexSplice => rooms.splice(indexSplice.indexRoom, 1))
-      room_temps = rooms
-      res(room_temps)
+      res(temp)
+    })
+  }
+  getDataIndexIsNotEqualtAndGetDataIsNotExists(numberTotal): Promise < any > {
+    return new Promise(res => {
+
+      let temp = numberTotal.filter(data => data.status === 0)
+      numberTotal = numberTotal.sort((a, b) => a.index - b.index)
+      // console.log(numberTotal)
+      numberTotal.forEach((data, j) => {
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i].index === data.index) { // if index == index 
+            if (temp[i].status === data.status) { // if status == status breack ;
+              break
+            } else if (data.status === 1) { // if this index have status 1 , index is exists , i splice array temp this index
+              temp.splice(i, 1)
+            }
+          }
+        }
+      })
+      temp.forEach((data, j) => {
+        if (j > 0) {
+          if (data.index === temp[j - 1].index) {
+            temp.splice(j, 1)
+          }
+        }
+      })
+      res(temp)
+    })
+  }
+  roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any[] > {
+
+    return new Promise(async res => {
+      const select = new Date(date_select).valueOf()
+      let temp = await this.getIndexOfDataNotEixstsAndExists(rooms, select)
+      temp = temp.sort((a, b) => b.status - a.status)
+      const temp_a = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
+      res(temp_a)
+
     })
   }
   async cal_num_night(e, date_is) {
-    let room_temps: RoomDetail[]
-
-    room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
+    let room_temps = await this.roomIsEmptyCheck(this.booking_now.check_in || e.target.value, this.temp_room_session)
 
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
-
     } else {
-      this.booking_now.check_out = new Date(e.target.value)
+      let check = new Date(e.target.value).valueOf()
+      if (check < this.booking_now.check_in.valueOf()) {
+        this.booking_now.check_out = new Date(this.booking_now.check_in)
 
+      } else {
+        this.booking_now.check_out = new Date(e.target.value)
+      }
     }
-    // this.setRoomOnForRoomShow({ data : [], message : 'test' })
-    this.rooms = room_temps
+    this.rooms = []
+
+    room_temps.forEach(index_ => {
+      this.rooms.push(this.temp_room_session[index_.index])
+    })
+    this.setRoomOnForRoomShow(this.rooms)
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
+    // console.log(this.rooms)
     //  
   }
-// TODO: todo here is not success ....
+  // TODO: todo here is not success ....
 
 
   cal_price_num_function(data: any = []): CalPriceNum {
