@@ -243,29 +243,39 @@ export class BookingComponent implements OnInit {
         e_index,
         e_not_index
       })
+
       //console.log(e_index, e_not_index)
 
     })
   }
-  indexEndSelect(indexOfRooms) {
-    return new Promise(res => {
+  indexEndSelect(indexOfRooms: any, roomsNum: number) {
+    return new Promise(async res => {
       let temp = [],
         all = []
       let {
         e_index,
         e_not_index
       } = indexOfRooms
-      if (e_index.length === e_not_index.length) {
-        res(e_not_index)
+      if (!e_index.length && !e_not_index.length) {
+        res([])
       }
-      // } else if (e_index.length > e_not_index.length) {
-      //   temp = e_not_index.filter((this_, i) => this_.index !== e_index[i].index)
-      // } else if (e_index.length < e_not_index.length) {
-      //   temp = e_index.filter((this_, i) => this_.index !== e_not_index[i].index)
-      // }
-      // let test = temp.map((data) => e_not_index.splice(, 1))
-      // console.log(test)
+      if (e_index.length === roomsNum) {
+        res([])
+      } else if (e_not_index.length === roomsNum && e_index.length === 0) {
+        res(e_not_index)
+      } else {
+        let data_is_not_exists = await this.dataIsNotExistsSelect(e_index, e_not_index)
+        res(data_is_not_exists)
+      }
+
+
     })
+  }
+  dataIsNotExistsSelect(exists, notExists) {
+    return new Promise(res => {
+
+    })
+
   }
   roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any > {
 
@@ -278,14 +288,14 @@ export class BookingComponent implements OnInit {
         existsNot
       } = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
       const indexOfRooms = await this.findUniqloIndex(exists, existsNot)
-      const index_end_selectTed = await this.indexEndSelect(indexOfRooms)
+      const index_end_selectTed = await this.indexEndSelect(indexOfRooms, rooms.length)
 
       res(index_end_selectTed)
     })
   }
   async cal_num_night(e, date_is) {
     let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
-
+    console.log(room_temps)
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
     } else {
