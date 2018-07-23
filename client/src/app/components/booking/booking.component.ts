@@ -174,12 +174,14 @@ export class BookingComponent implements OnInit {
             temp.push({
               index: i,
               status: 1
+
             })
 
           } else {
             temp.push({
               index: i,
               status: 0
+
             })
           }
         })
@@ -192,60 +194,110 @@ export class BookingComponent implements OnInit {
 
       let temp = numberTotal.filter(data => data.status === 0)
       numberTotal = numberTotal.sort((a, b) => a.index - b.index)
-      console.log(numberTotal)
-      numberTotal.forEach((data, j) => {
-        for (let i = 0; i < temp.length; i++) {
-          if (temp[i].index === data.index) { // if index == index 
-            if (temp[i].status === data.status) { // if status == status breack ;
-              break
-            } else if (data.status === 1) { // if this index have status 1 , index is exists , i splice array temp this index
-              temp.splice(i, 1)
-            }
-          }
-        }
+      let exists = numberTotal.filter(data => data.status === 1)
+      let existsNot = numberTotal.filter(data => data.status === 0)
+      res({
+        exists,
+        existsNot
       })
-      console.log(temp)
-      temp = temp.sort((a, b) => a.index - b.index)
-      temp.forEach((data, j) => {
-        if (j > 0) {
-          if (data.index === temp[j - 1].index) {
-            temp.splice(j, 1)
-          }
-        }
-      })
-      res(temp)
+
     })
   }
-  roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any[] > {
+  indexMap(indexInput) {
+
+    return new Promise(res => {
+      let temp = indexInput
+      let indexUniqlo = []
+      if (temp.length) {
+        temp.forEach((data, i) => {
+          for (let j = 0; j < temp.length; j++) {
+            if (data.index === temp[j].index) {
+              if (indexUniqlo.length) {
+                let num = indexUniqlo.length - 1
+                if (indexUniqlo[num].index !== data.index) {
+                  indexUniqlo.push(data)
+                }
+              } else {
+                indexUniqlo.push(data)
+              }
+            }
+
+          }
+        })
+
+        res(indexUniqlo)
+
+      }
+      res([])
+
+    })
+
+
+  }
+  findUniqloIndex(exists, existsNot) {
+
+    return new Promise(async (res) => {
+      let e_index = await this.indexMap(exists)
+      let e_not_index = await this.indexMap(existsNot)
+      res({
+        e_index,
+        e_not_index
+      })
+      //console.log(e_index, e_not_index)
+
+    })
+  }
+  indexEndSelect(indexOfRooms) {
+    return new Promise(res => {
+      let temp = [],
+        all = []
+      let {
+        e_index,
+        e_not_index
+      } = indexOfRooms
+      if (e_index.length === e_not_index.length) {
+        res(e_not_index)
+      }
+      // } else if (e_index.length > e_not_index.length) {
+      //   temp = e_not_index.filter((this_, i) => this_.index !== e_index[i].index)
+      // } else if (e_index.length < e_not_index.length) {
+      //   temp = e_index.filter((this_, i) => this_.index !== e_not_index[i].index)
+      // }
+      // let test = temp.map((data) => e_not_index.splice(, 1))
+      // console.log(test)
+    })
+  }
+  roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any > {
 
     return new Promise(async res => {
       const select = new Date(date_select).valueOf()
+      console.log(date_select)
       let temp = await this.getIndexOfDataNotEixstsAndExists(rooms, select)
-      temp = temp.sort((a, b) => b.status - a.status)
-      const temp_a = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
-      res(temp_a)
+      const {
+        exists,
+        existsNot
+      } = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
+      const indexOfRooms = await this.findUniqloIndex(exists, existsNot)
+      const index_end_selectTed = await this.indexEndSelect(indexOfRooms)
 
+      res(index_end_selectTed)
     })
   }
   async cal_num_night(e, date_is) {
-    let room_temps = await this.roomIsEmptyCheck(this.booking_now.check_in || e.target.value, this.temp_room_session)
+    let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
 
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
     } else {
-      let check = new Date(e.target.value).valueOf()
-      if (check < this.booking_now.check_in.valueOf()) {
-        this.booking_now.check_out = new Date(this.booking_now.check_in)
+      // let check = new Date(e.target.value).valueOf()
+      this.booking_now.check_out = new Date(e.target.value)
 
-      } else {
-        this.booking_now.check_out = new Date(e.target.value)
-      }
     }
     this.rooms = []
-    room_temps.forEach(index_ => {
-      this.rooms.push(this.temp_room_session[index_.index])
-    })
-    this.setRoomOnForRoomShow(this.rooms)
+    // room_temps.forEach(index_ => {
+    //   this.rooms.push(this.temp_room_session[index_.index])
+    // })
+    // this.setRoomOnForRoomShow(this.rooms)
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
     // console.log(this.rooms)
