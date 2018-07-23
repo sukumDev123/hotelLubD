@@ -203,11 +203,17 @@ export class BookingComponent implements OnInit {
 
     })
   }
+  
+
+  
+
   indexMap(indexInput) {
 
     return new Promise(res => {
       let temp = indexInput
       let indexUniqlo = []
+      let forTest
+      let temp2 = []
       if (temp.length) {
         temp.forEach((data, i) => {
           for (let j = 0; j < temp.length; j++) {
@@ -273,7 +279,16 @@ export class BookingComponent implements OnInit {
   }
   dataIsNotExistsSelect(exists, notExists) {
     return new Promise(res => {
+      let temp = [],
+        t = []
+      if (exists.length > notExists.length) {
+        notExists.forEach((data, i) => {
+          if (data.index === exists[i].index) {
 
+
+          }
+        })
+      }
     })
 
   }
