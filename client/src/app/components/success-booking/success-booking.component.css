@@ -1,9 +1,42 @@
 .errMsg_show {
-    padding: 10px;
-    margin-top:10%;
-    color:rgba(0,0,0,0.5)
-}.errMsg_show:hover{
+  padding: 10px;
+  margin-top: 10%;
+  color: rgba(0, 0, 0, 0.5)
+}
 
-    color:rgba(0,0,0,1);
-    font-weight: bold
+.errMsg_show:hover {
+  color: rgba(0, 0, 0, 1);
+  font-weight: bold
+}
+
+.buttonShow {
+  padding: 20px;
+  color: rgb(44, 125, 256);
+  border: 5px solid rgb(44, 125, 256);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.buttonShow:hover {
+  border-radius: 6px;
+  color: white;
+  background: rgb(44, 125, 256)
+}
+
+.show_bk {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1999
+}
+
+.show_in_detail {
+  margin: auto;
+  background: white;
+  margin-top:30px;
+  border-radius: 6px;
+  
 }

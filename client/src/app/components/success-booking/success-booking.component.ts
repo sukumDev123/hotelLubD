@@ -20,6 +20,9 @@ import {
 import {
   BookingService
 } from '../../services/booking/booking.service';
+import {
+  Booking
+} from '../../interface/booking.interface';
 @Component({
   selector: 'app-success-booking',
   templateUrl: './success-booking.component.html',
@@ -33,7 +36,9 @@ export class SuccessBookingComponent implements OnInit {
 
   msg_err_show: string
 
+  bookingRealVari: Booking
 
+  show_detail: boolean = false
   constructor(private _store: Store < ManagetReducer > , private _router: ActivatedRoute, private _booking: BookingService) {}
 
   return_queryParams(): Observable < any > {
@@ -50,6 +55,7 @@ export class SuccessBookingComponent implements OnInit {
     try {
       if (queryParams.length === 24) {
         let bookingList = await this._booking.getBookingListOneData(queryParams).toPromise()
+        this.bookingRealVari = bookingList.datacall
         this.loadingShow = true
       } else {
         this.loadingShow = true
