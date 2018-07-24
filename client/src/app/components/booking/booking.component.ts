@@ -161,9 +161,11 @@ export class BookingComponent implements OnInit {
     res = Math.round(num_days) // day
     return res;
   } // Check Date ..
+
+
   // TODO: todo here is not success ....
 
-  getIndexOfDataNotEixstsAndExists(rooms_temp_main: RoomDetail[], select: number): Promise < any > {
+  getIndexOfDataNotEixstsAndExists(rooms_temp_main: RoomDetail[], select: number): Promise < any > { // sub method of roomIsEmptyCheck
     return new Promise(res => {
       let temp = []
       rooms_temp_main.forEach((room, i) => {
@@ -176,7 +178,6 @@ export class BookingComponent implements OnInit {
               status: 1
 
             })
-
           } else {
             temp.push({
               index: i,
@@ -189,7 +190,7 @@ export class BookingComponent implements OnInit {
       res(temp)
     })
   }
-  getDataIndexIsNotEqualtAndGetDataIsNotExists(numberTotal): Promise < any > {
+  getDataIndexIsNotEqualtAndGetDataIsNotExists(numberTotal): Promise < any > { //sub method of roomIsEmptyCheck
     return new Promise(res => {
 
       let temp = numberTotal.filter(data => data.status === 0)
@@ -207,7 +208,7 @@ export class BookingComponent implements OnInit {
 
 
 
-  indexMap(indexInput) {
+  indexMap(indexInput) { // sub method of findUniqloIndex
 
     return new Promise(res => {
       let temp = indexInput
@@ -242,7 +243,7 @@ export class BookingComponent implements OnInit {
 
 
   }
-  findUniqloIndex(exists, existsNot): Promise < any > {
+  findUniqloIndex(exists, existsNot): Promise < any > { // sub method of roomIsEmptyCheck
 
     return new Promise(async (res) => {
       let e_index = await this.indexMap(exists)
@@ -256,48 +257,50 @@ export class BookingComponent implements OnInit {
 
     })
   }
-  indexEndSelect(indexOfRooms: any, roomsNum: number): Promise < any > {
+  indexEndSelect(indexOfRooms: any, roomsNum: number): Promise < any > { // sub method of roomIsEmptyCheck
     return new Promise(async res => {
-      let temp = [],
-        all = []
+
       let {
         e_index,
         e_not_index
       } = indexOfRooms
 
       if (e_index.length === roomsNum) {
+        // if exists have length === rooms.length conclude rooms is exists.
         console.log(` 2`, [])
         res([])
       } else if (e_not_index.length === roomsNum && e_index.length === 0) {
-
+        // if not exists have value === rooms.length and exists have value === 0 return not exists all.
         res(e_not_index)
       } else if (!e_index.length && !e_not_index.length) {
-        console.log('empty!')
+        // if data exists and not exists have value === 0 return []
         res([])
       } else {
+        // value is rooms have value other ...
+        
         let data_is_not_exists = await this.dataIsNotExistsSelect(e_index, e_not_index)
-        console.log(data_is_not_exists)
-
         res(data_is_not_exists)
       }
 
 
     })
   }
-  dataIsNotExistsSelect(exists, notExists) {
-    return new Promise(res => {
-      let temp = [],
-        t = []
 
+  dataIsNotExistsSelect(exists, notExists) { // sub method of indexEndSelect
+    return new Promise(res => {
       exists = exists.sort((a, b) => a.index - b.index)
       notExists = notExists.sort((a, b) => a.index - b.index)
       let num = notExists.length
+      let num2 = exists.length
       for (let i = 0; i < num; i++) {
-        if (!exists[i]) {
-          t.push(notExists[i])
+        for (let j = 0; j < num2; j++) {
+          if (exists[j].index === notExists[i].index) {
+            notExists.splice(i, 1) // splice exists index ===  not exists index 
+            num = notExists.length // update exists length
+          }
         }
       }
-      res(t)
+      res(notExists)
     })
 
   }

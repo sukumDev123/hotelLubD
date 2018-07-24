@@ -89,12 +89,12 @@ export class ShowListRoomComponent implements OnInit {
 
   }
   setDateToString(dateInIn: Date, dateOutIn: Date): String {
-    console.log(dateInIn , dateOutIn)
     if (dateInIn && dateOutIn) {
       let dateIn = new Date(dateInIn)
       let dateOut = new Date(dateOutIn)
-      let in_ = `${dateIn.getDate()}/${dateIn.getMonth()}/${dateIn.getFullYear()}`
-      let out_ = `${dateOut.getDate()}/${dateOut.getMonth()}/${dateOut.getFullYear()}`
+      console.log(dateIn , dateOut)
+      let in_ = `${dateIn.getDate()}/${dateIn.getUTCMonth()}/${dateIn.getFullYear()}`
+      let out_ = `${dateOut.getDate()}/${dateOut.getUTCMonth()}/${dateOut.getFullYear()}`
 
       return `วันที่เช็คอิน : ${in_} วันที่่ช็ตเอ้า : ${out_}`
     }
