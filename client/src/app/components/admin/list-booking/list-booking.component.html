@@ -18,7 +18,7 @@
       </h3>
       <div class="col-12">
         <h5 class="textKait">
-          วันที่จอง : {{setDateFormate(booking_select.create_at)}} 
+          วันที่จอง : {{booking_select.create_at | date:'EEEE , dd-MM-yyyy h:mm:ss a'}} 
         </h5>
         <h5 class="textKait">
           สถานะ : {{ status_booking(booking_select.status_enroll )}}
@@ -48,7 +48,7 @@
               <h5 class='textKait'> เตียงคู่/เดียว: </h5>
               <p class="textKait p-2">{{ room.type }}</p>
               <h5 class='textKait'> ราคา: </h5>
-              <p class="textKait p-2">{{ room.priceRoom.toFixed(2) }}</p>
+              <p class="textKait p-2">{{ room.priceRoom | currency:'฿ ':'symbol':'0.2-2'    }}</p>
   
               <hr>
             </div>
@@ -63,7 +63,7 @@
               วันที่เช็คอิน : 
             </h5>
             <p class='textKait p-2' > 
-            {{ setDateFormate(booking_select.check_in)}}  
+            {{ booking_select.check_in | date:'EEE dd-MM-yyyy' }}  
             </p>
           </div>
           <div class="col-12 col-md-6">
@@ -71,12 +71,12 @@
                   วันที่เช็คเอ้า : 
                 </h5>
                 <p class='textKait p-2' > 
-                {{ setDateFormate(booking_select.check_out)}}  
+                {{booking_select.check_out | date:'EEE dd-MM-yyyy'}}  
                 </p>
           </div>
         </div>
        <div class="col-12 p-3 btn-primary text-center">
-         <h3 class="textKait">฿ {{ booking_select.total_price.toFixed(2) }} บาท</h3>
+         <h3 class="textKait"> {{ booking_select.total_price | currency:'฿ ':'symbol':'0.2-2'    }} </h3>
        </div>
       </div>
     </div>
@@ -107,7 +107,7 @@
             <td class='textKait'>{{ book.user_booking.displayname }}</td>
             <td class='textKait'>{{book.night_num}}</td>
             <td class='textKait'>{{ book.room.length }}</td>
-            <td class='textKait'>฿ {{ book.total_price.toFixed(2) }} </td>
+            <td class='textKait'> {{ book.total_price  | currency:'฿ ':'symbol':'0.2-2' }} </td>
             <td class="textKait"> {{ setDateFormate(book.create_at) }} </td>
             <td class="textKait" class='closeList'>
               <i (click)='deleteBookingList(book , i)' class="fas fa-times"></i>

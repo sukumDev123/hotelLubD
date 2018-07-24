@@ -91,7 +91,7 @@
             "color" : style_total_price_all.color ,
             "font-size" : style_total_price_all.font_size
           }'>
-            <strong> รวมเป็นเงิน : {{cal_price_num.price_total}} บาท </strong>
+            <strong> รวมเป็นเงิน : {{cal_price_num.price_total | currency:'฿ ':'symbol':'0.2-2'  }}  </strong>
           </p>
         </div>
       </div>

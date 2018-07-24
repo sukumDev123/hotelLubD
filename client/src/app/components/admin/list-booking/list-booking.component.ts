@@ -91,6 +91,17 @@ export class ListBookingComponent implements OnInit {
     }
 
   }
+  check_min_7(date_in, date_out) {
+    const date_start: any = new Date(date_in)
+    const date_end: any = new Date(date_out)
+    const startA = Date.parse(date_start)
+    const endA = Date.parse(date_end)
+    const gg = endA - startA
+    const num_days = ((gg % 31536000000) % 2628000000) / 86400000 // day
+    let res = 0
+    res = Math.round(num_days) // day
+    return res;
+  } // Check Date ..
   setNameFormat(name): String {
     console.log(name)
     let nameSplit = name.length > 12 ? `${name.split(' ')[0]}...` : name
@@ -98,8 +109,11 @@ export class ListBookingComponent implements OnInit {
   }
   setDateFormate(date): string {
     let date_ = new Date(date)
-
-    return `${date_.getDate()}/${date_.getMonth()}/${date_.getFullYear()}`
+    let date_is = this.check_min_7(date_, new Date())
+    if(!date_is) {
+      return "จองวันนี้"
+    }
+    return ` ผ่านมา  : ${date_is}`
   }
   select_bookingList(booking) {
     console.log(booking)

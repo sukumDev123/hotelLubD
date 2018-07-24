@@ -31,7 +31,7 @@ export class SuccessBookingComponent implements OnInit {
     this.bookingId = this._router
       .queryParamMap
       .pipe(map(params => params.get('id_bookingList')));
-
+    // id=5b571437962d0100534b4fad
     this.bookingId.subscribe(data => console.log(data))
 
   }

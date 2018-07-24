@@ -49,9 +49,11 @@ function reserveNowFunc(data) {
         let booking = new Booking(data_real)
         try {
             let save_ = await booking.save()
+            
             res({
                 message: 'Save booking list success.',
-                status: 200
+                status: 200 ,
+                data : booking
             })
         } catch (error) {
             rej(error)
@@ -129,7 +131,7 @@ export async function reserveRoom(req, res) {
         res.json({
             message: reserveNow.message,
             status: reserveNow.status,
-            datacall: JSON.stringify(req.body)
+            datacall: reserveNow.data
         })
 
     } catch (error) {

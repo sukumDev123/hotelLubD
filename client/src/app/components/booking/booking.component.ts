@@ -169,6 +169,12 @@ export class BookingComponent implements OnInit {
     return new Promise(res => {
       let temp = []
       rooms_temp_main.forEach((room, i) => {
+        if (!room.liveDate.length) {
+          temp.push({
+            index: i,
+            status: 0
+          })
+        }
         room.liveLatest.forEach((dateLatest, j) => {
           let dateIn = new Date(room.liveDate[j]).valueOf()
           let dateLatestLet = new Date(dateLatest).valueOf()
@@ -415,12 +421,13 @@ export class BookingComponent implements OnInit {
           this.booking_now.total_price = this.cal_price_num.total_price_room
           this.loadingShow = false
           this._booking.bookingNowService(this.booking_now).subscribe(suc => {
+            console.log(suc)
             this.booking_now = this.data_is_defult()
             this._msg.set_msg_type(suc.message, `Reserve status is success.`, 'success', new Date().getHours(), true, 200)
             this.loadingShow = true
             let nav = {
               queryParams: {
-                'id_bookingList': JSON.stringify(suc.datacall.user_booking)
+                'id_bookingList': JSON.stringify(suc.datacall._id)
               }
             }
             this._router.navigate(['/core/success-booking'], nav)
