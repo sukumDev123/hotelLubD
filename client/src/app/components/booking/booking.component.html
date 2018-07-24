@@ -1,9 +1,9 @@
 <div class="load-div" [hidden]="loadingShow">
-    <div class="load">
-    </div>
-    <p class="loader textKait"> load... </p>
+  <div class="load">
   </div>
-  
+  <p class="loader textKait"> load... </p>
+</div>
+
 <div class="container p-3">
   <div class='noti'>
     <app-err-component></app-err-component>
@@ -46,7 +46,7 @@
           required>
       </div>
       <div class="md-form p-2">
-        <input type="date" (change)="cal_num_night($event , 'date_out')" ([ngModel])="booking_now.check_out" name='check_out'  class="form-control"
+        <input type="date" (change)="cal_num_night($event , 'date_out')" ([ngModel])="booking_now.check_out" name='check_out' class="form-control"
           required>
       </div>
 
@@ -69,9 +69,9 @@
         <h5 class="text-center p-3 textKait">
           ห้องห้องเรา
         </h5>
-        
 
-          <app-for-room-show></app-for-room-show>
+
+        <app-for-room-show></app-for-room-show>
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
             "color" : style_total_price_all.color ,
             "font-size" : style_total_price_all.font_size
           }'>
-            <strong> รวมเป็นเงิน : {{cal_price_num.price_total | currency:'฿ ':'symbol':'0.2-2'  }}  </strong>
+            <strong> รวมเป็นเงิน : {{cal_price_num.price_total | currency:'฿ ':'symbol':'0.2-2' }} </strong>
           </p>
         </div>
       </div>

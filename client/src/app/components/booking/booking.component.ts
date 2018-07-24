@@ -275,7 +275,7 @@ export class BookingComponent implements OnInit {
 
       if (e_index.length === roomsNum) {
         // if exists have length === rooms.length conclude rooms is exists.
-        console.log(` 2`, [])
+        // console.log(` 2`, [])
         res([])
       } else if (e_not_index.length === roomsNum && e_index.length === 0) {
         // if not exists have value === rooms.length and exists have value === 0 return not exists all.
@@ -421,13 +421,12 @@ export class BookingComponent implements OnInit {
           this.booking_now.total_price = this.cal_price_num.total_price_room
           this.loadingShow = false
           this._booking.bookingNowService(this.booking_now).subscribe(suc => {
-            console.log(suc)
             this.booking_now = this.data_is_defult()
             this._msg.set_msg_type(suc.message, `Reserve status is success.`, 'success', new Date().getHours(), true, 200)
             this.loadingShow = true
             let nav = {
               queryParams: {
-                'id_bookingList': JSON.stringify(suc.datacall._id)
+                'id_bookingList': suc.datacall._id
               }
             }
             this._router.navigate(['/core/success-booking'], nav)
@@ -447,7 +446,6 @@ export class BookingComponent implements OnInit {
   }
   // NOTE: Check user is guest or user.
   ok_user_input() {
-    console.log(this.booking_now.user_booking)
     if (this.check_this_is_user(this.booking_now.user_booking)) {
       this.show_new_user_input = false
       this.show_button_submit = true

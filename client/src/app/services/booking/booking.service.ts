@@ -51,5 +51,8 @@ export class BookingService {
   remove_data_book(id) : Observable<BookingListCallBack> {
     return this._http.delete<any>(`${this._host}/api/booking/user/history/${id}`)
   } 
-
+  getBookingListOneData(id) : Observable<BookingCallBack> {
+    let id_ :string = id
+    return this._http.get<any>(`${this._host}/api/booking/user/history/${id_}`)
+  }
 }

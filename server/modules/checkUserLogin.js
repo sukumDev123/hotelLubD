@@ -54,7 +54,7 @@ export async function checkUserLogin(req, res, next) {
         next()
     } catch (error) {
         next({
-            message : error.messge.message ,
+            message : JSON.stringify(error.messge) ,
             status : 401
         })
        

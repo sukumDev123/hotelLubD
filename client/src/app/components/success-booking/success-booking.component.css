@@ -1,0 +1,9 @@
+.errMsg_show {
+    padding: 10px;
+    margin-top:10%;
+    color:rgba(0,0,0,0.5)
+}.errMsg_show:hover{
+
+    color:rgba(0,0,0,1);
+    font-weight: bold
+}
