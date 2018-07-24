@@ -203,9 +203,9 @@ export class BookingComponent implements OnInit {
 
     })
   }
-  
 
-  
+
+
 
   indexMap(indexInput) {
 
@@ -214,7 +214,9 @@ export class BookingComponent implements OnInit {
       let indexUniqlo = []
       let forTest
       let temp2 = []
+
       if (temp.length) {
+        temp = temp.sort(((a, b) => a.index - b.index))
         temp.forEach((data, i) => {
           for (let j = 0; j < temp.length; j++) {
             if (data.index === temp[j].index) {
@@ -230,7 +232,7 @@ export class BookingComponent implements OnInit {
 
           }
         })
-
+        //console.log(indexUniqlo)
         res(indexUniqlo)
 
       }
@@ -240,7 +242,7 @@ export class BookingComponent implements OnInit {
 
 
   }
-  findUniqloIndex(exists, existsNot) {
+  findUniqloIndex(exists, existsNot): Promise < any > {
 
     return new Promise(async (res) => {
       let e_index = await this.indexMap(exists)
@@ -254,7 +256,7 @@ export class BookingComponent implements OnInit {
 
     })
   }
-  indexEndSelect(indexOfRooms: any, roomsNum: number) {
+  indexEndSelect(indexOfRooms: any, roomsNum: number): Promise < any > {
     return new Promise(async res => {
       let temp = [],
         all = []
@@ -262,15 +264,20 @@ export class BookingComponent implements OnInit {
         e_index,
         e_not_index
       } = indexOfRooms
-      if (!e_index.length && !e_not_index.length) {
-        res([])
-      }
+
       if (e_index.length === roomsNum) {
+        console.log(` 2`, [])
         res([])
       } else if (e_not_index.length === roomsNum && e_index.length === 0) {
+
         res(e_not_index)
+      } else if (!e_index.length && !e_not_index.length) {
+        console.log('empty!')
+        res([])
       } else {
         let data_is_not_exists = await this.dataIsNotExistsSelect(e_index, e_not_index)
+        console.log(data_is_not_exists)
+
         res(data_is_not_exists)
       }
 
@@ -281,14 +288,16 @@ export class BookingComponent implements OnInit {
     return new Promise(res => {
       let temp = [],
         t = []
-      if (exists.length > notExists.length) {
-        notExists.forEach((data, i) => {
-          if (data.index === exists[i].index) {
 
-
-          }
-        })
+      exists = exists.sort((a, b) => a.index - b.index)
+      notExists = notExists.sort((a, b) => a.index - b.index)
+      let num = notExists.length
+      for (let i = 0; i < num; i++) {
+        if (!exists[i]) {
+          t.push(notExists[i])
+        }
       }
+      res(t)
     })
 
   }
@@ -296,7 +305,7 @@ export class BookingComponent implements OnInit {
 
     return new Promise(async res => {
       const select = new Date(date_select).valueOf()
-      console.log(date_select)
+      // console.log(date_select)
       let temp = await this.getIndexOfDataNotEixstsAndExists(rooms, select)
       const {
         exists,
@@ -310,7 +319,6 @@ export class BookingComponent implements OnInit {
   }
   async cal_num_night(e, date_is) {
     let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
-    console.log(room_temps)
     if (date_is === 'date_in') {
       this.booking_now.check_in = new Date(e.target.value)
     } else {
@@ -319,10 +327,10 @@ export class BookingComponent implements OnInit {
 
     }
     this.rooms = []
-    // room_temps.forEach(index_ => {
-    //   this.rooms.push(this.temp_room_session[index_.index])
-    // })
-    // this.setRoomOnForRoomShow(this.rooms)
+    room_temps.forEach(index_ => {
+      this.rooms.push(this.temp_room_session[index_.index])
+    })
+    this.setRoomOnForRoomShow(this.rooms)
     this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
     this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
     // console.log(this.rooms)

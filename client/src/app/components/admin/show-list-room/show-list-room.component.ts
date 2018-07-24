@@ -59,6 +59,7 @@ export class ShowListRoomComponent implements OnInit {
         this.display = new Array(suc.data.length - 1)
         this.roomListIsNotEmpty = true
         this.roomList = suc.data
+        console.log(this.roomList)
       }
       this.loadingShow = true
     }, err => {
@@ -88,11 +89,12 @@ export class ShowListRoomComponent implements OnInit {
 
   }
   setDateToString(dateInIn: Date, dateOutIn: Date): String {
+    console.log(dateInIn , dateOutIn)
     if (dateInIn && dateOutIn) {
       let dateIn = new Date(dateInIn)
       let dateOut = new Date(dateOutIn)
-      let in_ = `${dateIn.getDay()}/${dateIn.getMonth()}/${dateIn.getFullYear()}`
-      let out_ = `${dateOut.getDay()}/${dateOut.getMonth()}/${dateOut.getFullYear()}`
+      let in_ = `${dateIn.getDate()}/${dateIn.getMonth()}/${dateIn.getFullYear()}`
+      let out_ = `${dateOut.getDate()}/${dateOut.getMonth()}/${dateOut.getFullYear()}`
 
       return `วันที่เช็คอิน : ${in_} วันที่่ช็ตเอ้า : ${out_}`
     }

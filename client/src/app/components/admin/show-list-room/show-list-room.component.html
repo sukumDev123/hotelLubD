@@ -90,7 +90,7 @@
                 'border-radius':'6px' 
                }
               ">
-                <p *ngFor="let dateIn of data.liveDate ; let dateOut of data.liveLatest ; let j = index">{{setDateToString(dateIn , dateOut)}} <small style="color:red;padding: 10px;cursor: pointer;" (click)="delete_checkInChecoutTime( dateIn , dateOut , j , i)" ><i class="fas fa-times"></i></small> </p>
+                <p *ngFor="let dateIn of data.liveDate ; let j = index">{{setDateToString(dateIn , data.liveLatest[j]  )}} <small style="color:red;padding: 10px;cursor: pointer;" (click)="delete_checkInChecoutTime( dateIn , dateOut , j , i)" ><i class="fas fa-times"></i></small> </p>
 
                 <p [hidden]='data.liveDate.length'> ยังไม่มีการจองในห้องนี้ </p>
               </div>
