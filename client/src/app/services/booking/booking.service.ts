@@ -33,7 +33,7 @@ export class BookingService {
     return {
       message: data.message,
       status: data.status,
-      datacall: (data.datacall == 'string') ? JSON.parse(data.datacall.user_booking) : data.datacall.user_booking
+      datacall: (data.datacall == 'string') ? JSON.parse(data.datacall) : data.datacall
     }
   }
 

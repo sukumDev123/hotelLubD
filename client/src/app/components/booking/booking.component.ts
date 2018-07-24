@@ -172,6 +172,7 @@ export class BookingComponent implements OnInit {
         room.liveLatest.forEach((dateLatest, j) => {
           let dateIn = new Date(room.liveDate[j]).valueOf()
           let dateLatestLet = new Date(dateLatest).valueOf()
+
           if (dateIn <= select && select <= dateLatestLet) {
             temp.push({
               index: i,
@@ -185,6 +186,7 @@ export class BookingComponent implements OnInit {
 
             })
           }
+
         })
       })
       res(temp)
@@ -277,7 +279,7 @@ export class BookingComponent implements OnInit {
         res([])
       } else {
         // value is rooms have value other ...
-        
+
         let data_is_not_exists = await this.dataIsNotExistsSelect(e_index, e_not_index)
         res(data_is_not_exists)
       }
@@ -306,37 +308,53 @@ export class BookingComponent implements OnInit {
   }
   roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any > {
 
-    return new Promise(async res => {
+    return new Promise(async (res, rej) => {
       const select = new Date(date_select).valueOf()
+      const selectToString = new Date(date_select).toString().slice(0, 15)
+      const dateNotToString = new Date().toString().slice(0, 15)
       // console.log(date_select)
-      let temp = await this.getIndexOfDataNotEixstsAndExists(rooms, select)
-      const {
-        exists,
-        existsNot
-      } = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
-      const indexOfRooms = await this.findUniqloIndex(exists, existsNot)
-      const index_end_selectTed = await this.indexEndSelect(indexOfRooms, rooms.length)
+      if (select >= new Date().valueOf() || selectToString === dateNotToString) {
+        let temp = await this.getIndexOfDataNotEixstsAndExists(rooms, select)
+        const {
+          exists,
+          existsNot
+        } = await this.getDataIndexIsNotEqualtAndGetDataIsNotExists(temp)
+        const indexOfRooms = await this.findUniqloIndex(exists, existsNot)
+        const index_end_selectTed = await this.indexEndSelect(indexOfRooms, rooms.length)
 
-      res(index_end_selectTed)
+        res(index_end_selectTed)
+      } else {
+
+        rej({
+          data: rooms,
+          status: 'select date >= now.'
+        })
+      }
     })
   }
   async cal_num_night(e, date_is) {
-    let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session)
-    if (date_is === 'date_in') {
-      this.booking_now.check_in = new Date(e.target.value)
-    } else {
-      // let check = new Date(e.target.value).valueOf()
-      this.booking_now.check_out = new Date(e.target.value)
+    try {
+      if (date_is === 'date_in') {
+        this.booking_now.check_in = new Date(e.target.value)
+        let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session) // done 
+        this.rooms = []
+        room_temps.forEach(index_ => {
+          this.rooms.push(this.temp_room_session[index_.index])
+        })
+        this.setRoomOnForRoomShow(this.rooms)
 
+      } else {
+        this.booking_now.check_out = new Date(e.target.value)
+
+      }
+
+      this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
+      this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
+
+    } catch (error) {
+      this.rooms = error.data
+      alert(error.status)
     }
-    this.rooms = []
-    room_temps.forEach(index_ => {
-      this.rooms.push(this.temp_room_session[index_.index])
-    })
-    this.setRoomOnForRoomShow(this.rooms)
-    this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
-    this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
-    // console.log(this.rooms)
     //  
   }
   // TODO: todo here is not success ....
@@ -402,7 +420,7 @@ export class BookingComponent implements OnInit {
             this.loadingShow = true
             let nav = {
               queryParams: {
-                'id_bookingList': JSON.stringify(suc)
+                'id_bookingList': JSON.stringify(suc.datacall.user_booking)
               }
             }
             this._router.navigate(['/core/success-booking'], nav)

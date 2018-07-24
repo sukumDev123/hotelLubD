@@ -32,7 +32,7 @@ export class ShowListRoomComponent implements OnInit {
   show_edit_boolean: boolean = false
   display: string[]
 
-  loadingShow : boolean = false
+  loadingShow: boolean = false
   constructor(private _room: RoomServiceService, private _user: UserGlobalService, private _err: ErrHandlerService) {}
 
   successMsgFunction(msg: string, data: RoomDetail): void {
@@ -46,7 +46,7 @@ export class ShowListRoomComponent implements OnInit {
 
   dateShow(date: string): string {
     let d = new Date(date)
-    let date_format = `วันที่สร้าง : ${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
+    let date_format = `วันที่สร้าง : ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
 
 
     return date_format
@@ -54,7 +54,7 @@ export class ShowListRoomComponent implements OnInit {
 
   showRoomFunction(limitshow: Number = 0): void {
     this._room.showRoom(limitshow).subscribe(suc => {
-    
+
       if (suc.data.length) {
         this.display = new Array(suc.data.length - 1)
         this.roomListIsNotEmpty = true
@@ -70,7 +70,6 @@ export class ShowListRoomComponent implements OnInit {
 
   ngOnInit() {
     this.showRoomFunction()
-
   }
 
   // jquery
@@ -92,9 +91,9 @@ export class ShowListRoomComponent implements OnInit {
     if (dateInIn && dateOutIn) {
       let dateIn = new Date(dateInIn)
       let dateOut = new Date(dateOutIn)
-      console.log(dateIn , dateOut)
-      let in_ = `${dateIn.getDate()}/${dateIn.getUTCMonth()}/${dateIn.getFullYear()}`
-      let out_ = `${dateOut.getDate()}/${dateOut.getUTCMonth()}/${dateOut.getFullYear()}`
+      console.log(dateIn, dateOut)
+      let in_ = `${dateIn.getDate()}/${dateIn.getMonth() + 1}/${dateIn.getFullYear()}`
+      let out_ = `${dateOut.getDate()}/${dateOut.getMonth() + 1}/${dateOut.getFullYear()}`
 
       return `วันที่เช็คอิน : ${in_} วันที่่ช็ตเอ้า : ${out_}`
     }
