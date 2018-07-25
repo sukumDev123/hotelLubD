@@ -23,6 +23,7 @@ import {
 import {
   Booking
 } from '../../interface/booking.interface';
+import { UserGlobalService } from '../../services/users/user/user-global.service';
 @Component({
   selector: 'app-success-booking',
   templateUrl: './success-booking.component.html',
@@ -36,10 +37,25 @@ export class SuccessBookingComponent implements OnInit {
 
   msg_err_show: string
 
-  bookingRealVari: Booking
+  bookingRealVari : Booking
 
   show_detail: boolean = false
-  constructor(private _store: Store < ManagetReducer > , private _router: ActivatedRoute, private _booking: BookingService) {}
+  constructor(private _store: Store < ManagetReducer > , private _router: ActivatedRoute, private _booking: BookingService , private _user : UserGlobalService) {}
+
+
+  data_is_defult(): Booking {
+    return {
+      user_booking: this._user.UserData(),
+      room: [],
+      create_at: new Date(),
+      check_in: new Date(),
+      check_out: new Date(),
+      total_price: 0,
+      night_num: 0,
+      _id: '',
+      status_enroll: false
+    }
+  }
 
   return_queryParams(): Observable < any > {
     return this._router
@@ -47,6 +63,7 @@ export class SuccessBookingComponent implements OnInit {
       .pipe(map(params => params.get('id_bookingList')));
   }
   async ngOnInit() {
+    this.bookingRealVari = this.data_is_defult()
     this.bookingId = this.return_queryParams()
     this.bookingId.subscribe(data => this.getShowUserQueryParams(data))
 
@@ -55,7 +72,8 @@ export class SuccessBookingComponent implements OnInit {
     try {
       if (queryParams.length === 24) {
         let bookingList = await this._booking.getBookingListOneData(queryParams).toPromise()
-        this.bookingRealVari = bookingList.datacall
+        this.bookingRealVari = bookingList
+        console.log(this.bookingRealVari)
         this.loadingShow = true
       } else {
         this.loadingShow = true

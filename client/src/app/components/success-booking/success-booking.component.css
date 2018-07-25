@@ -36,7 +36,19 @@
 .show_in_detail {
   margin: auto;
   background: white;
-  margin-top:30px;
+  margin-top: 30px;
   border-radius: 6px;
-  
+  overflow: auto;
+  height: 600px;
+}
+
+.overscoll {
+  height: 300px;
+  overflow: auto;
+  padding: 10px;
+}
+@media only screen and (max-width: 600px) {
+  .show_in_detail {
+      margin-top: 10px;
+  }
 }
