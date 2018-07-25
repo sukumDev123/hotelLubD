@@ -1,0 +1,76 @@
+<div class="show_bk" *ngIf="show_detail">
+
+  <div class="show_in_detail col-12 col-md-8">
+    <span class='spanCLose' (click)="show_detail = false">
+      <i class="fas fa-times"></i>
+    </span>
+    <div class="col-12 text-center">
+      <h4 class='textKait p-3'> รายละเอียดการจองห้องพักของคุณ </h4>
+
+
+      <div class="row text-left">
+        <div class="col-12 col-md-4">
+          <label for="checkin">Check In : </label>
+          <span class="textKait p-3"> {{ bookingRealVari.check_in | date:'EEE , dd/MM/yyyy' }} </span>
+        </div>
+        <div class="col-12 col-md-4">
+
+          <label for="checkin">Check Out : </label>
+          <span class="textKait p-3"> {{ bookingRealVari.check_out | date:'EEE , dd/MM/yyyy' }} </span>
+        </div>
+        <div class="col-md-4 col-12">
+          <label for="price">ราคาทั้งหมด : </label>
+          <span class="textKait p-3"> {{ bookingRealVari.total_price | currency:'฿ ':'symbol':'0.2-2' }} </span>
+
+        </div>
+      </div>
+
+      <div class="col-12 text-center">
+        <h5 class="text-left textKait"> รายละเอียด ลูกค้า </h5>
+        <div class="p-3">
+          <div class="md-form text-left ">
+            <label for="name"> ชื่อ : </label>
+            <span class='textKait  p-3'> {{ bookingRealVari.user_booking.displayname }}</span>
+          </div>
+          <div class="md-form text-left ">
+            <label for="email"> Email : </label>
+            <span class='textKait  p-3'> {{ bookingRealVari.user_booking.email }}</span>
+          </div>
+          <div class="md-form text-left ">
+            <label for="phone"> เบอร์โทร : </label>
+            <span class='textKait  p-3'> {{ bookingRealVari.user_booking.phone }}</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-12 text-center p-3">
+        <h5 class="text-left textKait"> รายละเอียด ห้องที่จอง </h5>
+        <div class="overscoll row">
+          <div class="col-12 col-md-4" *ngFor='let room of bookingRealVari.room '>
+            <div class="md-form text-left ">
+              <label for="name"> ชื่อ : </label>
+              <span class='textKait  p-3'> {{ room.name }}</span>
+            </div>
+            <div class="md-form text-left ">
+              <label for="email"> หมายเลข : </label>
+              <span class='textKait  p-3'> {{ room.number }}</span>
+            </div>
+            <div class="md-form text-left ">
+              <label for="phone"> ราคาห้อง : </label>
+              <span class='textKait  p-3'> {{ room.priceRoom | currency:'฿ ':'symbol':'0.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+  </div>
+</div>
