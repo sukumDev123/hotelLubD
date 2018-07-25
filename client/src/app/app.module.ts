@@ -46,6 +46,7 @@ import {
   ErrComponentComponent
 } from './components/err-component/err-component.component';
 import { UserGlobalService } from './services/users/user/user-global.service';
+import { DetailBookingListUserComponent } from './components/detail-booking-list-user/detail-booking-list-user.component';
 
 
 export function tokenGetter() {
@@ -58,6 +59,7 @@ export function tokenGetter() {
     ForRoomShowComponent,
     ErrComponentComponent,
     ...AppComponentRoute,
+    DetailBookingListUserComponent,
 
 
     

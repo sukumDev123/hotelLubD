@@ -23,7 +23,12 @@ import {
 import {
   Booking
 } from '../../interface/booking.interface';
-import { UserGlobalService } from '../../services/users/user/user-global.service';
+import {
+  UserGlobalService
+} from '../../services/users/user/user-global.service';
+import {
+  ADD_DETAIL
+} from '../../store/actions/detail-booking.action';
 @Component({
   selector: 'app-success-booking',
   templateUrl: './success-booking.component.html',
@@ -37,10 +42,10 @@ export class SuccessBookingComponent implements OnInit {
 
   msg_err_show: string
 
-  bookingRealVari : Booking
+  bookingRealVari: Booking
 
-  show_detail: boolean = false
-  constructor(private _store: Store < ManagetReducer > , private _router: ActivatedRoute, private _booking: BookingService , private _user : UserGlobalService) {}
+
+  constructor(private _store: Store < ManagetReducer > , private _router: ActivatedRoute, private _booking: BookingService, private _user: UserGlobalService) {}
 
 
   data_is_defult(): Booking {
@@ -84,6 +89,18 @@ export class SuccessBookingComponent implements OnInit {
       this.loadingShow = true
       this.msg_err_show = "ไม่สามารถโหลดข้อมูลของ รหัสนี้ได้"
     }
+  }
+
+  show_detail() {
+
+    let bookingList_data = {
+      status_show: true,
+      detail: this.bookingRealVari
+    }
+    this._store.dispatch({
+      type: ADD_DETAIL,
+      payloads: bookingList_data
+    })
   }
 
 }

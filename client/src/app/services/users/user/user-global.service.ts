@@ -8,7 +8,8 @@ import {
   Router
 } from '@angular/router';
 import {
-  UserInfo
+  UserInfo,
+  UserForBooking
 } from '../../../interface/userinterface';
 
 
@@ -40,6 +41,7 @@ export class UserGlobalService {
     return localStorage.getItem("Login")
   }
 
+  
   UserData(): UserInfo {
     if (this.isLogin()) {
       try {
