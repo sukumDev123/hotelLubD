@@ -10,7 +10,7 @@
 
   </div>
 
-  <div class="show-detail-all-bk" *ngIf='show_detail_all_bk' >
+  <!-- <div class="show-detail-all-bk" *ngIf='show_detail_all_bk' >
     <div class="show-detail-all col-12 col-md-8">
       <a class="close-show-detail-all"> <i (click)="show_detail_all_bk = false ; booking_select = {} ; " class="fas fa-times"></i>  </a>
       <h3 class="textKait text-center text-primary p-3">
@@ -80,7 +80,7 @@
        </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="col-12 col-md-10 marginC p-3" style='margin-top:10px;'>
     <div class="col-12  marginC">
@@ -102,7 +102,7 @@
         <tbody>
           <tr style="text-align: center" *ngFor="let book of bookList ; let i = index">
             <th scope="row" class='viewDetail'>
-              <i (click)="select_bookingList(book)" class="far fa-eye"></i>
+              <i (click)="show_detail(book)"class="far fa-eye"></i>
             </th>
             <td class='textKait'>{{ book.user_booking.displayname }}</td>
             <td class='textKait'>{{book.night_num}}</td>
@@ -132,3 +132,4 @@
     <h1 class='text-center textKait' > ไม่มีข้อมูล </h1>
   </div>
 </div>
+<app-detail-booking-list-user></app-detail-booking-list-user>

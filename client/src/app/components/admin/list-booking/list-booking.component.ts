@@ -12,6 +12,9 @@ import {
   Booking,
   BookingListCallBack
 } from '../../../interface/booking.interface';
+import { ADD_DETAIL } from '../../../store/actions/detail-booking.action';
+import { ManagetReducer } from '../../../store/reducers/index.reducer';
+import { Store } from '../../../../../node_modules/@ngrx/store';
 
 @Component({
   selector: 'app-list-booking',
@@ -27,7 +30,7 @@ export class ListBookingComponent implements OnInit {
   sizeData: number = 0
   show_detail_all_bk: boolean = false
   booking_select: Booking
-  constructor(private _bookList: BookingService, private _msg: ErrHandlerService) {}
+  constructor(private _bookList: BookingService, private _msg: ErrHandlerService , private _store : Store<ManagetReducer>) {}
 
   async ngOnInit() {
 
@@ -36,7 +39,7 @@ export class ListBookingComponent implements OnInit {
       console.log(list_)
       this.loadingShow = true
       this.bookList = list_.data_list
-      this.sizeData = list_.size / this.bookList.length
+      this.sizeData = this.getSizePagination(list_.size, this.bookList.length)
       this.page = this.pagination(0, this.sizeData)
 
     } catch (error) {
@@ -110,7 +113,7 @@ export class ListBookingComponent implements OnInit {
   setDateFormate(date): string {
     let date_ = new Date(date)
     let date_is = this.check_min_7(date_, new Date())
-    if(!date_is) {
+    if (!date_is) {
       return "จองวันนี้"
     }
     return ` ผ่านมา  : ${date_is}`
@@ -120,27 +123,34 @@ export class ListBookingComponent implements OnInit {
     this.booking_select = booking
     this.show_detail_all_bk = true
   }
-  status_booking(bookingStatus) {
-    return bookingStatus ? "ยืนยัน" : "รอการยืนยัน"
-  }
-  async deleteBookingList(book: Booking, index) {
-    // this.bookList.splice(index , 1)
-    // let sizeNew =this.bookList.length
-    // // this.page = this.pagination(0, sizeNew)
-    // console.log(sizeNew)
-    this.loadingShow = false
 
+  async deleteBookingList(book: Booking, index) {
+    this.loadingShow = false
     try {
       let list_: BookingListCallBack = await this._bookList.remove_data_book(book._id).toPromise()
       this.bookList = list_.data_list
       this._msg.set_msg_type(list_.message, "Delete status is success.", 'success', new Date().getHours(), true, 200)
       this.loadingShow = true
-      this.sizeData = list_.size / this.bookList.length
+      this.sizeData = this.getSizePagination(list_.size, this.bookList.length)
       this.page = this.pagination(0, this.sizeData)
 
     } catch (error) {
       this._msg.set_msg_type(error.error.message, "Delete status is not success.", 'err', new Date().getHours(), true, error.status)
 
     }
+  }
+  getSizePagination(sizeTotal, size) {
+    return Math.ceil(sizeTotal / size)
+  }
+  show_detail(book) {
+
+    let bookingList_data = {
+      status_show: true,
+      detail: book
+    }
+    this._store.dispatch({
+      type: ADD_DETAIL,
+      payloads: bookingList_data
+    })
   }
 }

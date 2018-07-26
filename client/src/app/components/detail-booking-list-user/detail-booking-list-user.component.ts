@@ -20,8 +20,8 @@ import {
   styleUrls: ['./detail-booking-list-user.component.css']
 })
 export class DetailBookingListUserComponent implements OnInit {
-  show_detail: boolean = false
-  bookingRealVari: Booking
+  show_detail_all_bk: boolean = false
+  booking_select: Booking
   constructor(private _store: Store < ManagetReducer > ) {}
 
   ngOnInit() {
@@ -31,7 +31,10 @@ export class DetailBookingListUserComponent implements OnInit {
   }
   setDataSHow(dbl: DetailBooking) {
     console.log(dbl)
-    this.bookingRealVari = dbl.detail
-    this.show_detail = dbl.status_show
+    this.booking_select = dbl.detail
+    this.show_detail_all_bk = dbl.status_show
+  }
+  status_booking(bookingStatus) {
+    return bookingStatus ? "ยืนยัน" : "รอการยืนยัน"
   }
 }
