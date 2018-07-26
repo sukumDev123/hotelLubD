@@ -1,64 +1,141 @@
+.firstPhoto {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 500px;
+}
 
-.firstPhoto{
-    width:100%;
-    padding: 0;
-    margin: 0;
-    height: 500px;
-  
+#marginC {
+  padding: 20px;
+  box-shadow: 0 5px 20px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
-#marginC{
-    padding: 20px;
-    box-shadow: 0  5px 20px 5px rgba(0,0,0,0.1);
-    border-radius: 5px;
+
+.dateSet {
+  position: relative;
+  top: -50px;
 }
-.dateSet{
-    position: relative;
-    top:-50px;
+
+.dateFind {
+  padding: 10px;
+  border: 0px;
+  border-bottom: 5px solid rgb(35, 107, 216);
+  width: 100%;
+  border-bottom-right-radius: 5px;
 }
-.dateFind{
-  
-    
-    padding: 10px;
-    border:0px;
-    border-bottom:5px solid rgb(35, 107, 216);
-    width:100%;
-    border-bottom-right-radius: 5px;
-   
+
+.aboutRoom {
+  width: 60%;
+  margin: auto;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1)
 }
-.aboutRoom{
-    width: 60%;
-    margin:auto;
-    box-shadow: 0 0 10px 3px rgba(0,0,0,0.1)
+
+.photoRoom img {
+  width: 100%;
+  height: 200px;
 }
-.photoRoom img{
-    width:100%;
-    height: 200px;
+
+.datesetSub {
+  background: white;
+  z-index: 100;
 }
-.datesetSub{
-    background: white;
-    z-index: 100;
+
+.container2 {
+  background: rgb(177, 216, 243)
 }
-.container2{
-    background: rgb(177, 216, 243)
+
+.photosetting {
+  width: 100%;
+  box-shadow: 0 0 10px 0.3px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
 }
-.photosetting{
-    width:100%;
-    box-shadow: 0 0 10px 0.3px rgba(0,0,0,0.2);
-    border-radius: 6px;
+
+.contact_home {
+  width: 380px;
+  height: 300px;
 }
-.contact_home{
-    width: 380px;
-    height: 300px;
+
+.id_find_ {
+  padding: 10px;
+  position: relative;
+  top: 130px;
+  width: 50%;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0);
+}
+
+.container-1 {
+
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.container-1 input#search {
+  width: 100%;
+  height: 50px;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: background .55s ease;
+  -moz-transition: background .55s ease;
+  -ms-transition: background .55s ease;
+  -o-transition: background .55s ease;
+  transition: background .55s ease;
+}
+
+.container-1 input#search::-webkit-input-placeholder {
+  color: #65737e;
+}
+
+.container-1 input#search:-moz-placeholder {
+  /* Firefox 18- */
+  color: #65737e;
+}
+
+.container-1 input#search::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #65737e;
+}
+
+.container-1 input#search:-ms-input-placeholder {
+  color: #65737e;
+}
+
+.container-1 .icon {
+  position: absolute;
+  top: 50%;
+  margin-left: 17px;
+  margin-top: 13px;
+  z-index: 1;
+  color: #4f5b66;
+}
+
+.container-1 input#search:hover,
+.container-1 input#search:focus,
+.container-1 input#search:active {
+  outline: none;
+  background: #ffffff;
 }
 
 @media only screen and (max-width: 600px) {
-    .firstPhoto {
-        height: 200px;
-    }
-    .aboutRoom{
-        width:100%
-    }
-    .contact_home{
-        width: 100%;
-    }
+  .firstPhoto {
+    height: 200px;
+  }
+  .aboutRoom {
+    width: 100%
+  }
+  .contact_home {
+    width: 100%;
+  }
+  .id_find_ {
+      top:60px;
+      width: 80%;
+  }
 }

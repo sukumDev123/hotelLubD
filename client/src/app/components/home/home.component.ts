@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
     title2: '',
     descriton2: ''
   };
+  searchFindBooking: string = ''
   constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService) {}
 
 
@@ -78,4 +79,11 @@ export class HomeComponent implements OnInit {
   }
 
 
+  findIdBookingList() {
+    console.log(this.searchFindBooking)
+
+  }
+  test(data) {
+    console.log(data)
+  }
 }

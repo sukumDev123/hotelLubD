@@ -1,10 +1,23 @@
-<div class="load-div" [hidden]="loadingShow" >
+<div class="load-div" [hidden]="loadingShow">
   <div class="load">
   </div>
   <p class="loader textKait"> load... </p>
 </div>
 
 <div class="firstPhoto" [ngStyle]="{'background-image': 'url(' + host +  data_info.photoMain + ')' , 'background-size': '100%' , 'background-position': '30%'   }">
+  <div class="id_find_">
+    <form #ngSumitSearch (ngSubmit)="findIdBookingList()">
+      <div class="box">
+        <div class="container-1">
+          <span (click)="findIdBookingList()" class="icon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input type="search" [(ngModel)]="searchFindBooking" name="searchFindBooking" id="search" minlength="12" maxlength="12"  placeholder="Search your booking..."
+            required /> 
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="container">
@@ -27,7 +40,7 @@
     </div>
   </div>
   <div class="col-12 text-center">
-    <h3 class='text-primary' >{{ data_info.title }}</h3>
+    <h3 class='text-primary'>{{ data_info.title }}</h3>
     <p>{{ data_info.detail }}</p>
   </div>
   <div class="col-12 p-3">
@@ -48,24 +61,24 @@
 
       </div>
       <div class="col-6 col-md-4">
-          <img src="/assets/imgmain/bed.png" alt="bed">
-          <h5 class='text-center p-2 textKait'>bed</h5>
-  
-        </div>
-        <div class="col-6 col-md-4">
-          <img src="/assets/imgmain/destination.png" alt="destination">
-          <h5 class='text-center p-2 textKait'>destination</h5>
-  
-        </div>
-        <div class="col-6 col-md-4">
-          <img src="/assets/imgmain/parking.png" alt="parking">
-          <h5 class='text-center p-2 textKait'>parking</h5>
-  
-        </div>
-  
+        <img src="/assets/imgmain/bed.png" alt="bed">
+        <h5 class='text-center p-2 textKait'>bed</h5>
+
+      </div>
+      <div class="col-6 col-md-4">
+        <img src="/assets/imgmain/destination.png" alt="destination">
+        <h5 class='text-center p-2 textKait'>destination</h5>
+
+      </div>
+      <div class="col-6 col-md-4">
+        <img src="/assets/imgmain/parking.png" alt="parking">
+        <h5 class='text-center p-2 textKait'>parking</h5>
+
+      </div>
+
     </div>
     <div class="row text-center p-3">
-          </div>
+    </div>
   </div>
   <!--//////////////////////////////////////////////////////// -->
 
@@ -112,7 +125,7 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <div style="text-align: center">
-        <img  class='contact_home' src="/assets/imgmain/photo1.png" alt="contact" >
+          <img class='contact_home' src="/assets/imgmain/photo1.png" alt="contact">
 
         </div>
       </div>
