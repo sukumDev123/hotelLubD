@@ -17,6 +17,18 @@ import {
 import {
   DataResort
 } from '../../interface/data.interface';
+import {
+  BookingService
+} from '../../services/booking/booking.service';
+import {
+  Store
+} from '../../../../node_modules/@ngrx/store';
+import {
+  ManagetReducer
+} from '../../store/reducers/index.reducer';
+import {
+  ADD_DETAIL
+} from '../../store/actions/detail-booking.action';
 
 
 
@@ -38,7 +50,7 @@ export class HomeComponent implements OnInit {
     descriton2: ''
   };
   searchFindBooking: string = ''
-  constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService) {}
+  constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService, private _booking: BookingService, private _store: Store < ManagetReducer > ) {}
 
 
   ngOnInit() {
@@ -79,8 +91,19 @@ export class HomeComponent implements OnInit {
   }
 
 
-  findIdBookingList() {
-    console.log(this.searchFindBooking)
+  async findIdBookingList() {
+    if (this.searchFindBooking) {
+      try {
+        let find_id = await this._booking.getBookingListOneData(this.searchFindBooking).toPromise()
+        console.log(find_id)
+        this._store.dispatch({
+          type: ADD_DETAIL,
+          payloads: { detail: find_id , status_show : true}
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
   }
   test(data) {
