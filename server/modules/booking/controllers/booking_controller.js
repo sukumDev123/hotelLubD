@@ -166,7 +166,16 @@ export async function historyRoom(req, res, next) {
     }
 }
 export function getBookingOneList(req, res, next) {
-    res.status(200).json(req.bookingParam)
+    if (req.bookingParam) {
+        res.status(200).json(req.bookingParam)
+
+    } else {
+        next({
+            status: 404,
+            message: "Params you reqire is empty data."
+        })
+    }
+
 }
 export async function getParamRoom(req, res, next, paramReser) {
 

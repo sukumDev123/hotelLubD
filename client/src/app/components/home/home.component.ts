@@ -29,6 +29,9 @@ import {
 import {
   ADD_DETAIL
 } from '../../store/actions/detail-booking.action';
+import {
+  ErrHandlerService
+} from '../../services/err-handler/err-handler.service';
 
 
 
@@ -50,7 +53,7 @@ export class HomeComponent implements OnInit {
     descriton2: ''
   };
   searchFindBooking: string = ''
-  constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService, private _booking: BookingService, private _store: Store < ManagetReducer > ) {}
+  constructor(public _readData: DataShowService, private _router: Router, private _user: UserGlobalService, private _booking: BookingService, private _store: Store < ManagetReducer > , private _msg: ErrHandlerService) {}
 
 
   ngOnInit() {
@@ -98,10 +101,14 @@ export class HomeComponent implements OnInit {
         console.log(find_id)
         this._store.dispatch({
           type: ADD_DETAIL,
-          payloads: { detail: find_id , status_show : true}
+          payloads: {
+            detail: find_id,
+            status_show: true
+          }
         })
       } catch (error) {
         console.log(error)
+        this._msg.set_msg_type(error.error.message, `I can't find id bookinglist status.`, 'err', new Date().getHours(), true, error.status || 404)
       }
     }
 
