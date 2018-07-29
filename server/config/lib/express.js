@@ -62,7 +62,7 @@ function handlerErroo(error, req, res, next) {
 	return res.status(error.status || 500).json({
 
 		status: error.status,
-		message: `Probleam is : ${error.message}`
+		message: error.message
 
 	})
 }

@@ -51,12 +51,7 @@ export class ErrHandlerService {
       payloads: msg_input
     })
 
-    setTimeout(() => {
-      this._state.dispatch({
-        type: OFF_MSG,
-        payloads: false
-      })
-    }, 5000)
+   
   }
 
 

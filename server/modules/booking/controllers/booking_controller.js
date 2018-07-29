@@ -187,7 +187,7 @@ export async function getParamRoom(req, res, next, paramReser) {
         next()
     } catch (error) {
         next({
-            message: JSON.stringify(error),
+            message: error,
             status: 400
         })
     }

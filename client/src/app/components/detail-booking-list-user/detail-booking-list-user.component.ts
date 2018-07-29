@@ -14,6 +14,9 @@ import {
 import {
   DetailBooking
 } from '../../store/reducers/detail-booking.reduver';
+import {
+  SET_DETAIL_FALSE
+} from '../../store/actions/detail-booking.action';
 @Component({
   selector: 'app-detail-booking-list-user',
   templateUrl: './detail-booking-list-user.component.html',
@@ -33,6 +36,12 @@ export class DetailBookingListUserComponent implements OnInit {
     console.log(dbl)
     this.booking_select = dbl.detail
     this.show_detail_all_bk = dbl.status_show
+  }
+  closedetail() {
+    this._store.dispatch({
+      type: SET_DETAIL_FALSE,
+      status_show: false
+    })
   }
   status_booking(bookingStatus) {
     return bookingStatus ? "ยืนยัน" : "รอการยืนยัน"

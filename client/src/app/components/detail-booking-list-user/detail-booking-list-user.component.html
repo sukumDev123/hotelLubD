@@ -77,8 +77,8 @@
 <div class="show_bk" *ngIf='show_detail_all_bk'>
   <div class="show-detail-all-bk">
     <div class="show-detail-all col-12 col-md-8">
-      <span class="closeList">
-        <i (click)="show_detail_all_bk = false ; " class="fas fa-times"></i>
+      <span (click)="closedetail()" class="closeList">
+        <i class="fas fa-times"></i>
       </span>
       <h3 class="textKait text-center text-primary p-3">
         Detail Booking

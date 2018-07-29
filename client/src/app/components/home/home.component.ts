@@ -95,20 +95,25 @@ export class HomeComponent implements OnInit {
 
 
   async findIdBookingList() {
+
     if (this.searchFindBooking) {
       try {
-        let find_id = await this._booking.getBookingListOneData(this.searchFindBooking).toPromise()
-        console.log(find_id)
-        this._store.dispatch({
-          type: ADD_DETAIL,
-          payloads: {
-            detail: find_id,
-            status_show: true
-          }
-        })
+        if (this.searchFindBooking.length == 24) {
+          let find_id = await this._booking.getBookingListOneData(this.searchFindBooking).toPromise()
+          console.log(find_id)
+          this._store.dispatch({
+            type: ADD_DETAIL,
+            payloads: {
+              detail: find_id,
+              status_show: true
+            }
+          })
+        } else {
+          this._msg.set_msg_type('จำนวนของ id booking list ไม่เป็นจริงโปรดตรวจสอบจำนวนของ id ด้วยครับ ', 'status is length of id booking.', 'err', new Date().getHours(), true, 404)
+        }
       } catch (error) {
-        console.log(error)
-        this._msg.set_msg_type(error.error.message, `I can't find id bookinglist status.`, 'err', new Date().getHours(), true, error.status || 404)
+        let error_show =  (typeof error.error.message) == 'string' ? error.error.message : 'id มีปัญหาโปรดตรวจสอบ id ของท่าน แล้วกลับมาค้นหาอีกครั้ง'
+        this._msg.set_msg_type( error_show, `I can't find id bookinglist status.`, 'err', new Date().getHours(), true, error.status || 404)
       }
     }
 

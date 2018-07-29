@@ -41,6 +41,13 @@ export function reducerOfDetailBooking(state: DetailBooking = detailbooking, act
           detail: action.payloads.detail
         }
       }
+    case detail_booking.SET_DETAIL_FALSE:
+      {
+        return {
+          detail: state.detail,
+          status_show: action.status_show
+        }
+      }
     default:
       return state
   }

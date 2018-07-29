@@ -1,12 +1,15 @@
-<div *ngIf='msg_show' class="conponents {{ err_msg.type }} ">
+<div *ngIf='err_msg.msg_show' class="conponents {{ err_msg.type }} ">
+  <span (click)="err_msg.msg_show = false" class="spanErr">
+    <i class="fa fa-times"></i>
+  </span>
   <div class="msg_hander">
-    <h5 class='textKait' >
-    Message is : {{ err_msg.type }}
+    <h5 class='textKait'>
+      This message status is {{ err_msg.type.toUpperCase() }}
 
     </h5>
   </div>
   <div class="bottom_msg">
-    <p > message : {{ err_msg.message }} </p>
+    <p> message : {{ err_msg.message }} </p>
     <p>state : {{err_msg.status}}</p>
   </div>
 </div>

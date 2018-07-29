@@ -25,18 +25,16 @@ export class ErrComponentComponent implements OnInit {
   save_store(suc: MessageCreated): void {
     this.err_msg = suc
     this.msg_show = suc.msg_show
-    setTimeout(() => {
-      this.msg_show = false
-    }, 3000)
-   
+
+
 
   }
   constructor(private _store: Store < ManagetReducer > ) {
-    
+
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this._store.select < any > ('err').subscribe(suc => this.save_store(suc), err => console.log(err))
-   }
+  }
 
 }

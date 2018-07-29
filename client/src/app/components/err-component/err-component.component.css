@@ -1,8 +1,9 @@
 .conponents{
     position: fixed;
-    width: 20%;
+    width: 25%;
     bottom: 10px ;
     right: 10px;
+    z-index: 3000;
 }
 .msg_hander {
     padding: 10px;
@@ -13,4 +14,16 @@
 }
 .bottom_msg p{
     margin: 0 ;
+}
+.spanErr{
+    position: fixed;
+    right: 25px;
+    cursor: pointer;
+    
+}
+@media only screen and (max-width: 600px){
+    .conponents{
+        width: 100%;
+        right: 0;
+    }
 }
