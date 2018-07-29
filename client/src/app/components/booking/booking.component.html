@@ -7,7 +7,7 @@
 <div class="container p-3">
   <div class="col-12">
     <h5 class='text-primary p-2'>จองรีสอร์ท</h5>
-    <form (ngSubmit)="bookingFunction()" #bookingForm='ngForm'>
+    <form #bookingForm='ngForm'>
       <div *ngIf='show_new_user_input' class="new_user_come_reserve">
         <div class="sub_new_user_come_reserve col-12 col-md-6">
           <div class="md-from">
@@ -51,7 +51,7 @@
           สำรองห้องพัก
         </button>
 
-        <button class="btn btn-block btn-primary" *ngIf='show_button_submit' type='submit' [disabled]="!bookingForm.form.valid">
+        <button class="btn btn-block btn-primary" *ngIf='show_button_submit' type='button' (click)="show_detail_is_price = true" [disabled]="!bookingForm.form.valid">
           สำรองห้องพัก
         </button>
       </div>
@@ -96,3 +96,34 @@
 
   </div>
 </div>
+
+
+<div *ngIf="show_detail_is_price"  class="booking_enroll_success">
+  <div class="row booking_enroll_success_time">
+
+    <div class="col-12 col-md 6">
+      <h3 class='p-2 text-primary text-center textKait'> ตรวจสอบข้อมูล </h3>
+      <div class="cal_total_price p-2">
+        <p> จำนวนห้อง : {{ cal_price_num.num_room }} </p>
+        <p>
+          ราคาห้องรวมทั่งหมด : {{ cal_price_num.total_price_room }}
+        </p>
+        <p> จำนวนคืนที่เข้าพัก : {{ cal_price_num.night_num }} </p>
+        <div class="div_total text-right ">
+          <p [ngStyle]='{
+            "color" : style_total_price_all.color ,
+            "font-size" : style_total_price_all.font_size
+          }'>
+            <strong> รวมเป็นเงิน : {{cal_price_num.price_total | currency:'฿ ':'symbol':'0.2-2' }} </strong>
+          </p>
+        </div>
+      </div>
+      <div class="md-form p-3">
+       <div class="row">
+         <div class="col-8"> <button (click)="bookingFunction()"  class='btn btn-block textKait' > ยืนยันการจอง  </button></div>
+         <div class="col-4"> <button (click)="bookingFunction()"  class='btn btn-block textKait' (click)="show_detail_is_price = false" > แก้ไข </button></div>
+       </div>
+      </div>
+    </div>
+
+  </div>

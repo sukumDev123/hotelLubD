@@ -95,7 +95,7 @@ export class ShowListRoomComponent implements OnInit {
       let in_ = `${dateIn.getDate()}/${dateIn.getMonth() + 1}/${dateIn.getFullYear()}`
       let out_ = `${dateOut.getDate()}/${dateOut.getMonth() + 1}/${dateOut.getFullYear()}`
 
-      return `วันที่เช็คอิน : ${in_} วันที่่ช็ตเอ้า : ${out_}`
+      return `วันที่เช็คอิน : ${in_} วันที่เช็คเอ้า : ${out_}`
     }
     return null
   }

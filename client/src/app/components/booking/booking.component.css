@@ -1,23 +1,44 @@
-.new_user_come_reserve{
-    position: fixed;
-    top:0;
-    left: 0;
-    background: rgba(0,0,0,0.4) ;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-
+.new_user_come_reserve {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 }
 
-.sub_new_user_come_reserve{
-    padding: 10px;
-    margin: auto;
-    position: relative;
-    background: white;
-    top:50px;
-    border-radius: 6px;
+.sub_new_user_come_reserve {
+  padding: 10px;
+  margin: auto;
+  position: relative;
+  background: white;
+  top: 50px;
+  border-radius: 6px;
 }
+
 .sub_new_user_come_reserve .md-form {
-    width:60%;
-    margin: auto
+  width: 60%;
+  margin: auto
+}
+
+.booking_enroll_success {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8)
+}
+.booking_enroll_success_time{
+    width: 60%;
+    background: white;
+    margin: auto;
+    border-radius: 6px;
+    position: relative;
+    top:30px;
+}
+@media only screen and (max-width: 600px) {
+    .booking_enroll_success_time{
+        width: 100%;
+    }
 }

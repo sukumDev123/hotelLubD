@@ -76,6 +76,8 @@ export class BookingComponent implements OnInit {
     price_total: 0
   }
 
+  show_detail_is_price : boolean = false
+
   style_total_price_all: any = {
     'color': 'black',
     'font_size': '16px'
