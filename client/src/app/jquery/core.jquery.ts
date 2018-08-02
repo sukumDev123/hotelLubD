@@ -1,5 +1,4 @@
-import * as $ from 'jquery'
-
+declare var $:any
 export function coreJquery() {
 
   $("#navBar_box ul li a").css({

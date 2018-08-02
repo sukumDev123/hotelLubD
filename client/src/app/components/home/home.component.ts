@@ -8,7 +8,6 @@ import {
 import {
   Router
 } from '@angular/router';
-import * as $ from 'jquery'
 
 import _host from '../../host.global'
 import {
@@ -32,7 +31,7 @@ import {
 import {
   ErrHandlerService
 } from '../../services/err-handler/err-handler.service';
-
+declare var $: any
 
 
 @Component({

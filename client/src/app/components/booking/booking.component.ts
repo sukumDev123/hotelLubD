@@ -20,7 +20,7 @@ import {
 import {
   UserInfo
 } from '../../interface/userinterface';
-import * as $ from 'jquery'
+import * as $ from '../../../../node_modules/jquery'
 import {
   Booking,
   CalPriceNum
@@ -45,6 +45,7 @@ import * as room_action from '../../store/actions/room.action';
 import {
   Router
 } from '../../../../node_modules/@angular/router';
+declare var $:any;
 
 @Component({
   selector: 'app-booking',
@@ -76,7 +77,7 @@ export class BookingComponent implements OnInit {
     price_total: 0
   }
 
-  show_detail_is_price : boolean = false
+  show_detail_is_price: boolean = false
 
   style_total_price_all: any = {
     'color': 'black',
@@ -84,6 +85,7 @@ export class BookingComponent implements OnInit {
   }
 
   font_style: Array < string > = []
+
 
 
 
@@ -126,16 +128,24 @@ export class BookingComponent implements OnInit {
       alert(JSON.stringify(err))
     })
   }
+ 
+  checkInCheckOutInputSetDropper() {
+    $("#checkInInput").dateDropper()
+    $("#checkOutInput").dateDropper()
+
+  }
   async ngOnInit() {
     defualtHeader.coreJquery()
+    this.checkInCheckOutInputSetDropper()
     this.booking_now = this.data_is_defult()
     try {
+
       let rooms = await this._room.showRoom().toPromise()
       this.temp_room_session = rooms.data
       this.setRoomOnForRoomShow(rooms.data)
       this.rooms = rooms.data
       this.loadingShow = true
-
+      console.log(this.booking_now.check_in)
     } catch (error) {
       this._msg.set_msg_type(error.error.message, 'Status is not success loading data array. ', 'err', new Date().getHours(), true, error.status)
     }
@@ -342,6 +352,7 @@ export class BookingComponent implements OnInit {
   }
   async cal_num_night(e, date_is) {
     try {
+      console.log(e)
       if (date_is === 'date_in') {
         this.booking_now.check_in = new Date(e.target.value)
         let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session) // done 
