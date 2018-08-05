@@ -82,7 +82,7 @@ export async function updateReserveRoom(req, res) {
 export async function deleteReserveRoom(req, res) {
     try {
         let removeBooking = await Booking.findByIdAndRemove(req.bookingParam._id)
-        let bookings = await Booking.find().limit(10)
+        let bookings = await Booking.find().sort('-create_at').limit(10)
         let num = await Booking.count()
         res.json({
             data_list: bookings,

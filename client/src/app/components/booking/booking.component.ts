@@ -448,7 +448,7 @@ export class BookingComponent implements OnInit {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
         if (this.booking_now.room.length) {
           this.booking_now.night_num = this.cal_price_num.night_num
-          this.booking_now.total_price = this.cal_price_num.total_price_room
+          this.booking_now.total_price = this.cal_price_num.price_total
           this.loadingShow = false
           this._booking.bookingNowService(this.booking_now).subscribe(suc => {
             this.booking_now = this.data_is_defult()
