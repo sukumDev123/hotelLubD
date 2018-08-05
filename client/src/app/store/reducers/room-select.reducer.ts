@@ -31,7 +31,9 @@ import {
   
           }
         }
-     
+      case is.SELETE_DEFAULT_ROOM_S : {
+        return user_state_
+      }
       default:
         return state
     }

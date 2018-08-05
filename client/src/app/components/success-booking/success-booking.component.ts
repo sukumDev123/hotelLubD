@@ -29,6 +29,9 @@ import {
 import {
   ADD_DETAIL
 } from '../../store/actions/detail-booking.action';
+import {
+  SELETE_DEFAULT_ROOM_S
+} from '../../store/actions/room-select.action';
 @Component({
   selector: 'app-success-booking',
   templateUrl: './success-booking.component.html',
@@ -68,6 +71,9 @@ export class SuccessBookingComponent implements OnInit {
       .pipe(map(params => params.get('id_bookingList')));
   }
   async ngOnInit() {
+    this._store.dispatch({
+      type: SELETE_DEFAULT_ROOM_S
+    })
     this.bookingRealVari = this.data_is_defult()
     this.bookingId = this.return_queryParams()
     this.bookingId.subscribe(data => this.getShowUserQueryParams(data))
