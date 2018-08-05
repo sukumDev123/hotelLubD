@@ -38,12 +38,37 @@
         </div>
       </div>
       <div class="md-form p-2">
-        <input id='checkInInput' data-theme="my-style" type="text" ([ngModel])="booking_now.check_in" name='check_in' (change)="cal_num_night($event , 'date_in')"
-          class="form-control" required>
+     
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd"
+                       name="dp" [(ngModel)]="check_in"   (ngModelChange)="cal_num_night($event,'date_in')"  ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+        
+ 
       </div>
+      
       <div class="md-form p-2">
-        <input id="checkOutInput" type="date" (change)="cal_num_night($event , 'date_out')" ([ngModel])="booking_now.check_out" name='check_out'
-          class="form-control" required>
+        
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="d2" [(ngModel)]="check_out"   (ngModelChange)="cal_num_night($event,'date_out')"  ngbDatepicker #d2="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                <i class="far fa-calendar-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
       <div class="md-form">
@@ -133,3 +158,4 @@
 
   </div>
 </div>
+

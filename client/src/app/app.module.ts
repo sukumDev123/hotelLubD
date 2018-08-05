@@ -47,8 +47,7 @@ import {
 } from './components/err-component/err-component.component';
 import { UserGlobalService } from './services/users/user/user-global.service';
 import { DetailBookingListUserComponent } from './components/detail-booking-list-user/detail-booking-list-user.component';
-
-
+import { NgbModule, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap'
 export function tokenGetter() {
   return localStorage.getItem('Login')
 }
@@ -61,7 +60,6 @@ export function tokenGetter() {
     ...AppComponentRoute,
     DetailBookingListUserComponent,
 
-
     
 
   ],
@@ -70,6 +68,7 @@ export function tokenGetter() {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     StoreModule.forRoot(reducer_total),
     JwtModule.forRoot({
       config: {

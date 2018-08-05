@@ -45,7 +45,7 @@ import * as room_action from '../../store/actions/room.action';
 import {
   Router
 } from '../../../../node_modules/@angular/router';
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-booking',
@@ -76,6 +76,16 @@ export class BookingComponent implements OnInit {
     night_num: 0,
     price_total: 0
   }
+  check_in : any = {
+    year : new Date().getFullYear() ,
+    month : new Date().getMonth() + 1,
+    day : new Date().getDate()
+  }
+  check_out : any = {
+    year : new Date().getFullYear() ,
+    month : new Date().getMonth() + 1,
+    day : new Date().getDate()
+  }
 
   show_detail_is_price: boolean = false
 
@@ -86,13 +96,30 @@ export class BookingComponent implements OnInit {
 
   font_style: Array < string > = []
 
-
-
-
-
-
   // room_is_empty: Array < RoomDetail > = []
-  constructor(private _user: UserGlobalService, private _room: RoomServiceService, private _msg: ErrHandlerService, private _store: Store < ManagetReducer > , private _booking: BookingService, private _router: Router) {}
+  constructor(private _user: UserGlobalService,
+    private _room: RoomServiceService,
+    private _msg: ErrHandlerService,
+    private _store: Store < ManagetReducer > ,
+    private _booking: BookingService,
+    private _router: Router) {}
+
+  async ngOnInit() {
+    defualtHeader.coreJquery()
+    this.booking_now = this.data_is_defult()
+    try {
+
+      let rooms = await this._room.showRoom().toPromise()
+      this.temp_room_session = rooms.data
+      this.setRoomOnForRoomShow(rooms.data)
+      this.rooms = rooms.data
+      this.loadingShow = true
+    } catch (error) {
+      this._msg.set_msg_type(error.error.message, 'Status is not success loading data array. ', 'err', new Date().getHours(), true, error.status)
+    }
+    this.storeRoomSelect()
+    
+  }
 
   data_is_defult(): Booking {
     return {
@@ -128,29 +155,10 @@ export class BookingComponent implements OnInit {
       alert(JSON.stringify(err))
     })
   }
- 
-  checkInCheckOutInputSetDropper() {
-    $("#checkInInput").dateDropper()
-    $("#checkOutInput").dateDropper()
 
-  }
-  async ngOnInit() {
-    defualtHeader.coreJquery()
-    this.checkInCheckOutInputSetDropper()
-    this.booking_now = this.data_is_defult()
-    try {
 
-      let rooms = await this._room.showRoom().toPromise()
-      this.temp_room_session = rooms.data
-      this.setRoomOnForRoomShow(rooms.data)
-      this.rooms = rooms.data
-      this.loadingShow = true
-      console.log(this.booking_now.check_in)
-    } catch (error) {
-      this._msg.set_msg_type(error.error.message, 'Status is not success loading data array. ', 'err', new Date().getHours(), true, error.status)
-    }
-    this.storeRoomSelect()
-  }
+
+
 
 
 
@@ -162,17 +170,26 @@ export class BookingComponent implements OnInit {
     return data_call_back
   }
 
-  check_min_7(date_in, date_out) {
-    const date_start: any = new Date(date_in)
-    const date_end: any = new Date(date_out)
-    const startA = Date.parse(date_start)
-    const endA = Date.parse(date_end)
-    const gg = endA - startA
-    const num_days = ((gg % 31536000000) % 2628000000) / 86400000 // day
-    let res = 0
-    res = Math.round(num_days) // day
-    return res;
-  } // Check Date ..
+
+  days_between(date1, date2) {
+
+   if(date1 <= date2) {
+      // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24
+
+    // Convert both dates to milliseconds
+    var date1_ms = new Date(date1).getTime()
+    var date2_ms = new Date(date2).getTime()
+
+    // Calculate the difference in milliseconds
+    var difference_ms = Math.abs(date1_ms - date2_ms)
+
+    // Convert back to days and return
+    return Math.ceil(difference_ms / ONE_DAY)
+
+   }
+   return -1
+  }
 
 
   // TODO: todo here is not success ....
@@ -302,7 +319,6 @@ export class BookingComponent implements OnInit {
         res(data_is_not_exists)
       }
 
-
     })
   }
 
@@ -325,7 +341,7 @@ export class BookingComponent implements OnInit {
 
   }
   roomIsEmptyCheck(date_select: Date, rooms: RoomDetail[]): Promise < any > {
-
+    console.log('1')
     return new Promise(async (res, rej) => {
       const select = new Date(date_select).valueOf()
       const selectToString = new Date(date_select).toString().slice(0, 15)
@@ -350,12 +366,13 @@ export class BookingComponent implements OnInit {
       }
     })
   }
-  async cal_num_night(e, date_is) {
+  async cal_num_night(dateInput, date_is) {
     try {
-      console.log(e)
+      dateInput = `${dateInput.month}/${dateInput.day}/${dateInput.year}`
+      // console.log(dateInput , new Date(dateInput) )
       if (date_is === 'date_in') {
-        this.booking_now.check_in = new Date(e.target.value)
-        let room_temps = await this.roomIsEmptyCheck(e.target.value, this.temp_room_session) // done 
+        this.booking_now.check_in = new Date(dateInput)
+        let room_temps = await this.roomIsEmptyCheck(dateInput, this.temp_room_session) // done 
         this.rooms = []
         room_temps.forEach(index_ => {
           this.rooms.push(this.temp_room_session[index_.index])
@@ -363,12 +380,12 @@ export class BookingComponent implements OnInit {
         this.setRoomOnForRoomShow(this.rooms)
 
       } else {
-        this.booking_now.check_out = new Date(e.target.value)
+        this.booking_now.check_out = new Date(dateInput)
 
       }
-
-      this.cal_price_num.night_num = this.check_min_7(this.booking_now.check_in, this.booking_now.check_out)
+      this.cal_price_num.night_num = this.days_between(this.booking_now.check_in, this.booking_now.check_out)
       this.cal_price_num = this.cal_price_num_function(this.booking_now.room)
+      // console.log(this.cal_price_num)
 
     } catch (error) {
       this.rooms = error.data
@@ -427,7 +444,7 @@ export class BookingComponent implements OnInit {
   bookingFunction() {
     // TODO: this function get booking done.
 
-    if (this.cal_price_num.total_price_room) {
+    if (this.cal_price_num.total_price_room && this.cal_price_num.night_num > 0) {
       if (this.check_this_is_user(this.booking_now.user_booking)) {
         if (this.booking_now.room.length) {
           this.booking_now.night_num = this.cal_price_num.night_num
@@ -466,4 +483,5 @@ export class BookingComponent implements OnInit {
       this._msg.set_msg_type('โปรดกรอกข้อมูล ของลูกค้าให้ครบ', 'input is empty feild', 'err', new Date().getHours(), true, 123)
     }
   }
+  
 }
