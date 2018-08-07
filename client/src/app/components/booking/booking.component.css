@@ -9,7 +9,7 @@
 }
 
 .sub_new_user_come_reserve {
-  padding: 10px;
+  padding: 20px;
   margin: auto;
   position: relative;
   background: white;
@@ -19,7 +19,7 @@
 
 .sub_new_user_come_reserve .md-form {
   width: 60%;
-  margin: auto
+  margin: auto;
 }
 
 .booking_enroll_success {
@@ -27,18 +27,26 @@
   width: 100%;
   top: 0;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8)
+  background: rgba(0, 0, 0, 0.8);
 }
-.booking_enroll_success_time{
-    width: 60%;
-    background: white;
-    margin: auto;
-    border-radius: 6px;
-    position: relative;
-    top:30px;
+.booking_enroll_success_time {
+  width: 60%;
+  background: white;
+  margin: auto;
+  border-radius: 6px;
+  position: relative;
+  top: 30px;
+}
+.cancel_times {
+  position: fixed;
+  cursor: pointer;
+  color: rgba(255, 0, 0, 0.5);
+}
+.cancel_times:hover {
+  color: rgba(255, 0, 0, 1);
 }
 @media only screen and (max-width: 600px) {
-    .booking_enroll_success_time{
-        width: 100%;
-    }
+  .booking_enroll_success_time {
+    width: 100%;
+  }
 }

@@ -10,8 +10,11 @@
     <form #bookingForm='ngForm'>
       <div *ngIf='show_new_user_input' class="new_user_come_reserve">
         <div class="sub_new_user_come_reserve col-12 col-md-6">
+          <span (click)="show_new_user_input = false;" class='cancel_times'>
+            <i class="fa fa-times"></i>
+          </span>
           <div class="md-from">
-            <h5 class="textKait">ตรวจสอบรายชื่อ</h5>
+            <h5 class="textKait text-center">ตรวจสอบรายชื่อ</h5>
           </div>
           <div class="md-form">
             <label for="firstname"> ชื่อ : </label>
@@ -38,28 +41,28 @@
         </div>
       </div>
       <div class="md-form p-2">
-     
-            <div class="form-group">
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd"
-                       name="dp" [(ngModel)]="check_in"   (ngModelChange)="cal_num_night($event,'date_in')"  ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-        
- 
-      </div>
-      
-      <div class="md-form p-2">
-        
+
         <div class="form-group">
           <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd"
-                   name="d2" [(ngModel)]="check_out"   (ngModelChange)="cal_num_night($event,'date_out')"  ngbDatepicker #d2="ngbDatepicker">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="check_in" (ngModelChange)="cal_num_night($event,'date_in')"
+              ngbDatepicker #d="ngbDatepicker" readonly>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <i class="far fa-calendar-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="md-form p-2">
+
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="d2" [(ngModel)]="check_out" (ngModelChange)="cal_num_night($event,'date_out')"
+              ngbDatepicker #d2="ngbDatepicker" readonly>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
                 <i class="far fa-calendar-alt"></i>
@@ -158,4 +161,3 @@
 
   </div>
 </div>
-
