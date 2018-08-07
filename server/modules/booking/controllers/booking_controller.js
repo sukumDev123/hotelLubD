@@ -4,23 +4,26 @@ const User = mongoose.model("User");
 const Room = mongoose.model("Room");
 
 function userOrNotFunc(data) {
-  return new Promise((res, rej) => {
-    User.find({
-      email: data.body.user_booking.email
-    })
-      .then(suc => {
-        if (!suc.length) {
-          res(false);
-        } else {
-          res(suc[0]);
-        }
-      })
-      .catch(err =>
-        rej({
-          status: 403,
-          message: "Check User or Not User have problem :" + err
-        })
-      );
+  return new Promise(async (res, rej) => {
+    try {
+      const emailFind = await User.find({
+        email: data.body.user_booking.email
+      });
+      if (emailFind.length) {
+        res(emailFind[0]);
+      } else {
+        const phoneFind = await User.find({
+          phone: data.body.user_booking.phone
+        });
+        const user_ = phoneFind.length ? phoneFind[0] : false;
+        res(user_);
+      }
+    } catch (error) {
+      rej({
+        message: error.message,
+        status: 400
+      });
+    }
   });
 }
 
@@ -41,8 +44,7 @@ function updateAsync(data) {
 
 function reserveNowFunc(data) {
   return new Promise(async (res, rej) => {
-    console.log(data.body);
-    let data_real = {
+    const data_real = {
       user_booking: data.body.user_booking,
       room: data.body.room,
       create_at: data.body.create_at,
@@ -51,7 +53,7 @@ function reserveNowFunc(data) {
       total_price: data.body.total_price,
       night_num: data.body.night_num
     };
-    let booking = new Booking(data_real);
+    const booking = new Booking(data_real);
     try {
       let save_ = await booking.save();
 
@@ -131,10 +133,16 @@ export async function reserveRoom(req, res) {
       userOrNot.reserveNum += 1;
       let checkture = await updateAsync(userOrNot); // update and find user
       req.body.user_booking = checkture;
+    } else {
+      const displayname = `${req.body.user_booking.firstname} ${
+        req.body.user_booking.lastname
+      }`;
+      req.body.user_booking = {
+        displayname: displayname,
+        email: req.body.user_booking.email,
+        phone: req.body.user_booking.phone
+      };
     }
-    req.body.user_booking.displayname = `${req.body.user_booking.firstname} ${
-      req.body.user_booking.lastname
-    }`;
 
     let roomCreateDate = roomDateSetInSetOut(
       req.body.check_in,

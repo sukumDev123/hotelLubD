@@ -15,6 +15,10 @@ import { MSG_ADD } from "../../store/actions/err.action";
 import { BookingService } from "../../services/booking/booking.service";
 import * as room_action from "../../store/actions/room.action";
 import { Router } from "../../../../node_modules/@angular/router";
+import {
+  SELETE_DEFAULT_ROOM_S,
+  CHECK_ROOM_IS_EXISTS
+} from "../../store/actions/room-select.action";
 declare var $: any;
 
 @Component({
@@ -78,7 +82,7 @@ export class BookingComponent implements OnInit {
     try {
       let rooms = await this._room.showRoom().toPromise();
       this.temp_room_session = rooms.data;
-      this.cal_num_night(this.check_in, "date_in");
+      this.cal_num_night(this.check_in, "date_in", "not");
       this.loadingShow = true;
     } catch (error) {
       // tslint:disable-next-line:max-line-length
@@ -332,8 +336,22 @@ export class BookingComponent implements OnInit {
       }
     });
   }
-  async cal_num_night(dateInput, date_is) {
+  getDefaultRooms() {
+    const roomsNow = {
+      room: [...this.booking_now.room],
+      case: "check"
+    };
+    this._store.dispatch({
+      type: CHECK_ROOM_IS_EXISTS,
+      payloads: roomsNow
+    });
+  }
+  async cal_num_night(dateInput, date_is, caseIsThis = "yes") {
     try {
+      if (caseIsThis === "yes") {
+        this.getDefaultRooms();
+      }
+
       dateInput = `${dateInput.month}/${dateInput.day}/${dateInput.year}`;
       // console.log(dateInput , new Date(dateInput) )
       if (date_is === "date_in") {
@@ -354,16 +372,18 @@ export class BookingComponent implements OnInit {
         this.booking_now.check_in,
         this.booking_now.check_out
       );
+      //const roomsIsGen = this.roomsGen(this.booking_now.room , this.rooms)
       this.cal_price_num = this.cal_price_num_function(this.booking_now.room);
       // console.log(this.cal_price_num)
     } catch (error) {
       this.check_in = this.date_now_variable;
-      console.log(this.date_now_variable);
+      // console.log(this.date_now_variable);
       this.rooms = error.data;
       alert(error.status);
     }
     //
   }
+
   // TODO: todo here is not success ....
 
   cal_price_num_function(data: any = []): CalPriceNum {

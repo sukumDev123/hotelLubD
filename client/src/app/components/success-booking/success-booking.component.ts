@@ -30,6 +30,12 @@ export class SuccessBookingComponent implements OnInit {
     private _user: UserGlobalService
   ) {}
 
+  async ngOnInit() {
+    this.getDefaultRooms();
+    this.bookingRealVari = this.data_is_defult();
+    this.bookingId = this.return_queryParams();
+    this.bookingId.subscribe(data => this.getShowUserQueryParams(data));
+  }
   data_is_defult(): Booking {
     return {
       user_booking: this._user.UserData(),
@@ -43,19 +49,15 @@ export class SuccessBookingComponent implements OnInit {
       status_enroll: false
     };
   }
-
   return_queryParams(): Observable<any> {
     return this._router.queryParamMap.pipe(
       map(params => params.get("id_bookingList"))
     );
   }
-  async ngOnInit() {
+  getDefaultRooms() {
     this._store.dispatch({
       type: SELETE_DEFAULT_ROOM_S
     });
-    this.bookingRealVari = this.data_is_defult();
-    this.bookingId = this.return_queryParams();
-    this.bookingId.subscribe(data => this.getShowUserQueryParams(data));
   }
   async getShowUserQueryParams(queryParams) {
     try {
