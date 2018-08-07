@@ -348,10 +348,6 @@ export class BookingComponent implements OnInit {
   }
   async cal_num_night(dateInput, date_is, caseIsThis = "yes") {
     try {
-      if (caseIsThis === "yes") {
-        this.getDefaultRooms();
-      }
-
       dateInput = `${dateInput.month}/${dateInput.day}/${dateInput.year}`;
       // console.log(dateInput , new Date(dateInput) )
       if (date_is === "date_in") {
@@ -364,6 +360,9 @@ export class BookingComponent implements OnInit {
         room_temps.forEach(index_ => {
           this.rooms.push(this.temp_room_session[index_.index]);
         });
+        if (caseIsThis === "yes") {
+          this.getDefaultRooms();
+        }
         this.setRoomOnForRoomShow(this.rooms);
       } else {
         this.booking_now.check_out = new Date(dateInput);

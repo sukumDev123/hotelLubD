@@ -7,7 +7,7 @@ import { Booking } from "../../interface/booking.interface";
 import { Store } from "@ngrx/store";
 import { RoomArrayIs } from "../../store/reducers/room.reducers";
 import { ADD_ROOM } from "../../store/actions/room.action";
-import { ADD_ROOM_SELECT } from "../../store/actions/room-select.action";
+import * as sl from "../../store/actions/room-select.action";
 import { ManagetReducer } from "../../store/reducers/index.reducer";
 @Component({
   selector: "app-for-room-show",
@@ -60,6 +60,10 @@ export class ForRoomShowComponent implements OnInit {
         this.color_style[index] = "white";
         this.font_style[index] = "black";
       });
+      this.booking_now = [];
+      this._store.dispatch({
+        type: sl.SELETE_DEFAULT_ROOM_S
+      });
     } else if (rooms.case == "add") {
       console.log("add");
     }
@@ -95,7 +99,7 @@ export class ForRoomShowComponent implements OnInit {
     }
     // console.log("test", this.booking_now);
     this._store.dispatch({
-      type: ADD_ROOM_SELECT,
+      type: sl.ADD_ROOM_SELECT,
       payloads: this.booking_now
     });
 
