@@ -1,12 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { UserGlobalService } from "../../services/users/user/user-global.service";
-import { RoomServiceService } from "../../services/admin/roomS/room-service.service";
-import { ErrHandlerService } from "../../services/err-handler/err-handler.service";
 import { RoomDetail } from "../../interface/room.interface";
-import { Booking } from "../../interface/booking.interface";
 import { Store } from "@ngrx/store";
-import { RoomArrayIs } from "../../store/reducers/room.reducers";
-import { ADD_ROOM } from "../../store/actions/room.action";
 import * as sl from "../../store/actions/room-select.action";
 import { ManagetReducer } from "../../store/reducers/index.reducer";
 @Component({
@@ -25,26 +19,21 @@ export class ForRoomShowComponent implements OnInit {
   };
   booking_now: RoomDetail[];
 
-  constructor(
-    private _user: UserGlobalService,
-    private _room: RoomServiceService,
-    private _err: ErrHandlerService,
-    private _store: Store<ManagetReducer>
-  ) {}
+  constructor(private _store: Store<ManagetReducer>) {}
 
   ngOnInit() {
     //  this.data_is_defult()
     this.booking_now = [];
     this.storeRooms();
-    this.storeRoomsSelect();
   }
   storeRooms() {
-    this._store
-      .select<any>("rooms")
-      .subscribe(
-        rooms => (this.rooms = this.check_room_is_empty(rooms.room)),
-        err => alert(JSON.stringify(err))
-      );
+    this._store.select<any>("rooms").subscribe(
+      rooms => {
+        this.rooms = this.check_room_is_empty(rooms.room);
+        this.storeRoomsSelect();
+      },
+      err => alert(JSON.stringify(err))
+    );
   }
   storeRoomsSelect() {
     this._store
@@ -55,10 +44,12 @@ export class ForRoomShowComponent implements OnInit {
   }
   getRoomsCheckInColorAndPushOldDateSelect(rooms) {
     if (rooms.case === "check") {
-      console.log("bookig", this.booking_now);
-      this.rooms.forEach((roo, index) => {
-        this.color_style[index] = "white";
-        this.font_style[index] = "black";
+      // console.log("bookig", this.booking_now);
+      console.log("rooms", this.rooms);
+      rooms.room.forEach(room => {
+        const indexOf = this.binarySearch(this.rooms, room);
+        this.color_style[indexOf] = "white";
+        this.font_style[indexOf] = "black";
       });
       this.booking_now = [];
       this._store.dispatch({
@@ -69,7 +60,20 @@ export class ForRoomShowComponent implements OnInit {
     }
     // this.color_style = this.color_style.map(color => "white");
   }
+  binarySearch(array, value) {
+    let guess,
+      min = 0,
+      max = array.length - 1;
 
+    while (min <= max) {
+      guess = Math.floor((min + max) / 2);
+      if (array[guess].number === value.number) return guess;
+      else if (array[guess].number < value.number) min = guess + 1;
+      else max = guess - 1;
+    }
+
+    return -1;
+  }
   check_room_is_empty(
     data: Array<RoomDetail>,
     type_show: string = "all"

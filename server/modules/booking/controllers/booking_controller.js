@@ -104,6 +104,20 @@ export async function deleteReserveRoom(req, res) {
     res.status(403).json(error);
   }
 }
+const binarySearch = (array, value) => {
+  let guess,
+    min = 0,
+    max = array.length - 1;
+
+  while (min <= max) {
+    guess = Math.floor((min + max) / 2);
+    if (array[guess].number === value.number) return guess;
+    else if (array[guess].number < value.number) min = guess + 1;
+    else max = guess - 1;
+  }
+
+  return -1;
+}
 export function roomDateSetInSetOut(cI, cO, dataroom) {
   return new Promise((res, rej) => {
     try {

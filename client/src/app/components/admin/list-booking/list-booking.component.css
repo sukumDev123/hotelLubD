@@ -4,23 +4,27 @@
 
 .viewDetail i {
   color: rgba(0, 0, 0, 0.5);
-  cursor: pointer
+  cursor: pointer;
 }
 
 .viewDetail i:hover {
-  color: rgba(0, 0, 0, 1)
+  color: rgba(0, 0, 0, 1);
 }
 
-
-a.close-show-detail-all i{
+a.close-show-detail-all i {
   position: absolute;
-  color:rgba(255, 0, 0, 0.5);
+  color: rgba(255, 0, 0, 0.5);
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
- 
 }
-a.close-show-detail-all i:hover{
-  color:rgb(255, 0, 0);
+a.close-show-detail-all i:hover {
+  color: rgb(255, 0, 0);
+}
+.closeList {
+  cursor: pointer;
+}
 
+.closeList:hover {
+  color: red;
 }

@@ -1,24 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import * as defualtHeader from "../../jquery/core.jquery";
-import { RoomDetail, RoomArray } from "../../interface/room.interface";
+import { RoomDetail } from "../../interface/room.interface";
 import { UserGlobalService } from "../../services/users/user/user-global.service";
 import { RoomServiceService } from "../../services/admin/roomS/room-service.service";
 import { ErrHandlerService } from "../../services/err-handler/err-handler.service";
 import { UserInfo } from "../../interface/userinterface";
-import * as $ from "../../../../node_modules/jquery";
 import { Booking, CalPriceNum } from "../../interface/booking.interface";
 
 import { Store } from "@ngrx/store";
-import { RoomArrayIs } from "../../store/reducers/room.reducers";
 import { ManagetReducer } from "../../store/reducers/index.reducer";
-import { MSG_ADD } from "../../store/actions/err.action";
 import { BookingService } from "../../services/booking/booking.service";
 import * as room_action from "../../store/actions/room.action";
 import { Router } from "../../../../node_modules/@angular/router";
-import {
-  SELETE_DEFAULT_ROOM_S,
-  CHECK_ROOM_IS_EXISTS
-} from "../../store/actions/room-select.action";
+import { CHECK_ROOM_IS_EXISTS } from "../../store/actions/room-select.action";
 declare var $: any;
 
 @Component({
@@ -356,10 +350,10 @@ export class BookingComponent implements OnInit {
           dateInput,
           this.temp_room_session
         ); // done
-        this.rooms = [];
-        room_temps.forEach(index_ => {
-          this.rooms.push(this.temp_room_session[index_.index]);
-        });
+        this.rooms = room_temps.map(
+          index_ => this.temp_room_session[index_.index]
+        );
+
         if (caseIsThis === "yes") {
           this.getDefaultRooms();
         }
